@@ -18,7 +18,7 @@ export default function LogoPage() {
             <span className="text-white/40">&rarr;</span>
             <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Phase 2: Exploration</span>
             <span className="text-white/40">&rarr;</span>
-            <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Phase 3: Client Update</span>
+            <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Phase 3: Hisagen Update</span>
             <span className="text-white/40">&rarr;</span>
             <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Phase 4: Refinement</span>
             <span className="text-white/40">&rarr;</span>
@@ -35,9 +35,9 @@ export default function LogoPage() {
         <details className="group">
           <summary className="cursor-pointer list-none">
             <div className="flex items-center gap-4 bg-white border border-mist rounded-lg p-5 hover:border-primary/30 transition-colors">
-              <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shrink-0">1</div>
+              <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold text-sm shrink-0">1</div>
               <div className="flex-1">
-                <h2 className="text-xl font-serif font-semibold text-ink">Client Brief</h2>
+                <h2 className="text-xl font-serif font-semibold text-ink">Hisagen Brief</h2>
                 <p className="text-sm text-slate">January 2026 &mdash; What HISAGEN brought to us</p>
               </div>
               <div className="text-slate ml-4 shrink-0 transition-transform group-open:rotate-180">
@@ -98,7 +98,7 @@ export default function LogoPage() {
             <section>
               <h3 className="text-lg font-serif font-semibold text-ink mb-4">What HISAGEN Wants to Capture</h3>
               <div className="bg-accent/10 border border-accent/30 rounded-lg p-5">
-                <p className="text-sm text-slate mb-4">Ideas and themes from the client:</p>
+                <p className="text-sm text-slate mb-4">Ideas and themes from Hisagen:</p>
                 <div className="flex flex-wrap gap-2">
                   {['strength / protection', 'healthy crops', 'sunrise / hope', 'green + gold', 'African identity'].map((item) => (
                     <span key={item} className="px-3 py-1 bg-white border border-accent/40 rounded-full text-sm text-ink">{item}</span>
@@ -131,7 +131,7 @@ export default function LogoPage() {
         <details className="group">
           <summary className="cursor-pointer list-none">
             <div className="flex items-center gap-4 bg-white border border-mist rounded-lg p-5 hover:border-primary/30 transition-colors">
-              <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shrink-0">2</div>
+              <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold text-sm shrink-0">2</div>
               <div className="flex-1">
                 <h2 className="text-xl font-serif font-semibold text-ink">Pandion Design Response</h2>
                 <p className="text-sm text-slate">January 2026 &mdash; Our analysis, brief, and early explorations</p>
@@ -403,7 +403,7 @@ export default function LogoPage() {
             <div className="flex items-center gap-4 bg-white border border-mist rounded-lg p-5 hover:border-accent/30 transition-colors">
               <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold text-sm shrink-0">3</div>
               <div className="flex-1">
-                <h2 className="text-xl font-serif font-semibold text-ink">Client Direction Update</h2>
+                <h2 className="text-xl font-serif font-semibold text-ink">Hisagen Direction Update</h2>
                 <p className="text-sm text-slate">February 12, 2026 &mdash; Keir shared new logo concepts, shifting the visual direction</p>
               </div>
               <div className="text-slate ml-4 shrink-0 transition-transform group-open:rotate-180">
@@ -747,10 +747,10 @@ export default function LogoPage() {
             <section>
               <div className="bg-primary/5 border-2 border-primary/30 rounded-lg p-6">
                 <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">Current Status</p>
-                <h3 className="text-lg font-semibold text-ink mb-3">Light Variant Complete &mdash; Dark Variant Next</h3>
+                <h3 className="text-lg font-semibold text-ink mb-3">Logo Pack Complete &mdash; All Variants &amp; Exports Done</h3>
                 <p className="text-sm text-slate">
-                  With the v1 full colour logo approved, we&apos;re now producing the complete logo pack:
-                  three colour variations, vector files, sized exports, and favicon. Each decision below is based on
+                  All three colour variations produced, vector files traced, sized exports generated, and favicon created.
+                  The complete logo pack is ready for delivery. Each design decision below is based on
                   testing the logo in its actual usage contexts.
                 </p>
               </div>
@@ -790,14 +790,11 @@ export default function LogoPage() {
                 </div>
                 <div className="bg-white border border-mist rounded-lg overflow-hidden">
                   <div className="bg-white flex items-center justify-center p-6 h-32">
-                    <div className="text-center">
-                      <p className="text-slate text-xs font-medium">Monochrome</p>
-                      <p className="text-slate/50 text-[10px] mt-1">Planned</p>
-                    </div>
+                    <img src="/logos/hisagen-logo-v1-dark.png" alt="Dark variant on white background" className="max-w-[80px] max-h-[80px] object-contain" />
                   </div>
                   <div className="p-4 border-t border-mist">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="px-2 py-0.5 bg-slate/20 text-slate text-[10px] font-bold uppercase tracking-wider rounded">Planned</span>
+                      <span className="px-2 py-0.5 bg-primary text-white text-[10px] font-bold uppercase tracking-wider rounded">Done</span>
                       <p className="font-medium text-sm text-ink">Dark Version</p>
                     </div>
                     <p className="text-xs text-slate">For single-colour use: letterheads, fax, watermarks, embossing, print on coloured stock.</p>
@@ -931,25 +928,226 @@ export default function LogoPage() {
             {/* Dark Variant */}
             <section>
               <h3 className="text-lg font-serif font-semibold text-ink mb-4">Dark Variant: Monochrome</h3>
-              <div className="bg-white border border-mist rounded-lg p-5">
-                <p className="text-sm text-slate mb-3">
-                  The dark variant reduces the logo to a single colour for contexts where colour reproduction
-                  is limited or where visual simplicity is needed.
-                </p>
+              <div className="bg-white border border-mist rounded-lg p-6 space-y-5">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">Chosen Direction: Single Colour</p>
+                  <p className="text-sm text-slate mb-3">
+                    The dark variant reduces the logo to a single colour for contexts where colour reproduction
+                    is limited or where visual simplicity is needed. Every element &mdash; circle, seedling, roots,
+                    soil line &mdash; becomes <strong className="text-ink">Black Cotton Soil (#2D2A26)</strong>. The logo reads
+                    purely through its silhouette.
+                  </p>
+                </div>
+
                 <div className="flex items-center gap-6">
                   <div className="flex items-center gap-3 p-4 rounded-lg bg-parchment">
-                    <div className="w-10 h-10 rounded-full border-2 flex items-center justify-center" style={{ borderColor: '#2D2A26' }}>
-                      <div className="w-1 h-4 rounded-full" style={{ backgroundColor: '#2D2A26' }}></div>
-                    </div>
+                    <img src="/logos/hisagen-logo-v1-dark.png" alt="Dark variant" className="w-10 h-10 object-contain" />
                     <div>
                       <p className="text-xs font-semibold text-ink">Black Cotton Soil</p>
                       <p className="text-[10px] text-slate">#2D2A26</p>
                     </div>
                   </div>
                 </div>
-                <p className="text-xs text-slate mt-3">
+
+                {/* Actual dark variant preview */}
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-slate mb-3">Dark Variant: Actual Result</p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="rounded-lg p-6 flex items-center justify-center h-32 bg-white border border-mist">
+                      <div className="flex items-center gap-3">
+                        <img src="/logos/hisagen-logo-v1-dark.png" alt="Dark variant on white" className="w-12 h-12 object-contain" />
+                        <span className="font-bold" style={{ color: '#2D2A26' }}>HISAGEN</span>
+                      </div>
+                    </div>
+                    <div className="rounded-lg p-6 flex items-center justify-center h-32 bg-parchment border border-mist">
+                      <div className="flex items-center gap-3">
+                        <img src="/logos/hisagen-logo-v1-dark.png" alt="Dark variant on parchment" className="w-12 h-12 object-contain" />
+                        <span className="font-bold" style={{ color: '#2D2A26' }}>HISAGEN</span>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Size test */}
+                  <div className="mt-4 pt-3 border-t border-mist">
+                    <p className="text-[10px] text-slate mb-2">Size test on white background:</p>
+                    <div className="rounded-lg p-4 flex items-end gap-6 bg-white border border-mist">
+                      {[{ px: 128, label: '128px' }, { px: 64, label: '64px' }, { px: 32, label: '32px' }, { px: 16, label: '16px' }].map((size) => (
+                        <div key={size.px} className="flex flex-col items-center gap-1">
+                          <img src="/logos/hisagen-logo-v1-dark.png" alt={`Dark variant at ${size.label}`} style={{ width: size.px, height: size.px }} className="object-contain" />
+                          <span className="text-[9px] text-slate/60">{size.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-xs text-slate">
                   <strong className="text-ink">Use cases:</strong> Letterheads, single-colour print, embossing, watermarks, fax, engraving.
                 </p>
+              </div>
+            </section>
+
+            {/* Logomark vs Lockup */}
+            <section>
+              <h3 className="text-lg font-serif font-semibold text-ink mb-4">Design Note: Logomark vs Logo Lockup</h3>
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 space-y-4">
+                <p className="text-sm text-slate">
+                  You may notice the logo pack doesn&apos;t include the &quot;HISAGEN&quot; text alongside the icon. This is intentional
+                  and follows industry standard practice. Professional logo systems separate three distinct assets:
+                </p>
+
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="bg-white rounded-lg p-4 border border-mist">
+                    <div className="bg-parchment rounded-lg p-4 flex items-center justify-center h-20 mb-3">
+                      <img src="/logos/hisagen-logo-v1-full-colour.png" alt="Logomark" className="w-12 h-12 object-contain" />
+                    </div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-1">Logomark</p>
+                    <p className="text-xs text-slate">The icon on its own. Used for favicons, app icons, social avatars, watermarks, small-space contexts.</p>
+                    <p className="text-[10px] text-primary mt-2 font-medium">Included in this pack</p>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 border border-mist">
+                    <div className="bg-parchment rounded-lg p-4 flex items-center justify-center h-20 mb-3">
+                      <span className="text-lg font-bold tracking-wider" style={{ color: '#1F4D3A' }}>HISAGEN</span>
+                    </div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-1">Logotype</p>
+                    <p className="text-xs text-slate">The name set in the brand font. Used independently in text-heavy layouts or where the icon isn&apos;t needed.</p>
+                    <p className="text-[10px] text-slate mt-2 font-medium">Specified via brand guidelines</p>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 border border-mist">
+                    <div className="bg-parchment rounded-lg p-4 flex items-center justify-center h-20 mb-3">
+                      <div className="flex items-center gap-2">
+                        <img src="/logos/hisagen-logo-v1-full-colour.png" alt="Lockup" className="w-8 h-8 object-contain" />
+                        <span className="text-sm font-bold tracking-wider" style={{ color: '#1F4D3A' }}>HISAGEN</span>
+                      </div>
+                    </div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-1">Logo Lockup</p>
+                    <p className="text-xs text-slate">Icon + text in a fixed arrangement with defined spacing. Used for headers, letterheads, pitch decks.</p>
+                    <p className="text-[10px] text-slate mt-2 font-medium">Future deliverable</p>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-lg p-4 border border-mist">
+                  <p className="text-xs font-semibold text-ink mb-2">Why separate them?</p>
+                  <ul className="text-xs text-slate space-y-1.5">
+                    <li>&bull; <strong className="text-ink">Flexibility</strong> &mdash; At 16px (browser tab) you need the icon alone. At 200px (pitch deck header) you want icon + text. Baking text into the icon forces a single use case.</li>
+                    <li>&bull; <strong className="text-ink">Scaling</strong> &mdash; Text and icons scale differently. Text that reads well at 200px becomes illegible at 32px. Separating them means each works at its appropriate size.</li>
+                    <li>&bull; <strong className="text-ink">Consistency</strong> &mdash; The lockup file controls exact spacing between icon and text, ensuring the combination always looks intentional, not improvised.</li>
+                    <li>&bull; <strong className="text-ink">Industry norm</strong> &mdash; Apple, Nike, Stripe, and virtually every major brand maintain separate logomark and lockup files. It&apos;s the standard for a reason.</li>
+                  </ul>
+                </div>
+
+                <div className="bg-parchment rounded-lg p-4 space-y-4">
+                  <div>
+                    <p className="text-xs font-semibold text-ink mb-2">Recommended Wordmark Font</p>
+                    <div className="bg-white rounded-lg p-4 border border-mist">
+                      <div className="flex items-center gap-6 mb-3">
+                        <div className="text-center">
+                          <p className="font-serif text-2xl font-bold tracking-wider" style={{ color: '#1F4D3A' }}>HISAGEN</p>
+                          <p className="text-[10px] text-slate mt-1">Source Serif 4 &bull; Bold &bull; Wider tracking</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="font-sans text-2xl font-bold tracking-wider" style={{ color: '#1F4D3A' }}>HISAGEN</p>
+                          <p className="text-[10px] text-slate mt-1">Inter &bull; Bold &bull; Wider tracking</p>
+                        </div>
+                      </div>
+                      <p className="text-xs text-slate">
+                        <strong className="text-ink">Recommendation: Source Serif 4 (Bold)</strong> &mdash; the serif typeface carries more
+                        authority and distinction for a science-backed agricultural enterprise. Inter works as a clean alternative
+                        for digital-first contexts. Both are already established in the
+                        <a href="/brand" className="text-primary underline hover:no-underline ml-1">Brand Guidelines &rarr; Typography</a> section.
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-ink mb-2">Next Step: Lockup Production</p>
+                    <p className="text-xs text-slate">
+                      Once the logomark is approved, we&apos;ll produce the lockup files (horizontal and stacked arrangements)
+                      with defined spacing ratios. Lockup specs &mdash; font, weight, letter-spacing, minimum clear space &mdash;
+                      will be added to the <a href="/brand" className="text-primary underline hover:no-underline">Brand Guidelines</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Small-Size Readability */}
+            <section>
+              <h3 className="text-lg font-serif font-semibold text-ink mb-4">Design Note: Small-Size Readability</h3>
+              <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-6 space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-amber-400 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">!</div>
+                  <div>
+                    <p className="text-sm font-semibold text-ink mb-2">Detail richness and small-size rendering</p>
+                    <p className="text-sm text-slate">
+                      The Roots Circle concept communicates beautifully at display sizes (80px and above) &mdash; the root network,
+                      arched soil line, and leaf veins all reinforce the &quot;what&apos;s underground creates value above&quot; narrative.
+                      However, at navigation and icon sizes (32px and below), these fine elements compress into an indistinct
+                      blur. There simply aren&apos;t enough pixels to resolve the thin strokes.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="bg-white rounded-lg p-4 border border-amber-200">
+                    <p className="text-xs font-bold uppercase tracking-widest text-amber-700 mb-2">What We Observed</p>
+                    <ul className="text-xs text-slate space-y-1.5">
+                      <li>&bull; <strong className="text-ink">Root network</strong> &mdash; 6+ thin lines become a grey smudge at 32px</li>
+                      <li>&bull; <strong className="text-ink">Arched soil line</strong> &mdash; fine horizontal detail merges with roots</li>
+                      <li>&bull; <strong className="text-ink">Leaf veins</strong> &mdash; interior detail disappears, leaves read as solid blobs</li>
+                      <li>&bull; <strong className="text-ink">Overall impression</strong> &mdash; looks pixelated or blurred rather than intentional</li>
+                    </ul>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 border border-amber-200">
+                    <p className="text-xs font-bold uppercase tracking-widest text-amber-700 mb-2">How This Is Typically Addressed</p>
+                    <ul className="text-xs text-slate space-y-1.5">
+                      <li>&bull; <strong className="text-ink">Simplified small-size variant</strong> &mdash; same concept, fewer elements</li>
+                      <li>&bull; <strong className="text-ink">Keep:</strong> Outer circle, seedling silhouette, gold accents</li>
+                      <li>&bull; <strong className="text-ink">Drop:</strong> Fine root network, soil arch, leaf veins</li>
+                      <li>&bull; <strong className="text-ink">Precedent:</strong> Apple, Nike, and most major brands use simplified marks at icon sizes</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Visual comparison */}
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-amber-700 mb-3">Visual Evidence</p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="rounded-lg p-4" style={{ backgroundColor: '#1F4D3A' }}>
+                      <p className="text-[10px] text-white/60 mb-3">Light variant at actual nav sizes:</p>
+                      <div className="flex items-end gap-6">
+                        {[{ px: 48, label: '48px' }, { px: 32, label: '32px' }, { px: 24, label: '24px' }, { px: 16, label: '16px' }].map((size) => (
+                          <div key={size.px} className="flex flex-col items-center gap-1">
+                            <img src="/logos/hisagen-logo-v1-light.png" alt={`Logo at ${size.label}`} style={{ width: size.px, height: size.px }} className="object-contain" />
+                            <span className="text-[9px] text-white/50">{size.label}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <p className="text-[10px] text-white/40 mt-3">Notice how detail degrades below 48px &mdash; roots and soil line become noise.</p>
+                    </div>
+                    <div className="rounded-lg p-4 bg-parchment">
+                      <p className="text-[10px] text-slate mb-3">Full colour at actual nav sizes:</p>
+                      <div className="flex items-end gap-6">
+                        {[{ px: 48, label: '48px' }, { px: 32, label: '32px' }, { px: 24, label: '24px' }, { px: 16, label: '16px' }].map((size) => (
+                          <div key={size.px} className="flex flex-col items-center gap-1">
+                            <img src="/logos/hisagen-logo-v1-full-colour.png" alt={`Logo at ${size.label}`} style={{ width: size.px, height: size.px }} className="object-contain" />
+                            <span className="text-[9px] text-slate/50">{size.label}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <p className="text-[10px] text-slate/50 mt-3">Same issue applies to full colour &mdash; the detail level is inherited from the concept.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-lg p-4 border border-amber-200">
+                  <p className="text-xs font-semibold text-ink mb-2">Recommendation</p>
+                  <p className="text-xs text-slate">
+                    This is not a flaw in the concept &mdash; it&apos;s a natural consequence of the level of detail in the original
+                    direction. The Roots Circle design tells a rich story, and that richness needs space to breathe. For contexts
+                    where the logo appears at 32px or smaller (navigation bars, browser tabs, social media avatars, app icons),
+                    a <strong className="text-ink">simplified companion mark</strong> would ensure the logo always reads as intentional and premium,
+                    regardless of size.
+                  </p>
+                </div>
               </div>
             </section>
 
@@ -972,10 +1170,10 @@ export default function LogoPage() {
                     {[
                       { step: 'Master PNG (full colour)', output: 'hisagen-logo-v1-full-colour.png', status: 'Done', color: 'bg-primary/10 text-primary' },
                       { step: 'Light variant (white + gold)', output: 'hisagen-logo-v1-light.png', status: 'Done', color: 'bg-primary/10 text-primary' },
-                      { step: 'Dark variant (monochrome)', output: 'hisagen-logo-v1-dark.png', status: 'Planned', color: 'bg-slate/10 text-slate' },
-                      { step: 'SVG vector trace (x3)', output: '3 × .svg', status: 'Planned', color: 'bg-slate/10 text-slate' },
-                      { step: 'PNG exports (512/256/128 x3)', output: '9 × .png', status: 'Planned', color: 'bg-slate/10 text-slate' },
-                      { step: 'Favicon', output: 'favicon.ico + favicon.png', status: 'Planned', color: 'bg-slate/10 text-slate' },
+                      { step: 'Dark variant (monochrome)', output: 'hisagen-logo-v1-dark.png', status: 'Done', color: 'bg-primary/10 text-primary' },
+                      { step: 'SVG vector trace (x3)', output: '3 × .svg', status: 'Done', color: 'bg-primary/10 text-primary' },
+                      { step: 'PNG exports (512/256/128 x3)', output: '9 × .png', status: 'Done', color: 'bg-primary/10 text-primary' },
+                      { step: 'Favicon', output: 'favicon.ico + favicon.png + apple-touch-icon.png', status: 'Done', color: 'bg-primary/10 text-primary' },
                     ].map((row) => (
                       <tr key={row.step}>
                         <td className="p-3 text-ink">{row.step}</td>
@@ -1005,7 +1203,7 @@ export default function LogoPage() {
         {/* Footer */}
         <section className="text-center pt-8 border-t border-mist">
           <p className="text-slate text-sm">HISAGEN Logo Design Journey &bull; Internal Working Document</p>
-          <p className="text-xs text-mist mt-2">Last updated: February 22, 2026 &bull; Status: Logo Pack Production &mdash; Light Variant Complete, Dark Variant Next</p>
+          <p className="text-xs text-mist mt-2">Last updated: February 22, 2026 &bull; Status: Logo Pack Complete &mdash; 3 variants, 3 SVGs, 9 PNGs, favicon</p>
         </section>
       </div>
     </main>

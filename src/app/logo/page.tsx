@@ -1041,18 +1041,19 @@ export default function LogoPage() {
                     <div className="bg-white rounded-lg p-4 border border-mist">
                       <div className="flex items-center gap-6 mb-3">
                         <div className="text-center">
+                          <p className="font-sans text-2xl font-bold tracking-wider" style={{ color: '#1F4D3A' }}>HISAGEN</p>
+                          <p className="text-[10px] text-primary mt-1 font-medium">Inter &bull; Bold &bull; Wider tracking (recommended)</p>
+                        </div>
+                        <div className="text-center">
                           <p className="font-serif text-2xl font-bold tracking-wider" style={{ color: '#1F4D3A' }}>HISAGEN</p>
                           <p className="text-[10px] text-slate mt-1">Source Serif 4 &bull; Bold &bull; Wider tracking</p>
                         </div>
-                        <div className="text-center">
-                          <p className="font-sans text-2xl font-bold tracking-wider" style={{ color: '#1F4D3A' }}>HISAGEN</p>
-                          <p className="text-[10px] text-slate mt-1">Inter &bull; Bold &bull; Wider tracking</p>
-                        </div>
                       </div>
                       <p className="text-xs text-slate">
-                        <strong className="text-ink">Recommendation: Source Serif 4 (Bold)</strong> &mdash; the serif typeface carries more
-                        authority and distinction for a science-backed agricultural enterprise. Inter works as a clean alternative
-                        for digital-first contexts. Both are already established in the
+                        <strong className="text-ink">Recommendation: Inter (Bold, wider tracking)</strong> &mdash; the sans-serif pairs cleanly
+                        with the geometric logomark and renders crisply at all sizes. Source Serif 4 carries more authority
+                        in headings and body copy, but for the wordmark itself, Inter&apos;s clean geometry is the stronger match.
+                        Both typefaces are established in the
                         <a href="/brand" className="text-primary underline hover:no-underline ml-1">Brand Guidelines &rarr; Typography</a> section.
                       </p>
                     </div>

@@ -386,22 +386,22 @@ export default function BrandGuidelinesPage() {
                             </p>
                           </div>
 
-                          <h4 className="text-xs font-semibold text-slate uppercase tracking-wider mb-3">Current State: Wordmark Only</h4>
+                          <h4 className="text-xs font-semibold text-slate uppercase tracking-wider mb-3">Wordmark</h4>
                           <div className="grid md:grid-cols-4 gap-4 mb-6">
                             <div className="bg-parchment p-6 rounded-lg text-center border border-mist">
-                              <span className="text-2xl font-serif font-bold text-primary tracking-tight">HISAGEN</span>
+                              <span className="text-2xl font-sans font-bold text-primary tracking-wider">HISAGEN</span>
                               <p className="text-[10px] text-slate mt-2">Light background</p>
                             </div>
                             <div className="bg-primary p-6 rounded-lg text-center">
-                              <span className="text-2xl font-serif font-bold text-white tracking-tight">HISAGEN</span>
+                              <span className="text-2xl font-sans font-bold text-white tracking-wider">HISAGEN</span>
                               <p className="text-[10px] text-white/70 mt-2">On primary</p>
                             </div>
                             <div className="bg-ink p-6 rounded-lg text-center">
-                              <span className="text-2xl font-serif font-bold text-white tracking-tight">HISAGEN</span>
+                              <span className="text-2xl font-sans font-bold text-white tracking-wider">HISAGEN</span>
                               <p className="text-[10px] text-white/70 mt-2">On dark</p>
                             </div>
                             <div className="bg-white p-6 rounded-lg text-center border border-mist">
-                              <span className="text-2xl font-serif font-bold text-ink tracking-tight">HISAGEN</span>
+                              <span className="text-2xl font-sans font-bold text-ink tracking-wider">HISAGEN</span>
                               <p className="text-[10px] text-slate mt-2">Monochrome</p>
                             </div>
                           </div>
@@ -434,8 +434,10 @@ export default function BrandGuidelinesPage() {
                             </div>
                           </div>
                           <p className="text-xs text-slate mt-4">
-                            <strong>Note:</strong> Source Serif 4 Bold is used for the current wordmark.
-                            Any logo development should maintain visual consistency with this typographic foundation.
+                            <strong>Wordmark font:</strong> Inter Bold with wider letter-spacing. Sans-serif chosen for the
+                            wordmark to pair with the geometric logomark and ensure clean rendering at all sizes.
+                            Source Serif 4 remains the primary heading font for content.
+                            See <a href="/logo" className="text-primary underline hover:no-underline">Logo Design Journey</a> for full rationale.
                           </p>
                           <div className="mt-4 pt-4 border-t border-mist bg-primary/5 p-4 rounded-lg flex items-center justify-between">
                             <div>

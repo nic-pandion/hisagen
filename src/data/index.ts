@@ -12,6 +12,10 @@ export { ecosystem, getEcosystemByEngagement, getEcosystemTags, getEcosystemBySu
 export { evidence, getEvidenceByProject, getEvidenceBySubtype, getEvidenceTags, getVerifiedEvidence, getUgandaPilotEvidence, getRwandaPilotEvidence, getEvidenceByDataType } from './evidence';
 export { milestones, getMilestonesByStatus, getMilestonesBySubtype, getMilestoneTags, getCriticalPathMilestones, getMilestonesByProject } from './milestones';
 
+// Funding landscape exports
+export { tier1Funders, tier2Funders, allCuratedFunders, getFunderById, getFundersByCategory, applicationTimeline, landscapeStats } from './funding-landscape';
+export type { CuratedFunder, FunderCategory, TimelineEntry } from './funding-landscape';
+
 // Import for combined operations
 import { communications } from './communications';
 import { research } from './research';

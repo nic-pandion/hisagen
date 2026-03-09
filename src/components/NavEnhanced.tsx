@@ -24,9 +24,11 @@ const routeLabels: Record<string, string> = {
   "stage-3": "Stage 3: Stabilization",
   "stage-4": "Stage 4: Maturity",
   "funding": "Funding",
+  "funding-roadmap": "Funding Roadmap",
   "funder-landscape": "Funder Landscape",
-  "opportunities": "Opportunities",
+  "opportunities": "Pipeline Tracker",
   "v0-grant-proposal": "Grant Proposal",
+  "v0-concept-note": "Concept Note",
   "grant-progress": "Grant Progress",
   "projects": "Projects",
   "capital-continuum": "Capital Continuum",
@@ -64,13 +66,16 @@ interface NavSubItem {
   name: string;
   href: string;
   icon: string;
+  description?: string;
   status?: "active" | "planned";
+  column?: string; // Used for grouped flyout layout
 }
 
 interface NavSection {
   label: string;
   href: string;
   items: NavSubItem[];
+  flyoutColumns?: string[]; // Column headers for grouped flyout
 }
 
 const navSections: NavSection[] = [
@@ -102,6 +107,20 @@ const navSections: NavSection[] = [
     ],
   },
   {
+    label: "Funding",
+    href: "/funding-roadmap",
+    flyoutColumns: ["Capital Strategy", "Grant Pipeline", "Proposals & Methodology"],
+    items: [
+      { name: "Funding Roadmap", href: "/funding-roadmap", icon: "/icons/icon-circular-arrows.png", description: "Full capital strategy", column: "Capital Strategy" },
+      { name: "Capital Continuum", href: "/capital-continuum", icon: "/icons/icon-circular-arrows.png", description: "4-stage framework", column: "Capital Strategy" },
+      { name: "Funder Landscape", href: "/stage-1/funding/funder-landscape", icon: "/icons/icon-green-hands.png", description: "12 curated funders", column: "Grant Pipeline" },
+      { name: "Pipeline Tracker", href: "/stage-1/funding/opportunities", icon: "/icons/icon-graph.png", description: "Active opportunities", column: "Grant Pipeline" },
+      { name: "Grant Lifecycle", href: "/grant-lifecycle", icon: "/icons/icon-graph.png", description: "11-phase methodology", column: "Grant Pipeline" },
+      { name: "Concept Note", href: "/stage-1/funding/v0-concept-note", icon: "/icons/icon-certificate.png", description: "1-page elevator pitch", column: "Proposals & Methodology" },
+      { name: "Grant Proposal (V1)", href: "/stage-1/funding/v0-grant-proposal", icon: "/icons/icon-certificate.png", description: "Full proposal + evidence", column: "Proposals & Methodology" },
+    ],
+  },
+  {
     label: "Comms",
     href: "/comms",
     items: [
@@ -115,9 +134,7 @@ const navSections: NavSection[] = [
     label: "Frameworks",
     href: "/frameworks",
     items: [
-      { name: "Capital Continuum", href: "/capital-continuum", icon: "/icons/icon-circular-arrows.png" },
       { name: "Sustainability Framework", href: "/strategy/sustainability-framework", icon: "/icons/icon-green-hands.png" },
-      { name: "Grant Lifecycle", href: "/grant-lifecycle", icon: "/icons/icon-graph.png" },
       { name: "Base Proposal", href: "/frameworks/base-proposal", icon: "/icons/icon-certificate.png" },
     ],
   },
@@ -138,8 +155,10 @@ function getActiveSection(pathname: string): string | null {
   }
 
   // 2. Special paths not covered by items
+  if (pathname.startsWith("/stage-") && pathname.includes("/funding")) return "Funding";
   if (pathname.startsWith("/stage-")) return "Program";
   if (pathname === "/evidence") return "Knowledge";
+  if (pathname.startsWith("/funding-roadmap")) return "Funding";
 
   // 3. Section href fallback
   for (const section of navSections) {
@@ -203,7 +222,55 @@ function NavFlyout({
         />
       </div>
 
-      {isOpen && (
+      {isOpen && section.flyoutColumns ? (
+        /* ── Wide grouped flyout (e.g., Funding) ── */
+        <div
+          className="fixed left-1/2 -translate-x-1/2 top-[52px] z-50 pt-2 w-full max-w-5xl px-4"
+          onMouseEnter={open}
+          onMouseLeave={close}
+        >
+          <div className="rounded-xl border border-mist bg-white py-5 px-6 shadow-xl shadow-secondary/5">
+            <div className="grid grid-cols-3 gap-6">
+              {section.flyoutColumns.map((colName) => {
+                const colItems = section.items.filter((i) => i.column === colName);
+                return (
+                  <div key={colName}>
+                    <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate/50 mb-3 px-2">
+                      {colName}
+                    </p>
+                    <div className="space-y-0.5">
+                      {colItems.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className="flex items-start gap-3 px-2 py-2 rounded-lg text-sm font-medium text-secondary hover:bg-parchment/50 hover:text-primary transition-colors group"
+                        >
+                          <Image
+                            src={item.icon}
+                            alt=""
+                            width={18}
+                            height={18}
+                            className="opacity-60 group-hover:opacity-100 transition-opacity mt-0.5"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <span className="block">{item.name}</span>
+                            {item.description && (
+                              <span className="block text-[11px] text-slate/50 font-normal mt-0.5">
+                                {item.description}
+                              </span>
+                            )}
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      ) : isOpen && (
+        /* ── Standard dropdown flyout ── */
         <div
           className={`absolute top-full z-50 pt-2 ${alignRight ? "right-0" : "left-0"}`}
           onMouseEnter={open}

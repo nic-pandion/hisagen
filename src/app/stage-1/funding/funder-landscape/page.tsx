@@ -3,428 +3,116 @@
 import { useState } from "react";
 import Link from "next/link";
 import StageBreadcrumb from "../../../../components/StageBreadcrumb";
+import {
+  tier1Funders,
+  tier2Funders,
+  allCuratedFunders,
+  applicationTimeline,
+  landscapeStats,
+} from "../../../../data/funding-landscape";
+import type { CuratedFunder, FunderCategory } from "../../../../data/funding-landscape";
 
-type FunderTier = "tier1" | "tier2" | "tier3" | "closed";
-type FunderType = "multilateral" | "bilateral" | "foundation" | "corporate" | "accelerator" | "ngo" | "philanthropy" | "family_office" | "trust";
-type PipelineStage = "prospect" | "engaging" | "due_diligence" | "proposing" | "submitted";
+// ─────────────────────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────────────────────
 
-interface Funder {
-  name: string;
-  type: FunderType;
-  tier: FunderTier;
-  focus: string;
-  geography: string;
-  grantSize: string;
-  deadline?: string;
-  daysLeft?: number;
-  alignmentScore: number;
-  status: string;
-  url?: string;
-  notes: string;
-  // Pipeline tracking (Phase 03-05)
-  pipelineStage?: PipelineStage;
-  nextAction?: string;
-  owner?: string;
+const categoryLabel: Record<FunderCategory, string> = {
+  "climate-adaptation": "Climate Adaptation",
+  "agricultural-food": "Agricultural & Food Security",
+  "us-foundation": "US Foundation",
+  "uk-trust": "UK Trust",
+  accelerator: "Accelerator",
+};
+
+const categoryColor: Record<FunderCategory, string> = {
+  "climate-adaptation": "bg-blue-100 text-blue-700",
+  "agricultural-food": "bg-teal-100 text-teal-700",
+  "us-foundation": "bg-purple-100 text-purple-700",
+  "uk-trust": "bg-violet-100 text-violet-700",
+  accelerator: "bg-orange-100 text-orange-700",
+};
+
+const urgencyColor: Record<string, string> = {
+  urgent: "bg-red-100 text-red-700 border-red-200",
+  high: "bg-amber-100 text-amber-700 border-amber-200",
+  medium: "bg-emerald-100 text-emerald-700 border-emerald-200",
+  low: "bg-slate-100 text-slate-600 border-slate-200",
+};
+
+function FunderDetailCard({ funder }: { funder: CuratedFunder }) {
+  return (
+    <div className="p-6 rounded-2xl border-2 border-emerald-500/20 bg-emerald-50/50">
+      <div className="flex flex-col lg:flex-row gap-6">
+        <div className="lg:w-80 shrink-0">
+          <div className="flex items-center gap-2 mb-2">
+            <span
+              className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded ${
+                categoryColor[funder.category]
+              }`}
+            >
+              {categoryLabel[funder.category]}
+            </span>
+          </div>
+          <h3 className="text-lg font-bold text-secondary">{funder.name}</h3>
+          <p className="text-sm text-slate mt-2">{funder.whyStrongFit}</p>
+        </div>
+
+        <div className="flex-1 grid gap-4 md:grid-cols-3">
+          <div className="p-3 rounded-lg bg-white/60 border border-white">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-secondary/60 mb-1">
+              Grant Range
+            </p>
+            <p className="text-xs font-bold text-secondary">{funder.grantRange}</p>
+          </div>
+          <div className="p-3 rounded-lg bg-white/60 border border-white">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-secondary/60 mb-1">
+              Apply Via
+            </p>
+            <p className="text-xs text-slate">{funder.applyVia}</p>
+          </div>
+          <div className="p-3 rounded-lg bg-white/60 border border-white">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-secondary/60 mb-1">
+              Deadline
+            </p>
+            <p className="text-xs font-bold text-emerald-700">
+              {funder.deadline || funder.deadlineNote || "TBC"}
+            </p>
+          </div>
+        </div>
+      </div>
+      {funder.consideration && (
+        <div className="mt-4 p-3 rounded-lg bg-amber-50 border border-amber-100">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-amber-700 mb-1">
+            Note
+          </p>
+          <p className="text-xs text-amber-800">{funder.consideration}</p>
+        </div>
+      )}
+      {funder.process && (
+        <p className="mt-3 text-xs text-slate/70 italic">{funder.process}</p>
+      )}
+    </div>
+  );
 }
 
-const funders: Funder[] = [
-  // Tier 1: Apply Now (Open Deadlines)
-  {
-    name: "ESTDEV Green/Digital Transition",
-    type: "bilateral",
-    tier: "tier1",
-    focus: "Green and digital transition",
-    geography: "Uganda, Kenya, Tanzania, Botswana, Namibia, Zambia",
-    grantSize: "EUR 50,000 - 150,000",
-    deadline: "January 30, 2026",
-    daysLeft: 12,
-    alignmentScore: 7,
-    status: "PRIORITY - Digital marketplace + green ag",
-    notes: "Position digital platform + microbial products as green/digital transition.",
-    pipelineStage: "due_diligence",
-    nextAction: "Verify eligibility criteria and prepare application",
-    owner: "Keir / Pandion",
-  },
-  {
-    name: "Japan Embassy Uganda - Grassroots",
-    type: "bilateral",
-    tier: "tier1",
-    focus: "Grassroots community benefit",
-    geography: "Uganda only",
-    grantSize: "Up to USD 65,000",
-    deadline: "February 15, 2026",
-    daysLeft: 28,
-    alignmentScore: 6,
-    status: "Good for community component",
-    notes: "Could fund farmer training/community components. Non-profit eligibility.",
-    pipelineStage: "due_diligence",
-    nextAction: "Confirm non-profit eligibility requirements",
-    owner: "Daniel / HISAGEN Uganda",
-  },
-  // Tier 2: Cultivate (Rolling/Relationship-Based)
-  {
-    name: "Green Climate Fund (GCF)",
-    type: "multilateral",
-    tier: "tier2",
-    focus: "Climate resilience, food systems",
-    geography: "Global, strong Africa focus",
-    grantSize: "$10M+ (via Accredited Entities)",
-    alignmentScore: 9,
-    status: "Need Accredited Entity partner",
-    url: "https://www.greenclimate.fund",
-    notes: "AGRA is accredited - potential pathway. $16.6B portfolio.",
-  },
-  {
-    name: "Global Innovation Fund (GIF)",
-    type: "foundation",
-    tier: "tier2",
-    focus: "Poverty, agriculture, carbon, innovation",
-    geography: "Global",
-    grantSize: "Up to $1M",
-    alignmentScore: 9,
-    status: "Strong soil-carbon-poverty nexus fit",
-    url: "https://www.globalinnovation.fund",
-    notes: "Specifically funding 'poverty/agriculture/carbon nexus' innovations.",
-  },
-  {
-    name: "Mastercard Foundation - Agribusiness Challenge",
-    type: "corporate",
-    tier: "tier2",
-    focus: "Agribusiness, food security",
-    geography: "20 African focus countries (includes Uganda)",
-    grantSize: "USD 500,000 - 2,500,000",
-    alignmentScore: 8,
-    status: "Strong fit - investigate eligibility",
-    url: "https://frp.org/challenge-fund/the-agribusiness-challenge-fund",
-    notes: "Significant funding for agribusiness scale. 3-year disbursement.",
-  },
-  {
-    name: "AGRA RE-GAIN Program",
-    type: "ngo",
-    tier: "tier2",
-    focus: "Food loss reduction, climate resilience",
-    geography: "7 countries including Uganda, Kenya, Tanzania",
-    grantSize: "Via AGRA as implementing partner",
-    alignmentScore: 8,
-    status: "Potential implementation partner pathway",
-    notes: "$105M GCF initiative. AGRA is accredited - could be pathway to GCF funding.",
-  },
-  {
-    name: "Science for Africa Foundation",
-    type: "foundation",
-    tier: "tier2",
-    focus: "African ag climate adaptation research",
-    geography: "Africa",
-    grantSize: "Varies",
-    alignmentScore: 7,
-    status: "Research angle - NARO partnership",
-    notes: "Could fund research component of HISAGEN.",
-  },
-  {
-    name: "IKEA Foundation",
-    type: "corporate",
-    tier: "tier2",
-    focus: "Smallholder livelihoods, climate",
-    geography: "East Africa",
-    grantSize: "Major grants ($1M+)",
-    alignmentScore: 8,
-    status: "Need intro pathway via One Acre Fund",
-    notes: "Funds smallholder climate programs.",
-  },
-  {
-    name: "Cartier Philanthropy",
-    type: "corporate",
-    tier: "tier2",
-    focus: "Smallholder farmer innovation",
-    geography: "East Africa",
-    grantSize: "Multi-year grants",
-    alignmentScore: 7,
-    status: "Need intro pathway",
-    notes: "Partners with One Acre Fund.",
-  },
-  // Additional Philanthropy & Foundations (Jan 2026)
-  {
-    name: "Carbon Thirteen",
-    type: "accelerator",
-    tier: "tier2",
-    focus: "Early-stage climate ventures",
-    geography: "Global",
-    grantSize: "Accelerator program + investment",
-    alignmentScore: 8,
-    status: "Warm intro available - HIGH PRIORITY",
-    notes: "Keir has connection. Climate tech accelerator.",
-    pipelineStage: "engaging",
-    nextAction: "Keir to make warm intro",
-    owner: "Keir",
-  },
-  {
-    name: "Bezos Earth Fund",
-    type: "philanthropy",
-    tier: "tier2",
-    focus: "Nature-based solutions, climate",
-    geography: "Global",
-    grantSize: "$10B+ committed",
-    alignmentScore: 8,
-    status: "Research application cycles",
-    notes: "Nature-based solutions focus. Large-scale funding.",
-  },
-  {
-    name: "Gates Foundation (Agriculture)",
-    type: "philanthropy",
-    tier: "tier2",
-    focus: "Smallholder farmers, food security",
-    geography: "Africa, South Asia",
-    grantSize: "Major grants ($1M+)",
-    alignmentScore: 7,
-    status: "Partnership exploration",
-    notes: "Smallholder focus aligns. Long application process.",
-  },
-  {
-    name: "Esmée Fairbairn Foundation",
-    type: "trust",
-    tier: "tier2",
-    focus: "Food systems, environment, social change",
-    geography: "UK focus but global projects",
-    grantSize: "£10,000 - £300,000",
-    alignmentScore: 7,
-    status: "Research eligibility - UK angle needed",
-    notes: "Major UK trust. May need UK partner or subsidiary.",
-  },
-  {
-    name: "CIFF (Children's Investment Fund)",
-    type: "philanthropy",
-    tier: "tier2",
-    focus: "Climate change, child survival",
-    geography: "Global with Africa focus",
-    grantSize: "$10M+ portfolio",
-    alignmentScore: 6,
-    status: "Research fit - climate/children nexus",
-    notes: "Climate philanthropy. Need to frame child welfare angle.",
-  },
-  {
-    name: "MacKenzie Scott / Yield Giving",
-    type: "philanthropy",
-    tier: "tier2",
-    focus: "High-impact nonprofits, climate, equity",
-    geography: "Global",
-    grantSize: "Major unrestricted grants ($1M+)",
-    alignmentScore: 8,
-    status: "Keir connection - cultivate relationship",
-    url: "https://yieldgiving.com",
-    notes: "Keir has connection. No traditional application - team identifies orgs. Can submit for consideration via website.",
-    pipelineStage: "engaging",
-    nextAction: "Keir to explore connection pathway",
-    owner: "Keir",
-  },
-  {
-    name: "Oak Foundation",
-    type: "philanthropy",
-    tier: "tier3",
-    focus: "Environment, climate change",
-    geography: "Global",
-    grantSize: "Varies",
-    alignmentScore: 6,
-    status: "Monitor - investigate fit",
-    notes: "Environment program focuses on climate.",
-  },
-  {
-    name: "Packard Foundation",
-    type: "philanthropy",
-    tier: "tier3",
-    focus: "Climate, agriculture, conservation",
-    geography: "Global",
-    grantSize: "$1M+ typical",
-    alignmentScore: 6,
-    status: "Monitor - investigate fit",
-    notes: "Conservation and climate focus.",
-  },
-  // Tier 3: Monitor
-  {
-    name: "Africa Adaptation Acceleration Program",
-    type: "multilateral",
-    tier: "tier3",
-    focus: "Climate-smart agriculture",
-    geography: "26 African countries",
-    grantSize: "Part of $25B mobilization",
-    alignmentScore: 8,
-    status: "Monitor for opportunities",
-    notes: "Food Security pillar targeting 38M farmers.",
-  },
-  {
-    name: "THRIVE Global Impact Challenge",
-    type: "accelerator",
-    tier: "tier3",
-    focus: "AgTech startups",
-    geography: "Global",
-    grantSize: "Up to $1M investment",
-    alignmentScore: 7,
-    status: "Consider for visibility",
-    notes: "Startup accelerator format.",
-  },
-  {
-    name: "The Nature Conservancy - AFCC",
-    type: "ngo",
-    tier: "tier3",
-    focus: "Forest carbon, communities",
-    geography: "Africa",
-    grantSize: "Partnership-based",
-    alignmentScore: 6,
-    status: "Potential learning",
-    notes: "Africa Forest Carbon Catalyst. Different model.",
-  },
-  // Closed (Monitor for Next Cycle)
-  {
-    name: "African Development Bank - CAW",
-    type: "multilateral",
-    tier: "closed",
-    focus: "Climate adaptation, agriculture",
-    geography: "Africa LDCs including Uganda",
-    grantSize: "Technical Assistance grants",
-    deadline: "February 5, 2025 (CLOSED)",
-    alignmentScore: 9,
-    status: "MONITOR for CfP4 (expected mid-2026)",
-    notes: "3rd Call closed. Perfect fit - sign up for alerts.",
-  },
-  {
-    name: "IKI Small Grants Programme",
-    type: "bilateral",
-    tier: "closed",
-    focus: "Climate and biodiversity action",
-    geography: "Developing countries including Uganda",
-    grantSize: "EUR 60,000 - 200,000",
-    deadline: "January 15, 2026 (CLOSED)",
-    alignmentScore: 8,
-    status: "MONITOR for next cycle",
-    notes: "Missed by 3 days. Subscribe to newsletter.",
-  },
-];
-
-interface MatchFundingItem {
-  contributor: string;
-  activity: string;
-  hours?: string;
-  rate?: string;
-  value: string;
-}
-
-const professionalServices: MatchFundingItem[] = [
-  { contributor: "Deep Six Consulting (Keir)", activity: "Corporate strategy, partnerships, investor relations", hours: "TBC", rate: "$250/hr", value: "TBC" },
-  { contributor: "HISAGEN USA", activity: "Locus AG coordination, US operations", hours: "TBC", rate: "$150/hr", value: "TBC" },
-  { contributor: "HISAGEN Uganda", activity: "NARO relationship, field coordination, local operations", hours: "TBC", rate: "$50/hr", value: "TBC" },
-  { contributor: "Pandion Studio", activity: "Strategy, grants, portal, brand (Nov 2025 - Jan 2026)", hours: "20", rate: "$150/hr*", value: "$3,000" },
-];
-
-const inKindContributions = [
-  { contributor: "Locus AG", item: "Rhizolizer products for trials", value: "TBC (at cost)" },
-  { contributor: "Locus AG", item: "Manufacturing equipment access", value: "TBC (at cost)" },
-  { contributor: "NARO", item: "Research infrastructure, staff time", value: "TBC (in-kind)" },
-  { contributor: "NARO", item: "Field trial sites (4 regions)", value: "TBC (in-kind)" },
-];
-
-const getTierConfig = (tier: FunderTier) => {
-  switch (tier) {
-    case "tier1":
-      return {
-        label: "Strong Match",
-        sublabel: "Priority for review",
-        bg: "bg-emerald-50",
-        border: "border-emerald-500/30",
-        badge: "bg-emerald-500 text-white",
-        text: "text-emerald-700",
-      };
-    case "tier2":
-      return {
-        label: "Cultivate",
-        sublabel: "Relationship-based",
-        bg: "bg-amber-50",
-        border: "border-amber-500/30",
-        badge: "bg-amber-500 text-white",
-        text: "text-amber-700",
-      };
-    case "tier3":
-      return {
-        label: "Monitor",
-        sublabel: "Watch for opportunities",
-        bg: "bg-slate-50",
-        border: "border-slate-300",
-        badge: "bg-slate-400 text-white",
-        text: "text-slate-600",
-      };
-    case "closed":
-      return {
-        label: "Closed / Missed",
-        sublabel: "Monitor for next cycle",
-        bg: "bg-red-50",
-        border: "border-red-300",
-        badge: "bg-red-400 text-white",
-        text: "text-red-600",
-      };
-  }
-};
-
-const getTypeLabel = (type: FunderType) => {
-  switch (type) {
-    case "multilateral": return "Multilateral";
-    case "bilateral": return "Government";
-    case "foundation": return "Foundation";
-    case "corporate": return "Corporate";
-    case "accelerator": return "Accelerator";
-    case "ngo": return "NGO";
-    case "philanthropy": return "Philanthropy";
-    case "family_office": return "Family Office";
-    case "trust": return "Trust";
-  }
-};
-
-const getTypeColor = (type: FunderType) => {
-  switch (type) {
-    case "multilateral": return "bg-blue-100 text-blue-700";
-    case "bilateral": return "bg-indigo-100 text-indigo-700";
-    case "foundation": return "bg-purple-100 text-purple-700";
-    case "corporate": return "bg-cyan-100 text-cyan-700";
-    case "accelerator": return "bg-orange-100 text-orange-700";
-    case "ngo": return "bg-teal-100 text-teal-700";
-    case "philanthropy": return "bg-rose-100 text-rose-700";
-    case "family_office": return "bg-amber-100 text-amber-700";
-    case "trust": return "bg-violet-100 text-violet-700";
-  }
-};
-
-const getPipelineStageConfig = (stage: PipelineStage) => {
-  switch (stage) {
-    case "prospect":
-      return { label: "Prospecting", phase: "02", color: "bg-slate-100 text-slate-700 border-slate-300" };
-    case "engaging":
-      return { label: "Engaging", phase: "03", color: "bg-amber-100 text-amber-700 border-amber-300" };
-    case "due_diligence":
-      return { label: "Due Diligence", phase: "04", color: "bg-sky-100 text-sky-700 border-sky-300" };
-    case "proposing":
-      return { label: "Proposing", phase: "05", color: "bg-purple-100 text-purple-700 border-purple-300" };
-    case "submitted":
-      return { label: "Submitted", phase: "05", color: "bg-emerald-100 text-emerald-700 border-emerald-300" };
-  }
-};
+// ─────────────────────────────────────────────────────────────
+// Page
+// ─────────────────────────────────────────────────────────────
 
 export default function FunderLandscapePage() {
-  const [matchFundingOpen, setMatchFundingOpen] = useState(false);
-  const [pandionScenarioOpen, setPandionScenarioOpen] = useState(false);
-  const [deepSixScenarioOpen, setDeepSixScenarioOpen] = useState(false);
-  const [locusScenarioOpen, setLocusScenarioOpen] = useState(false);
-  const [naroScenarioOpen, setNaroScenarioOpen] = useState(false);
-  const [czmpScenarioOpen, setCzmpScenarioOpen] = useState(false);
-  const [threeDegreesScenarioOpen, setThreeDegreesScenarioOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<"all" | FunderCategory>("all");
 
-  const tier1 = funders.filter(f => f.tier === "tier1");
-  const tier2 = funders.filter(f => f.tier === "tier2");
-  const tier3 = funders.filter(f => f.tier === "tier3");
-  const closed = funders.filter(f => f.tier === "closed");
+  const filteredTier1 =
+    activeFilter === "all"
+      ? tier1Funders
+      : tier1Funders.filter((f) => f.category === activeFilter);
 
-  // Active pipeline: funders that have been moved beyond prospecting
-  const activePipeline = funders.filter(f => f.pipelineStage && f.pipelineStage !== "prospect");
-  const engaging = activePipeline.filter(f => f.pipelineStage === "engaging");
-  const dueDiligence = activePipeline.filter(f => f.pipelineStage === "due_diligence");
-  const proposing = activePipeline.filter(f => f.pipelineStage === "proposing");
-  const submitted = activePipeline.filter(f => f.pipelineStage === "submitted");
+  const filteredTier2 =
+    activeFilter === "all"
+      ? tier2Funders
+      : tier2Funders.filter((f) => f.category === activeFilter);
+
+  const categories = Object.keys(categoryLabel) as FunderCategory[];
 
   return (
     <div className="mx-auto max-w-5xl text-ink">
@@ -433,7 +121,7 @@ export default function FunderLandscapePage() {
         trail={[
           { label: "Uganda Pilot", href: "/project/hisagen-uganda" },
           { label: "Funding Tracker", href: "/stage-1/funding" },
-          { label: "Phase 02: Scanning" },
+          { label: "Funder Landscape" },
         ]}
       />
 
@@ -443,1273 +131,356 @@ export default function FunderLandscapePage() {
           Stage 1 Funding
         </p>
         <h1 className="mt-4 text-4xl font-semibold leading-tight text-secondary">
-          Funder Landscape & Prospect Mapping
+          Funder Landscape &amp; Prospect Mapping
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate">
-          Systematic identification and prioritization of grant funders aligned with HISAGEN's mission.
-          Covers Grant Lifecycle Phases 02 (Landscape Scanning), 03 (Donor Engagement), and 04 (Due Diligence).
+          12 curated funders from 40+ researched, scored across strategic fit,
+          geographic alignment, thematic match, grant size, accessibility, and
+          relationship pathways.
         </p>
-        <p className="mt-2 text-xs text-slate/60">Last updated: January 18, 2026</p>
+        <p className="mt-2 text-xs text-slate/60">Last updated: March 9, 2026</p>
+      </section>
+
+      {/* Funding Roadmap Banner */}
+      <section className="mt-8">
+        <Link
+          href="/funding-roadmap"
+          className="group flex items-center justify-between p-5 rounded-xl border-2 border-primary/30 bg-primary/5 hover:border-primary hover:shadow-md transition-all"
+        >
+          <div>
+            <p className="text-sm font-bold text-secondary group-hover:text-primary transition-colors">
+              View Full Capital Strategy &amp; Roadmap
+            </p>
+            <p className="text-xs text-slate mt-1">
+              Application timeline, two-track mapping, structural advantages,
+              and funder pipeline overview
+            </p>
+          </div>
+          <svg
+            className="w-6 h-6 text-primary/30 group-hover:text-primary transition-colors shrink-0 ml-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </Link>
       </section>
 
       {/* Quick Stats */}
-      <section className="mt-8 grid gap-4 grid-cols-2 md:grid-cols-5">
+      <section className="mt-8 grid gap-4 grid-cols-2 md:grid-cols-4">
         <div className="p-4 rounded-xl border border-mist bg-white">
-          <p className="text-3xl font-bold text-secondary">{funders.length}</p>
-          <p className="text-xs uppercase tracking-widest text-slate/60 mt-1">Total Identified</p>
-        </div>
-        <div className="p-4 rounded-xl border-2 border-emerald-500/30 bg-emerald-50">
-          <p className="text-3xl font-bold text-emerald-700">{tier1.length}</p>
-          <p className="text-xs uppercase tracking-widest text-emerald-600 mt-1">Strong Match</p>
-        </div>
-        <div className="p-4 rounded-xl border-2 border-amber-500/30 bg-amber-50">
-          <p className="text-3xl font-bold text-amber-700">{tier2.length}</p>
-          <p className="text-xs uppercase tracking-widest text-amber-600 mt-1">Cultivate</p>
+          <p className="text-3xl font-bold text-secondary">
+            {landscapeStats.totalResearched}+
+          </p>
+          <p className="text-xs uppercase tracking-widest text-slate/60 mt-1">
+            Researched
+          </p>
         </div>
         <div className="p-4 rounded-xl border border-mist bg-white">
-          <p className="text-3xl font-bold text-slate-600">{tier3.length}</p>
-          <p className="text-xs uppercase tracking-widest text-slate/60 mt-1">Monitor</p>
+          <p className="text-3xl font-bold text-secondary">
+            {landscapeStats.totalShortlisted}
+          </p>
+          <p className="text-xs uppercase tracking-widest text-slate/60 mt-1">
+            Shortlisted
+          </p>
         </div>
-        <div className="p-4 rounded-xl border border-red-300 bg-red-50">
-          <p className="text-3xl font-bold text-red-600">{closed.length}</p>
-          <p className="text-xs uppercase tracking-widest text-red-500 mt-1">Next Cycle</p>
+        <div className="p-4 rounded-xl border-2 border-primary/30 bg-primary/5">
+          <p className="text-3xl font-bold text-primary">
+            {landscapeStats.tier1Count}
+          </p>
+          <p className="text-xs uppercase tracking-widest text-primary/70 mt-1">
+            Tier 1 Priority
+          </p>
+        </div>
+        <div className="p-4 rounded-xl border-2 border-accent/30 bg-accent/5">
+          <p className="text-3xl font-bold text-accent">
+            {landscapeStats.tier2Count}
+          </p>
+          <p className="text-xs uppercase tracking-widest text-accent/70 mt-1">
+            Tier 2 Strong Fit
+          </p>
         </div>
       </section>
 
-      {/* Active Pipeline - Phase 03/04/05 Tracking */}
-      {activePipeline.length > 0 && (
-        <section className="mt-8">
-          <div className="p-6 rounded-2xl border-2 border-primary/30 bg-gradient-to-r from-primary/5 to-amber-50/50">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h2 className="text-xl font-bold text-secondary">Active Pipeline</h2>
-                <p className="text-xs text-slate mt-1">Opportunities actively progressing through Phases 03-05</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl font-bold text-primary">{activePipeline.length}</span>
-                <span className="text-xs text-slate/60">in pipeline</span>
-              </div>
-            </div>
+      {/* Category Filter */}
+      <section className="mt-8">
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={() => setActiveFilter("all")}
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest transition-colors ${
+              activeFilter === "all"
+                ? "bg-secondary text-white"
+                : "bg-white border border-mist text-slate hover:border-secondary/30"
+            }`}
+          >
+            All ({allCuratedFunders.length})
+          </button>
+          {categories.map((cat) => {
+            const count = allCuratedFunders.filter(
+              (f) => f.category === cat
+            ).length;
+            if (count === 0) return null;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveFilter(cat)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest transition-colors ${
+                  activeFilter === cat
+                    ? "bg-secondary text-white"
+                    : "bg-white border border-mist text-slate hover:border-secondary/30"
+                }`}
+              >
+                {categoryLabel[cat]} ({count})
+              </button>
+            );
+          })}
+        </div>
+      </section>
 
-            {/* Pipeline Flow Stages */}
-            <div className="grid gap-3 md:grid-cols-4 mb-6">
-              <div className={`p-3 rounded-lg border ${engaging.length > 0 ? 'border-amber-300 bg-amber-50' : 'border-slate-200 bg-slate-50'}`}>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded">Phase 03</span>
-                </div>
-                <p className="text-sm font-bold text-secondary">Engaging</p>
-                <p className="text-2xl font-bold text-amber-600">{engaging.length}</p>
-              </div>
-              <div className={`p-3 rounded-lg border ${dueDiligence.length > 0 ? 'border-sky-300 bg-sky-50' : 'border-slate-200 bg-slate-50'}`}>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-sky-700 bg-sky-100 px-1.5 py-0.5 rounded">Phase 04</span>
-                </div>
-                <p className="text-sm font-bold text-secondary">Due Diligence</p>
-                <p className="text-2xl font-bold text-sky-600">{dueDiligence.length}</p>
-              </div>
-              <div className={`p-3 rounded-lg border ${proposing.length > 0 ? 'border-purple-300 bg-purple-50' : 'border-slate-200 bg-slate-50'}`}>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-purple-700 bg-purple-100 px-1.5 py-0.5 rounded">Phase 05</span>
-                </div>
-                <p className="text-sm font-bold text-secondary">Proposing</p>
-                <p className="text-2xl font-bold text-purple-600">{proposing.length}</p>
-              </div>
-              <div className={`p-3 rounded-lg border ${submitted.length > 0 ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-slate-50'}`}>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded">Submitted</span>
-                </div>
-                <p className="text-sm font-bold text-secondary">Awaiting</p>
-                <p className="text-2xl font-bold text-emerald-600">{submitted.length}</p>
-              </div>
-            </div>
+      {/* Tier 1: Priority Pursue */}
+      {filteredTier1.length > 0 && (
+        <section className="mt-10">
+          <div className="flex items-center gap-4 mb-6">
+            <span className="px-3 py-1 rounded-full bg-primary text-white text-xs font-bold uppercase tracking-widest">
+              Tier 1
+            </span>
+            <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.15em]">
+              Priority Pursue
+            </h2>
+            <div className="h-px flex-1 bg-mist" />
+            <span className="text-xs text-slate/60">
+              {landscapeStats.tier1PipelineValue}
+            </span>
+          </div>
+          <p className="text-sm text-slate mb-6">
+            Scored 4.0+ across all criteria. Active pursuit recommended.
+          </p>
 
-            {/* Active Opportunities List */}
-            <div className="space-y-2">
-              {activePipeline.map((funder) => {
-                const stageConfig = getPipelineStageConfig(funder.pipelineStage!);
-                const slug = funder.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                return (
-                  <Link
-                    key={funder.name}
-                    href={`/stage-1/funding/opportunities/${slug}`}
-                    className={`block p-4 rounded-xl bg-white border ${stageConfig.color.split(' ')[2]} hover:shadow-md hover:border-primary/30 transition-all group`}
-                  >
-                    <div className="flex flex-col md:flex-row md:items-center gap-3">
-                      <div className="flex items-center gap-2">
-                        <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded border ${stageConfig.color}`}>
-                          {stageConfig.label}
-                        </span>
-                        <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded ${getTypeColor(funder.type)}`}>
-                          {getTypeLabel(funder.type)}
-                        </span>
-                        {funder.daysLeft && (
-                          <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-red-500 text-white">
-                            {funder.daysLeft} days
-                          </span>
-                        )}
-                      </div>
-                      <h3 className="text-sm font-bold text-secondary flex-1 group-hover:text-primary transition-colors">{funder.name}</h3>
-                      <div className="flex items-center gap-4 text-xs">
-                        <span className="text-slate">{funder.grantSize}</span>
-                        {funder.owner && (
-                          <span className="text-primary font-medium">{funder.owner}</span>
-                        )}
-                      </div>
-                    </div>
-                    {funder.nextAction && (
-                      <div className="mt-2 pt-2 border-t border-slate-100">
-                        <p className="text-[10px] uppercase tracking-widest text-slate/60 mb-1">Next Action</p>
-                        <p className="text-xs text-secondary">{funder.nextAction}</p>
-                      </div>
-                    )}
-                  </Link>
-                );
-              })}
-            </div>
-
-            {/* View All + Flow Explanation */}
-            <div className="mt-4 flex items-center justify-between p-3 rounded-lg bg-white/50 border border-slate-200">
-              <p className="text-[10px] text-slate">
-                <strong>Pipeline Flow:</strong> Prospect → <span className="text-amber-700">Engaging</span> → <span className="text-sky-700">Due Diligence</span> → <span className="text-purple-700">Proposing</span> → <span className="text-emerald-700">Submitted</span>
-              </p>
-              <Link href="/stage-1/funding/opportunities" className="text-xs text-primary font-medium hover:underline">
-                View All Opportunities →
-              </Link>
-            </div>
+          <div className="space-y-4">
+            {filteredTier1.map((funder) => (
+              <FunderDetailCard key={funder.id} funder={funder} />
+            ))}
           </div>
         </section>
       )}
 
-      {/* Priority Deadline Alert */}
-      <section className="mt-8 p-6 rounded-xl border-2 border-emerald-500/30 bg-emerald-50">
-        <div className="flex items-start gap-4">
-          <div className="w-12 h-12 rounded-full bg-emerald-200 flex items-center justify-center shrink-0">
-            <span className="text-emerald-800 font-bold text-lg">12</span>
+      {/* Tier 2: Strong Fit */}
+      {filteredTier2.length > 0 && (
+        <section className="mt-12">
+          <div className="flex items-center gap-4 mb-6">
+            <span className="px-3 py-1 rounded-full bg-accent text-white text-xs font-bold uppercase tracking-widest">
+              Tier 2
+            </span>
+            <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.15em]">
+              Strong Fit
+            </h2>
+            <div className="h-px flex-1 bg-mist" />
+            <span className="text-xs text-slate/60">
+              {landscapeStats.tier2PipelineValue}
+            </span>
           </div>
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-700 mb-1">Priority Deadline</p>
-            <h2 className="text-xl font-bold text-emerald-900">ESTDEV Green/Digital Transition - January 30, 2026</h2>
-            <p className="mt-2 text-sm text-emerald-800">
-              EUR 50,000 - 150,000. Position digital platform + microbial products as green/digital transition for Uganda.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Tier 1: Strong Match */}
-      <section className="mt-12">
-        <div className="flex items-center gap-4 mb-6">
-          <span className="px-3 py-1 rounded-full bg-emerald-500 text-white text-xs font-bold uppercase tracking-widest">
-            Strong Match
-          </span>
-          <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.15em]">Priority for Review</h2>
-          <div className="h-px flex-1 bg-mist" />
-        </div>
-        <p className="text-sm text-slate mb-6">High alignment with HISAGEN's mission. Open deadlines or strong fit - prioritize for review and consideration.</p>
-
-        <div className="space-y-4">
-          {tier1.map((funder) => {
-            const config = getTierConfig(funder.tier);
-            return (
-              <div key={funder.name} className={`p-6 rounded-2xl border-2 ${config.border} ${config.bg}`}>
-                <div className="flex flex-col lg:flex-row gap-6">
-                  <div className="lg:w-96 shrink-0">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded ${getTypeColor(funder.type)}`}>
-                        {getTypeLabel(funder.type)}
-                      </span>
-                      <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded ${config.badge}`}>
-                        Score: {funder.alignmentScore}/10
-                      </span>
-                      {funder.daysLeft && (
-                        <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-red-500 text-white">
-                          {funder.daysLeft} days
-                        </span>
-                      )}
-                    </div>
-                    <h3 className="text-lg font-bold text-secondary">{funder.name}</h3>
-                    <p className="text-sm text-slate mt-2">{funder.focus}</p>
-                  </div>
-
-                  <div className="flex-1 grid gap-4 md:grid-cols-3">
-                    <div className="p-3 rounded-lg bg-white/60 border border-white">
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-secondary/60 mb-1">Geography</p>
-                      <p className="text-xs text-slate">{funder.geography}</p>
-                    </div>
-                    <div className="p-3 rounded-lg bg-white/60 border border-white">
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-secondary/60 mb-1">Grant Size</p>
-                      <p className="text-xs text-slate">{funder.grantSize}</p>
-                    </div>
-                    <div className="p-3 rounded-lg bg-white/60 border border-white">
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-secondary/60 mb-1">Deadline</p>
-                      <p className="text-xs font-bold text-emerald-700">{funder.deadline || "Rolling"}</p>
-                    </div>
-                  </div>
-
-                  <div className="lg:w-48 shrink-0">
-                    <div className="p-3 rounded-lg bg-secondary/5 border border-secondary/10 h-full">
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-secondary mb-1">Status</p>
-                      <p className="text-xs text-secondary leading-relaxed">{funder.status}</p>
-                    </div>
-                  </div>
-                </div>
-                <p className="mt-4 text-xs text-slate/80 italic">{funder.notes}</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Tier 2: Cultivate */}
-      <section className="mt-12">
-        <div className="flex items-center gap-4 mb-6">
-          <span className="px-3 py-1 rounded-full bg-amber-500 text-white text-xs font-bold uppercase tracking-widest">
-            Tier 2
-          </span>
-          <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.15em]">Cultivate</h2>
-          <div className="h-px flex-1 bg-mist" />
-        </div>
-        <p className="text-sm text-slate mb-6">Relationship-based or rolling deadlines. Build connections and prepare applications.</p>
-
-        <div className="grid gap-4 md:grid-cols-2">
-          {tier2.map((funder) => {
-            const config = getTierConfig(funder.tier);
-            return (
-              <div key={funder.name} className={`p-5 rounded-xl border-2 ${config.border} ${config.bg}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded ${getTypeColor(funder.type)}`}>
-                    {getTypeLabel(funder.type)}
-                  </span>
-                  <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded ${config.badge}`}>
-                    {funder.alignmentScore}/10
-                  </span>
-                </div>
-                <h3 className="text-base font-bold text-secondary">{funder.name}</h3>
-                <p className="text-xs text-slate mt-2">{funder.focus}</p>
-                <div className="mt-3 pt-3 border-t border-amber-200">
-                  <p className="text-[10px] uppercase tracking-widest text-amber-700 font-bold">
-                    {funder.grantSize}
-                  </p>
-                  <p className="text-xs text-slate mt-1">{funder.status}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Tier 3: Monitor */}
-      <section className="mt-12">
-        <div className="flex items-center gap-4 mb-6">
-          <span className="px-3 py-1 rounded-full bg-slate-400 text-white text-xs font-bold uppercase tracking-widest">
-            Tier 3
-          </span>
-          <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.15em]">Monitor</h2>
-          <div className="h-px flex-1 bg-mist" />
-        </div>
-        <p className="text-sm text-slate mb-6">Future opportunities or lower alignment. Keep on radar.</p>
-
-        <div className="grid gap-3 md:grid-cols-3">
-          {tier3.map((funder) => (
-            <div key={funder.name} className="p-4 rounded-lg border border-mist bg-white">
-              <div className="flex items-center gap-2 mb-1">
-                <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded ${getTypeColor(funder.type)}`}>
-                  {getTypeLabel(funder.type)}
-                </span>
-                <span className="text-[9px] font-bold text-slate/60">{funder.alignmentScore}/10</span>
-              </div>
-              <h3 className="text-sm font-bold text-secondary">{funder.name}</h3>
-              <p className="text-xs text-slate mt-1">{funder.grantSize}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Closed / Next Cycle */}
-      <section className="mt-12">
-        <div className="flex items-center gap-4 mb-6">
-          <span className="px-3 py-1 rounded-full bg-red-400 text-white text-xs font-bold uppercase tracking-widest">
-            Closed
-          </span>
-          <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.15em]">Monitor for Next Cycle</h2>
-          <div className="h-px flex-1 bg-mist" />
-        </div>
-        <p className="text-sm text-slate mb-6">High-alignment opportunities that have closed. Sign up for alerts.</p>
-
-        <div className="grid gap-3 md:grid-cols-2">
-          {closed.map((funder) => (
-            <div key={funder.name} className="p-4 rounded-lg border-2 border-red-200 bg-red-50">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-red-400 text-white">
-                  {funder.alignmentScore}/10 alignment
-                </span>
-              </div>
-              <h3 className="text-sm font-bold text-secondary">{funder.name}</h3>
-              <p className="text-xs text-red-700 mt-1">{funder.deadline}</p>
-              <p className="text-xs text-slate mt-2">{funder.status}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Match Funding Summary with Accordion */}
-      <section className="mt-16">
-        <div className="flex items-center gap-4 mb-6">
-          <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.15em]">Match Funding & Commitment</h2>
-          <div className="h-px flex-1 bg-mist" />
-        </div>
-
-        <div className="p-8 rounded-2xl border-2 border-primary/20 bg-primary/5">
           <p className="text-sm text-slate mb-6">
-            Demonstrating commitment through sweat equity, in-kind contributions, and investment.
-            This leverage strengthens grant applications and reduces funder risk.
+            Good alignment but barriers in accessibility, timing, or
+            relationship. Monitor and prepare.
           </p>
 
-          {/* Summary Cards */}
-          <div className="grid gap-6 md:grid-cols-3 mb-6">
-            <div className="p-5 rounded-xl bg-white border border-mist">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-secondary/60 mb-2">Professional Services</p>
-              <p className="text-2xl font-bold text-primary">$3,000</p>
-              <p className="text-xs text-slate mt-2">Confirmed (Pandion: 20 hrs)</p>
-              <p className="text-xs text-slate/60 mt-1">Nov 2025 - Jan 2026</p>
-            </div>
-
-            <div className="p-5 rounded-xl bg-white border border-mist">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-secondary/60 mb-2">In-Kind Contributions</p>
-              <p className="text-2xl font-bold text-primary">TBC</p>
-              <p className="text-xs text-slate mt-2">Locus AG + NARO</p>
-            </div>
-
-            <div className="p-5 rounded-xl bg-white border border-mist">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-secondary/60 mb-2">Director Investment</p>
-              <p className="text-2xl font-bold text-primary">TBC</p>
-              <p className="text-xs text-slate mt-2">Seed funding</p>
-            </div>
-          </div>
-
-          {/* Accordion */}
-          <button
-            onClick={() => setMatchFundingOpen(!matchFundingOpen)}
-            className="w-full flex items-center justify-between p-4 rounded-lg bg-white border border-mist hover:border-primary/30 transition-colors"
-          >
-            <span className="text-sm font-bold text-secondary">View Detailed Breakdown</span>
-            <span className={`text-primary transition-transform ${matchFundingOpen ? 'rotate-180' : ''}`}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </span>
-          </button>
-
-          {matchFundingOpen && (
-            <div className="mt-4 space-y-6">
-              {/* Professional Services Table */}
-              <div className="p-4 rounded-lg bg-white border border-mist">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-secondary/60 mb-1">In-Kind Professional Services</p>
-                <p className="text-[9px] text-slate/60 mb-3">Project costs - can be included in grant budgets as match funding</p>
-                <p className="text-[9px] text-slate/60 mb-3 italic">* Startup/early-stage rate (standard: $200-250/hr)</p>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-xs">
-                    <thead>
-                      <tr className="border-b border-mist">
-                        <th className="text-left py-2 text-slate/60 font-medium">Contributor</th>
-                        <th className="text-left py-2 text-slate/60 font-medium">Activity</th>
-                        <th className="text-left py-2 text-slate/60 font-medium">Hours</th>
-                        <th className="text-left py-2 text-slate/60 font-medium">Rate</th>
-                        <th className="text-right py-2 text-slate/60 font-medium">Value</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {professionalServices.map((item, idx) => (
-                        <tr key={idx} className="border-b border-mist/50">
-                          <td className="py-2 font-medium text-secondary">{item.contributor}</td>
-                          <td className="py-2 text-slate">{item.activity}</td>
-                          <td className="py-2 text-slate">{item.hours}</td>
-                          <td className="py-2 text-slate">{item.rate}</td>
-                          <td className="py-2 text-right font-bold text-primary">{item.value}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              {/* In-Kind Table */}
-              <div className="p-4 rounded-lg bg-white border border-mist">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-secondary/60 mb-3">In-Kind Contributions</p>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-xs">
-                    <thead>
-                      <tr className="border-b border-mist">
-                        <th className="text-left py-2 text-slate/60 font-medium">Contributor</th>
-                        <th className="text-left py-2 text-slate/60 font-medium">Contribution</th>
-                        <th className="text-right py-2 text-slate/60 font-medium">Value</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {inKindContributions.map((item, idx) => (
-                        <tr key={idx} className="border-b border-mist/50">
-                          <td className="py-2 font-medium text-secondary">{item.contributor}</td>
-                          <td className="py-2 text-slate">{item.item}</td>
-                          <td className="py-2 text-right font-bold text-primary">{item.value}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          )}
-
-          <div className="mt-6 p-4 rounded-lg bg-amber-100 border-2 border-amber-400">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="px-2 py-0.5 bg-amber-500 text-white text-[9px] font-bold uppercase tracking-widest rounded">
-                Action Required
-              </span>
-            </div>
-            <p className="text-sm text-amber-900">
-              Capture contributed hours for Deep Six Consulting, HISAGEN USA, and HISAGEN Uganda. Get Locus AG in-kind contribution values. Discuss value capture options and formalize agreements with each contributor.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Reference: Match Funding Definitions */}
-      <section className="mt-16">
-        <div className="flex items-center gap-4 mb-6">
-          <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.15em]">Reference: Definitions & Value Capture</h2>
-          <div className="h-px flex-1 bg-mist" />
-        </div>
-
-        <div className="p-8 rounded-2xl border border-mist bg-slate-50/50">
-          {/* Key Definitions */}
-          <div className="mb-8">
-            <h3 className="text-sm font-bold text-secondary uppercase tracking-widest mb-4">Key Definitions</h3>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="p-4 rounded-lg bg-white border border-mist">
-                <p className="text-xs font-bold text-primary mb-1">Sweat Equity</p>
-                <p className="text-xs text-slate">Work contributed in exchange for an <strong>ownership stake</strong> in the company. The contributor receives equity (shares) instead of payment. Common in startups/VC contexts.</p>
-              </div>
-              <div className="p-4 rounded-lg bg-white border border-mist">
-                <p className="text-xs font-bold text-primary mb-1">In-Kind Professional Services</p>
-                <p className="text-xs text-slate"><strong>Project costs</strong> contributed by professionals at market rates. Can be included as match funding in grants, or potentially recovered if funding allows pre-award costs.</p>
-              </div>
-              <div className="p-4 rounded-lg bg-white border border-mist">
-                <p className="text-xs font-bold text-primary mb-1">In-Kind Contributions</p>
-                <p className="text-xs text-slate"><strong>Non-cash resources</strong> provided to the project: equipment, facilities, materials, products. Valued at market rate or cost price.</p>
-              </div>
-              <div className="p-4 rounded-lg bg-white border border-mist">
-                <p className="text-xs font-bold text-primary mb-1">Pre-Award Costs</p>
-                <p className="text-xs text-slate">Costs incurred <strong>before a grant is awarded</strong>. Some funders allow these to be reimbursed if they were necessary for project preparation.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Funding Context Differences */}
-          <div className="mb-8">
-            <h3 className="text-sm font-bold text-secondary uppercase tracking-widest mb-4">Funding Context: Grants vs. Commercial/VC</h3>
-            <div className="overflow-x-auto">
-              <table className="w-full text-xs">
-                <thead>
-                  <tr className="border-b border-mist">
-                    <th className="text-left py-2 text-slate/60 font-medium w-1/4">Aspect</th>
-                    <th className="text-left py-2 text-slate/60 font-medium">Grant Funding</th>
-                    <th className="text-left py-2 text-slate/60 font-medium">Commercial/VC Funding</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b border-mist/50">
-                    <td className="py-2 font-medium text-secondary">Return expectation</td>
-                    <td className="py-2 text-slate">Impact outcomes, no financial return to funder</td>
-                    <td className="py-2 text-slate">Financial return (ROI, equity appreciation)</td>
-                  </tr>
-                  <tr className="border-b border-mist/50">
-                    <td className="py-2 font-medium text-secondary">Contributor value capture</td>
-                    <td className="py-2 text-slate">Match funding, cost recovery, recognition</td>
-                    <td className="py-2 text-slate">Equity stake, convertible notes, profit share</td>
-                  </tr>
-                  <tr className="border-b border-mist/50">
-                    <td className="py-2 font-medium text-secondary">When to use "sweat equity"</td>
-                    <td className="py-2 text-slate">Generally not applicable (no equity to give)</td>
-                    <td className="py-2 text-slate">Appropriate - work exchanged for shares</td>
-                  </tr>
-                  <tr className="border-b border-mist/50">
-                    <td className="py-2 font-medium text-secondary">When to use "in-kind"</td>
-                    <td className="py-2 text-slate">Appropriate - demonstrates commitment</td>
-                    <td className="py-2 text-slate">Less common (usually cash or equity)</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Value Capture Options */}
-          <div className="mb-8">
-            <h3 className="text-sm font-bold text-secondary uppercase tracking-widest mb-4">Value Capture Options for Contributors</h3>
-            <p className="text-xs text-slate mb-4">When someone contributes time/services without immediate payment, how can they capture value?</p>
-
-            <div className="grid gap-3">
-              <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
+          <div className="grid gap-4 md:grid-cols-2">
+            {filteredTier2.map((funder) => (
+              <div
+                key={funder.id}
+                className="p-5 rounded-xl border-2 border-accent/20 bg-accent/5"
+              >
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="px-2 py-0.5 bg-emerald-500 text-white text-[9px] font-bold uppercase rounded">If Company Equity Available</span>
+                  <span
+                    className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded ${
+                      categoryColor[funder.category]
+                    }`}
+                  >
+                    {categoryLabel[funder.category]}
+                  </span>
                 </div>
-                <p className="text-xs font-bold text-emerald-800 mb-1">Equity Stake / Sweat Equity</p>
-                <p className="text-xs text-emerald-700">Formal agreement converting work hours to company shares at agreed valuation. Requires cap table, vesting schedule, legal agreement.</p>
-              </div>
-
-              <div className="p-4 rounded-lg bg-amber-50 border border-amber-200">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="px-2 py-0.5 bg-amber-500 text-white text-[9px] font-bold uppercase rounded">If Grant Funding Secured</span>
-                </div>
-                <p className="text-xs font-bold text-amber-800 mb-1">Deferred Payment / Cost Recovery</p>
-                <p className="text-xs text-amber-700">Some grants allow pre-award cost reimbursement. Future work can be budgeted as project costs. Requires clear records of hours/rates.</p>
-              </div>
-
-              <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="px-2 py-0.5 bg-blue-500 text-white text-[9px] font-bold uppercase rounded">Recognition & Portfolio Value</span>
-                </div>
-                <div className="grid gap-2 md:grid-cols-2">
-                  <div>
-                    <p className="text-xs font-bold text-blue-800 mb-1">Formal Acknowledgment</p>
-                    <ul className="text-xs text-blue-700 list-disc list-inside">
-                      <li>Thank you letter (CV reference)</li>
-                      <li>"Angel Supporter" or "Advisor" title</li>
-                      <li>LinkedIn endorsement</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-blue-800 mb-1">Portfolio / Case Study Rights</p>
-                    <ul className="text-xs text-blue-700 list-disc list-inside">
-                      <li>Permission to use in client portfolio</li>
-                      <li>Case study for marketing</li>
-                      <li>Testimonial from founder</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-lg bg-purple-50 border border-purple-200">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="px-2 py-0.5 bg-purple-500 text-white text-[9px] font-bold uppercase rounded">Sponsorship / Branding</span>
-                </div>
-                <p className="text-xs font-bold text-purple-800 mb-1">Visibility & Association</p>
-                <p className="text-xs text-purple-700">Contributor logo on website/materials, "Supported by" acknowledgment, backlinks, speaking opportunities. Formalizable via sponsorship agreement.</p>
-              </div>
-
-              <div className="p-4 rounded-lg bg-slate-100 border border-slate-300">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="px-2 py-0.5 bg-slate-500 text-white text-[9px] font-bold uppercase rounded">Pro Bono / Volunteer</span>
-                </div>
-                <p className="text-xs font-bold text-slate-700 mb-1">Charitable Contribution</p>
-                <p className="text-xs text-slate-600">Explicitly donated time with no expectation of return. Should be formalized with volunteer agreement. Contributor receives satisfaction + potential tax benefits (check jurisdiction).</p>
-              </div>
-            </div>
-          </div>
-
-          {/* HISAGEN Context */}
-          <div className="p-4 rounded-lg bg-primary/5 border border-primary/20 mb-6">
-            <p className="text-xs font-bold text-secondary mb-2">HISAGEN Context</p>
-            <p className="text-xs text-slate mb-2">
-              Currently seeking <strong>grant funding</strong> (not VC). Contributions framed as <strong>in-kind professional services</strong> (project costs) rather than sweat equity.
-            </p>
-            <ul className="text-xs text-slate list-disc list-inside space-y-1">
-              <li><strong>Include in grant applications</strong> as match funding to demonstrate commitment</li>
-              <li><strong>Track hours and rates</strong> for potential cost recovery if grants allow</li>
-              <li><strong>Discuss value capture</strong> with each contributor (equity, recognition, portfolio, sponsorship)</li>
-              <li><strong>Formalize agreements</strong> before significant work continues</li>
-            </ul>
-          </div>
-
-          {/* Partner Scenarios Header */}
-          <div className="mb-4">
-            <h3 className="text-sm font-bold text-secondary uppercase tracking-widest mb-2">Partner Contribution Scenarios</h3>
-            <p className="text-xs text-slate">Click each partner to explore value capture options and considerations for discussion.</p>
-          </div>
-
-          {/* Deep Six Consulting Scenario (Accordion) */}
-          <div className="mb-3">
-            <button
-              onClick={() => setDeepSixScenarioOpen(!deepSixScenarioOpen)}
-              className="w-full flex items-center justify-between p-4 rounded-lg bg-indigo-50 border-2 border-indigo-200 hover:border-indigo-400 transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <span className="px-2 py-1 bg-indigo-600 text-white text-[9px] font-bold uppercase tracking-widest rounded">Deep Six Consulting</span>
-                <span className="text-xs text-indigo-700">Corporate Strategy & Partnerships</span>
-              </div>
-              <span className={`text-indigo-600 transition-transform ${deepSixScenarioOpen ? 'rotate-180' : ''}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </span>
-            </button>
-
-            {deepSixScenarioOpen && (
-              <div className="mt-2 p-5 rounded-xl border-2 border-indigo-200 bg-white">
-                <p className="text-xs text-slate mb-4">
-                  <strong>Role:</strong> Primary relationship holder, strategic advisor, co-founder/CEO HISAGEN USA.
-                  <strong className="ml-2">Rate:</strong> $250/hr (Corporate Strategy) | <strong>Hours:</strong> TBC
+                <h3 className="text-base font-bold text-secondary">
+                  {funder.name}
+                </h3>
+                <p className="text-xs text-slate mt-2 leading-relaxed">
+                  {funder.whyStrongFit}
                 </p>
-
-                {/* Deep Six Context */}
-                <div className="p-3 rounded-lg bg-indigo-50 border border-indigo-200 mb-4">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-indigo-700 mb-2">Relationship Context</p>
-                  <ul className="text-xs text-indigo-800 space-y-1">
-                    <li>• <strong>Deep 6 Consulting</strong> acts as consultancy/advisory layer (similar to Big 4 model)</li>
-                    <li>• Keir manages overall client relationship, coordinates delivery partners</li>
-                    <li>• Other partners (Pandion, Locus AG) may subcontract via Deep 6 or direct to HISAGEN</li>
-                    <li>• Deep 6 rates: $250/hr (Corporate Strategy), $220/hr (Project Mgmt), $200/hr (Digital), $150/hr (Ops)</li>
-                  </ul>
-                </div>
-
-                <div className="space-y-3">
-                  {/* Value Capture Options */}
-                  <div className="p-4 rounded-lg bg-indigo-50/50 border border-indigo-100">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-indigo-700 mb-2">Value Capture Considerations</p>
-                    <div className="grid gap-2 md:grid-cols-2">
-                      <div className="p-3 rounded bg-white border border-indigo-100">
-                        <p className="text-xs font-bold text-indigo-800 mb-1">Founder Equity</p>
-                        <p className="text-[11px] text-indigo-700">Keir likely holds significant equity as co-founder. Time invested builds company value directly.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-indigo-100">
-                        <p className="text-xs font-bold text-indigo-800 mb-1">Advisory/Consulting Fees</p>
-                        <p className="text-[11px] text-indigo-700">Deep 6 may invoice for consulting services if/when HISAGEN has funding.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-indigo-100">
-                        <p className="text-xs font-bold text-indigo-800 mb-1">Success Fees</p>
-                        <p className="text-[11px] text-indigo-700">Finder's fees on investment rounds or partnerships Keir secures.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-indigo-100">
-                        <p className="text-xs font-bold text-indigo-800 mb-1">Grant Budget Inclusion</p>
-                        <p className="text-[11px] text-indigo-700">Include Deep 6 advisory as project management cost in grant budgets.</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Questions */}
-                  <div className="p-3 rounded-lg bg-amber-50 border border-amber-200">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-amber-700 mb-2">Questions to Clarify</p>
-                    <ul className="text-xs text-amber-800 space-y-1">
-                      <li>• What is Deep 6's formal relationship to HISAGEN? (Consultancy, investment vehicle, or just Keir's entity?)</li>
-                      <li>• How are partner contributions (Pandion, Locus AG) contracted? Via Deep 6 or direct to HISAGEN?</li>
-                      <li>• What is the cap table structure? Who holds what %?</li>
-                      <li>• How are Deep 6's pre-funding hours being tracked/valued?</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Locus AG Scenario (Accordion) */}
-          <div className="mb-3">
-            <button
-              onClick={() => setLocusScenarioOpen(!locusScenarioOpen)}
-              className="w-full flex items-center justify-between p-4 rounded-lg bg-green-50 border-2 border-green-200 hover:border-green-400 transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <span className="px-2 py-1 bg-green-600 text-white text-[9px] font-bold uppercase tracking-widest rounded">Locus AG</span>
-                <span className="text-xs text-green-700">US AgTech Partner | Rhizolizer Technology</span>
-              </div>
-              <span className={`text-green-600 transition-transform ${locusScenarioOpen ? 'rotate-180' : ''}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </span>
-            </button>
-
-            {locusScenarioOpen && (
-              <div className="mt-2 p-5 rounded-xl border-2 border-green-200 bg-white">
-                <p className="text-xs text-slate mb-4">
-                  <strong>Role:</strong> Technology partner providing Rhizolizer microbial products and manufacturing capability.
-                  <strong className="ml-2">Contribution:</strong> Products, equipment access, technical expertise
-                </p>
-
-                {/* Locus AG Context */}
-                <div className="p-3 rounded-lg bg-green-50 border border-green-200 mb-4">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-green-700 mb-2">Partnership Context</p>
-                  <ul className="text-xs text-green-800 space-y-1">
-                    <li>• <strong>Locus AG</strong> is established US agtech company with proven products</li>
-                    <li>• Rhizolizer shown to improve yields: +22.6% potatoes, +17.7% sweet potatoes (NARO trials)</li>
-                    <li>• HISAGEN serves as East Africa market entry / distribution partner</li>
-                    <li>• Relationship structured as technology licensing, joint venture, or strategic partnership</li>
-                  </ul>
-                </div>
-
-                <div className="space-y-3">
-                  {/* In-Kind Contributions */}
-                  <div className="p-4 rounded-lg bg-green-50/50 border border-green-100">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-green-700 mb-2">In-Kind Contributions (Current)</p>
-                    <div className="grid gap-2 md:grid-cols-2">
-                      <div className="p-3 rounded bg-white border border-green-100">
-                        <p className="text-xs font-bold text-green-800 mb-1">Rhizolizer Products</p>
-                        <p className="text-[11px] text-green-700">Products provided for NARO field trials. Value: TBC (at cost or discounted).</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-green-100">
-                        <p className="text-xs font-bold text-green-800 mb-1">Manufacturing Access</p>
-                        <p className="text-[11px] text-green-700">Equipment and facility access for local production development.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-green-100">
-                        <p className="text-xs font-bold text-green-800 mb-1">Technical Expertise</p>
-                        <p className="text-[11px] text-green-700">Microbial science knowledge, formulation support, quality control.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-green-100">
-                        <p className="text-xs font-bold text-green-800 mb-1">IP Licensing</p>
-                        <p className="text-[11px] text-green-700">Endophytic technology licensing for East Africa market.</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Value Capture Options */}
-                  <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-700 mb-2">Locus AG Value Capture</p>
-                    <div className="grid gap-2 md:grid-cols-2">
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">Royalty / Licensing Fees</p>
-                        <p className="text-[11px] text-emerald-700">Per-unit royalty on Rhizolizer products sold in East Africa.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">Equity Stake in HISAGEN</p>
-                        <p className="text-[11px] text-emerald-700">Technology contribution converted to equity in regional venture.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">Market Expansion</p>
-                        <p className="text-[11px] text-emerald-700">HISAGEN success opens East Africa market, validates product globally.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">Grant Co-Funding</p>
-                        <p className="text-[11px] text-emerald-700">In-kind contributions count as match funding in grant applications.</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Questions */}
-                  <div className="p-3 rounded-lg bg-amber-50 border border-amber-200">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-amber-700 mb-2">Questions to Clarify</p>
-                    <ul className="text-xs text-amber-800 space-y-1">
-                      <li>• What is the formal Locus AG-HISAGEN relationship? (License, JV, strategic partnership?)</li>
-                      <li>• What is the value of products/equipment provided for trials?</li>
-                      <li>• Does Locus AG hold or expect equity in HISAGEN?</li>
-                      <li>• What are the commercialization terms? (Royalty rates, territory exclusivity?)</li>
-                      <li>• Who are the key contacts at Locus AG? (For grant letters of support)</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* NARO Scenario (Accordion) */}
-          <div className="mb-3">
-            <button
-              onClick={() => setNaroScenarioOpen(!naroScenarioOpen)}
-              className="w-full flex items-center justify-between p-4 rounded-lg bg-orange-50 border-2 border-orange-200 hover:border-orange-400 transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <span className="px-2 py-1 bg-orange-600 text-white text-[9px] font-bold uppercase tracking-widest rounded">NARO</span>
-                <span className="text-xs text-orange-700">National Agricultural Research Organisation, Uganda</span>
-              </div>
-              <span className={`text-orange-600 transition-transform ${naroScenarioOpen ? 'rotate-180' : ''}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </span>
-            </button>
-
-            {naroScenarioOpen && (
-              <div className="mt-2 p-5 rounded-xl border-2 border-orange-200 bg-white">
-                <p className="text-xs text-slate mb-4">
-                  <strong>Role:</strong> Government research institution providing scientific validation and field trial infrastructure.
-                  <strong className="ml-2">Contribution:</strong> Research staff, facilities, trial sites, credibility
-                </p>
-
-                {/* NARO Context */}
-                <div className="p-3 rounded-lg bg-orange-50 border border-orange-200 mb-4">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-orange-700 mb-2">Partnership Context</p>
-                  <ul className="text-xs text-orange-800 space-y-1">
-                    <li>• <strong>National Agricultural Research Organisation</strong> - Uganda's premier agricultural research body</li>
-                    <li>• Conducted Rhizolizer field trials: +22.6% potato yields, +17.7% sweet potato yields</li>
-                    <li>• Provides scientific credibility essential for grant applications</li>
-                    <li>• Government institution = different relationship dynamics than commercial partners</li>
-                  </ul>
-                </div>
-
-                <div className="space-y-3">
-                  {/* In-Kind Contributions */}
-                  <div className="p-4 rounded-lg bg-orange-50/50 border border-orange-100">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-orange-700 mb-2">In-Kind Contributions</p>
-                    <div className="grid gap-2 md:grid-cols-2">
-                      <div className="p-3 rounded bg-white border border-orange-100">
-                        <p className="text-xs font-bold text-orange-800 mb-1">Research Infrastructure</p>
-                        <p className="text-[11px] text-orange-700">Laboratory facilities, equipment, scientific expertise.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-orange-100">
-                        <p className="text-xs font-bold text-orange-800 mb-1">Field Trial Sites</p>
-                        <p className="text-[11px] text-orange-700">4 regional trial sites across Uganda for product validation.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-orange-100">
-                        <p className="text-xs font-bold text-orange-800 mb-1">Research Staff Time</p>
-                        <p className="text-[11px] text-orange-700">Scientists, field officers, data collection and analysis.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-orange-100">
-                        <p className="text-xs font-bold text-orange-800 mb-1">Scientific Credibility</p>
-                        <p className="text-[11px] text-orange-700">Peer-reviewed validation, government endorsement, funder confidence.</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Partnership Value */}
-                  <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-700 mb-2">What NARO Gets from Partnership</p>
-                    <div className="grid gap-2 md:grid-cols-2">
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">Research Funding</p>
-                        <p className="text-[11px] text-emerald-700">NARO can be named partner on grants, receiving direct funding for research activities.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">Technology Access</p>
-                        <p className="text-[11px] text-emerald-700">Access to Locus AG microbial technology for Uganda's agricultural sector.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">Publication Opportunities</p>
-                        <p className="text-[11px] text-emerald-700">Co-authorship on research publications, conference presentations.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">Farmer Impact</p>
-                        <p className="text-[11px] text-emerald-700">Fulfills NARO's mandate: improving Ugandan farmer livelihoods through innovation.</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Grant Application Role */}
-                  <div className="p-3 rounded-lg bg-blue-50 border border-blue-200">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-blue-700 mb-2">Role in Grant Applications</p>
-                    <ul className="text-xs text-blue-800 space-y-1">
-                      <li>• <strong>Co-applicant or Named Partner:</strong> Many funders require local research institution involvement</li>
-                      <li>• <strong>Letter of Support:</strong> NARO endorsement significantly strengthens applications</li>
-                      <li>• <strong>In-Kind Match Funding:</strong> NARO contributions count toward match funding requirements</li>
-                      <li>• <strong>Implementation Partner:</strong> Can receive and manage grant funds for research components</li>
-                    </ul>
-                  </div>
-
-                  {/* Questions */}
-                  <div className="p-3 rounded-lg bg-amber-50 border border-amber-200">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-amber-700 mb-2">Questions to Clarify</p>
-                    <ul className="text-xs text-amber-800 space-y-1">
-                      <li>• What is the formal agreement between HISAGEN and NARO? (MoU, research agreement?)</li>
-                      <li>• Who are the key NARO contacts? (For grant letters of support)</li>
-                      <li>• What is the value of NARO's in-kind contribution to date?</li>
-                      <li>• Can NARO be named co-applicant on grants? What's their capacity?</li>
-                      <li>• Are there existing NARO publications from the trials?</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Pandion Studio Scenario (Accordion) */}
-          <div className="mb-3">
-            <button
-              onClick={() => setPandionScenarioOpen(!pandionScenarioOpen)}
-              className="w-full flex items-center justify-between p-4 rounded-lg bg-primary/10 border-2 border-primary/30 hover:border-primary transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <span className="px-2 py-1 bg-primary text-white text-[9px] font-bold uppercase tracking-widest rounded">Pandion Studio</span>
-                <span className="text-xs text-primary">Strategy, Grants & Digital</span>
-              </div>
-              <span className={`text-primary transition-transform ${pandionScenarioOpen ? 'rotate-180' : ''}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </span>
-            </button>
-
-            {pandionScenarioOpen && (
-              <div className="mt-2 p-5 rounded-xl border-2 border-primary/30 bg-white">
-                <p className="text-xs text-slate mb-4">
-                  <strong>Current contribution:</strong> 20 hrs / $3,000 in professional services (Nov 2025 - Jan 2026) at startup rate ($150/hr; standard $200-250/hr).
-                </p>
-
-                {/* Keir's Partnership Offer Context */}
-                <div className="p-3 rounded-lg bg-amber-50 border border-amber-200 mb-4">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-amber-700 mb-2">Context: Partnership Offer (Nov 2025)</p>
-                  <p className="text-xs text-amber-800 italic mb-2">
-                    "Would you be interested in exploring a partnership? Perhaps a small sweat-equity stake in the company
-                    and say a 10% commission on any successful funding (grants, investments, or co-investment) that you directly secure?"
+                <div className="mt-3 pt-3 border-t border-accent/20">
+                  <p className="text-[10px] uppercase tracking-widest text-accent font-bold">
+                    {funder.grantRange}
                   </p>
-                  <p className="text-[11px] text-amber-700">— Keir, email Nov 10, 2025. To be discussed and formalized.</p>
-                </div>
-
-                <div className="space-y-3">
-                  {/* Tier 1: Monetary */}
-                  <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-700 mb-2">Tier 1: Monetary Recovery</p>
-                    <div className="grid gap-2 md:grid-cols-2">
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">10% Commission (Win Fee)</p>
-                        <p className="text-[11px] text-emerald-700 mb-1">Per Keir's offer: 10% of funding Pandion directly secures (grants, investments, co-investment).</p>
-                        <p className="text-[10px] text-emerald-600 italic">E.g., $150K grant = $15,000 commission</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">Pre-Award Cost Recovery</p>
-                        <p className="text-[11px] text-emerald-700">If grant allows, include pre-award costs in budget. Partial or full recovery of $3,000.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">Budgeted Future Work</p>
-                        <p className="text-[11px] text-emerald-700">Include Pandion advisory/portal work in grant budget for funded period. Paid at $150/hr.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">Sweat-Equity Stake</p>
-                        <p className="text-[11px] text-emerald-700 mb-1">Per Keir's offer: "small sweat-equity stake" in HISAGEN for work contributed.</p>
-                        <p className="text-[10px] text-emerald-600 italic">Requires: agreed valuation, vesting terms, legal agreement</p>
-                      </div>
-                    </div>
-
-                    {/* Sweat Equity Elaboration */}
-                    <div className="mt-3 p-3 rounded-lg bg-white border border-emerald-200">
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-700 mb-2">Understanding Sweat-Equity Stake</p>
-                      <div className="grid gap-2 md:grid-cols-2">
-                        <div>
-                          <p className="text-xs font-bold text-emerald-800 mb-1">What it means</p>
-                          <ul className="text-[11px] text-emerald-700 space-y-0.5">
-                            <li>• Ownership shares in exchange for work (not cash)</li>
-                            <li>• Value based on hours × rate ÷ company valuation</li>
-                            <li>• E.g., $3,000 work at $500K valuation = 0.6% stake</li>
-                          </ul>
-                        </div>
-                        <div>
-                          <p className="text-xs font-bold text-emerald-800 mb-1">Key terms to agree</p>
-                          <ul className="text-[11px] text-emerald-700 space-y-0.5">
-                            <li>• Company valuation (pre-money)</li>
-                            <li>• Vesting schedule (cliff, duration)</li>
-                            <li>• Class of shares (common vs preferred)</li>
-                            <li>• Exit/liquidity rights</li>
-                          </ul>
-                        </div>
-                      </div>
-                      <p className="text-[10px] text-amber-700 mt-2 italic">Note: Sweat equity is separate from the 10% commission. Could have both: equity stake + success fees on funding secured.</p>
-                    </div>
-                  </div>
-
-                  {/* Tier 2: Non-Monetary but Valuable */}
-                  <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-blue-700 mb-2">Tier 2: If No Monetary Recovery</p>
-                    <p className="text-[11px] text-blue-600 mb-3">If grants don't allow cost recovery and no equity path, Pandion contribution recognized through:</p>
-                    <div className="grid gap-2 md:grid-cols-2">
-                      <div className="p-3 rounded bg-white border border-blue-100">
-                        <p className="text-xs font-bold text-blue-800 mb-1">Sponsorship / Visibility</p>
-                        <ul className="text-[11px] text-blue-700 list-disc list-inside">
-                          <li>Pandion logo on HISAGEN website</li>
-                          <li>"Technology Partner" or "Digital Sponsor" title</li>
-                          <li>Logo on grant materials (if funder allows)</li>
-                          <li>Backlink from hisagen.org to pandion.studio</li>
-                        </ul>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-blue-100">
-                        <p className="text-xs font-bold text-blue-800 mb-1">Portfolio & Case Study</p>
-                        <ul className="text-[11px] text-blue-700 list-disc list-inside">
-                          <li>Permission to use HISAGEN in Pandion portfolio</li>
-                          <li>Case study: "Building a grant-ready knowledge portal"</li>
-                          <li>Testimonial from Keir for Pandion website</li>
-                          <li>Speaking/presentation rights about the project</li>
-                        </ul>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-blue-100">
-                        <p className="text-xs font-bold text-blue-800 mb-1">Network & Referrals</p>
-                        <ul className="text-[11px] text-blue-700 list-disc list-inside">
-                          <li>Introductions to Keir's network</li>
-                          <li>Referrals to similar projects</li>
-                          <li>Invitation to HISAGEN events</li>
-                          <li>Access to Locus AG / NARO contacts</li>
-                        </ul>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-blue-100">
-                        <p className="text-xs font-bold text-blue-800 mb-1">Formal Acknowledgment</p>
-                        <ul className="text-[11px] text-blue-700 list-disc list-inside">
-                          <li>Letter of appreciation (CV reference)</li>
-                          <li>"Founding Advisor" or "Angel Supporter" title</li>
-                          <li>LinkedIn recommendation from Keir</li>
-                          <li>Named in grant proposal acknowledgments</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Summary */}
-                  <div className="p-3 rounded-lg bg-slate-100 border border-slate-200">
-                    <p className="text-xs text-slate"><strong>Minimum ask:</strong> If no monetary value captured, Pandion would request that Tier 2 recognition be formalized - sponsorship agreement, portfolio rights, testimonial, or referrals as appropriate.</p>
-                  </div>
+                  <p className="text-xs text-slate mt-1">
+                    {funder.deadlineNote || funder.deadline || "TBC"}
+                  </p>
                 </div>
               </div>
-            )}
+            ))}
           </div>
+        </section>
+      )}
 
-          {/* CZMP (Carbon Zero Marketplace) Scenario (Accordion) */}
-          <div className="mb-3">
-            <button
-              onClick={() => setCzmpScenarioOpen(!czmpScenarioOpen)}
-              className="w-full flex items-center justify-between p-4 rounded-lg bg-cyan-50 border-2 border-cyan-200 hover:border-cyan-400 transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <span className="px-2 py-1 bg-cyan-600 text-white text-[9px] font-bold uppercase tracking-widest rounded">CZMP</span>
-                <span className="text-xs text-cyan-700">Carbon Zero Marketplace | Sales & Monetization</span>
-              </div>
-              <span className={`text-cyan-600 transition-transform ${czmpScenarioOpen ? 'rotate-180' : ''}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </span>
-            </button>
+      {/* Application Timeline */}
+      <section className="mt-12">
+        <div className="flex items-center gap-4 mb-6">
+          <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.15em]">
+            Application Timeline
+          </h2>
+          <div className="h-px flex-1 bg-mist" />
+          <span className="text-xs text-slate/60">Mar&ndash;Sep 2026</span>
+        </div>
 
-            {czmpScenarioOpen && (
-              <div className="mt-2 p-5 rounded-xl border-2 border-cyan-200 bg-white">
-                <p className="text-xs text-slate mb-4">
-                  <strong>Role:</strong> Marketplace & Monetization Layer - the commercial wrapper and primary sales portal for HISAGEN carbon credits.
-                  <strong className="ml-2">Ownership:</strong> Keir (Deep Six) entity
-                </p>
-
-                {/* CZMP Context */}
-                <div className="p-3 rounded-lg bg-cyan-50 border border-cyan-200 mb-4">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-cyan-700 mb-2">Partnership Context</p>
-                  <ul className="text-xs text-cyan-800 space-y-1">
-                    <li>• <strong>Carbon Zero Marketplace</strong> (CZMP) - website branded as "Carbon Neutral Marketplace"</li>
-                    <li>• Originally conceived as broad-spectrum NBS exchange</li>
-                    <li>• Potential pivot: from general marketplace to dedicated "HISAGEN Storefront"</li>
-                    <li>• Acts as commercial front-end for credit sales after 3Degrees verification</li>
-                    <li>• Keir-owned entity - relationship to Deep Six/HISAGEN structure to be clarified</li>
-                  </ul>
+        <div className="rounded-2xl border border-mist bg-white overflow-hidden">
+          <div className="divide-y divide-mist">
+            {applicationTimeline.map((entry, idx) => (
+              <div
+                key={idx}
+                className="flex items-center gap-6 px-6 py-4 hover:bg-parchment/30 transition-colors"
+              >
+                <div className="w-24 flex-shrink-0">
+                  <p className="text-sm font-bold text-secondary">
+                    {entry.when}
+                  </p>
                 </div>
-
-                <div className="space-y-3">
-                  {/* Role in Value Chain */}
-                  <div className="p-4 rounded-lg bg-cyan-50/50 border border-cyan-100">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-cyan-700 mb-2">Role in HISAGEN Value Chain</p>
-                    <div className="grid gap-2 md:grid-cols-2">
-                      <div className="p-3 rounded bg-white border border-cyan-100">
-                        <p className="text-xs font-bold text-cyan-800 mb-1">Credit Sales Portal</p>
-                        <p className="text-[11px] text-cyan-700">Primary channel for selling verified HISAGEN carbon credits to corporate buyers.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-cyan-100">
-                        <p className="text-xs font-bold text-cyan-800 mb-1">Corporate Engagement</p>
-                        <p className="text-[11px] text-cyan-700">Interface for corporates seeking traceable, verified soil carbon credits from East Africa.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-cyan-100">
-                        <p className="text-xs font-bold text-cyan-800 mb-1">Post-Verification Layer</p>
-                        <p className="text-[11px] text-cyan-700">Sits after 3Degrees verification in value chain: Farmer → MRV → Verification → CZMP → Buyer.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-cyan-100">
-                        <p className="text-xs font-bold text-cyan-800 mb-1">Brand & Narrative</p>
-                        <p className="text-[11px] text-cyan-700">Positions HISAGEN credits with ESG story, traceability, smallholder impact narrative.</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Value Capture Options */}
-                  <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-700 mb-2">Revenue Model (To Be Clarified)</p>
-                    <div className="grid gap-2 md:grid-cols-2">
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">Sales Commission</p>
-                        <p className="text-[11px] text-emerald-700">% of credit sale price retained by CZMP as marketplace fee.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">Listing/Platform Fees</p>
-                        <p className="text-[11px] text-emerald-700">Fixed fees for project listing, verification integration, buyer matching.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">Premium Services</p>
-                        <p className="text-[11px] text-emerald-700">Additional fees for bespoke buyer matching, custom reporting, corporate partnerships.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-emerald-100">
-                        <p className="text-xs font-bold text-emerald-800 mb-1">Credit Spread</p>
-                        <p className="text-[11px] text-emerald-700">Difference between farmer payout and buyer price (if CZMP acts as principal).</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Business Model Clarity Alert */}
-                  <div className="p-3 rounded-lg bg-amber-100 border-2 border-amber-400">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="px-2 py-0.5 bg-amber-500 text-white text-[9px] font-bold uppercase tracking-widest rounded">
-                        Clarity Needed
-                      </span>
-                    </div>
-                    <p className="text-xs text-amber-900 font-medium mb-2">
-                      The CZMP business model and its relationship to Deep Six / HISAGEN is not yet clear.
-                    </p>
-                    <p className="text-xs text-amber-800">
-                      Need to understand: How does money flow through the system? What % goes to farmers, CZMP, HISAGEN, Deep Six?
-                      This is important for grant proposals and investor conversations.
-                    </p>
-                  </div>
-
-                  {/* Questions */}
-                  <div className="p-3 rounded-lg bg-amber-50 border border-amber-200">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-amber-700 mb-2">Questions to Clarify with Keir</p>
-                    <ul className="text-xs text-amber-800 space-y-1">
-                      <li>• What is CZMP's legal relationship to Deep Six and HISAGEN?</li>
-                      <li>• What is the revenue model? (Commission %, platform fees, spread?)</li>
-                      <li>• What % of credit sale price goes to: Farmer / HISAGEN / CZMP / 3Degrees?</li>
-                      <li>• Is CZMP a marketplace (connects buyers/sellers) or a principal (buys then resells)?</li>
-                      <li>• Will CZMP handle other projects beyond HISAGEN? Or pivot to HISAGEN-only?</li>
-                      <li>• Website says "Carbon Neutral Marketplace" but acronym is CZMP - is this intentional?</li>
-                    </ul>
-                  </div>
+                <div className="flex-1">
+                  <p className="text-sm text-slate">
+                    <strong className="text-secondary">{entry.what}</strong>
+                    <span className="text-slate/60">
+                      {" "}
+                      &mdash; {entry.funder}
+                    </span>
+                  </p>
                 </div>
+                <span
+                  className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded border ${
+                    urgencyColor[entry.urgency]
+                  }`}
+                >
+                  {entry.urgency}
+                </span>
               </div>
-            )}
-          </div>
-
-          {/* 3Degrees Scenario (Accordion) */}
-          <div className="mb-3">
-            <button
-              onClick={() => setThreeDegreesScenarioOpen(!threeDegreesScenarioOpen)}
-              className="w-full flex items-center justify-between p-4 rounded-lg bg-violet-50 border-2 border-violet-200 hover:border-violet-400 transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <span className="px-2 py-1 bg-violet-600 text-white text-[9px] font-bold uppercase tracking-widest rounded">3Degrees</span>
-                <span className="text-xs text-violet-700">Verification & Registry Partner</span>
-              </div>
-              <span className={`text-violet-600 transition-transform ${threeDegreesScenarioOpen ? 'rotate-180' : ''}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </span>
-            </button>
-
-            {threeDegreesScenarioOpen && (
-              <div className="mt-2 p-5 rounded-xl border-2 border-violet-200 bg-white">
-                <p className="text-xs text-slate mb-4">
-                  <strong>Role:</strong> Third-party verification and carbon registry services - validates MRV data and issues tradeable credits.
-                  <strong className="ml-2">Type:</strong> Independent verification body
-                </p>
-
-                {/* 3Degrees Context */}
-                <div className="p-3 rounded-lg bg-violet-50 border border-violet-200 mb-4">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-violet-700 mb-2">Partnership Context</p>
-                  <ul className="text-xs text-violet-800 space-y-1">
-                    <li>• <strong>3Degrees</strong> is an established carbon and renewable energy solutions provider</li>
-                    <li>• Provides verification services for carbon credit projects</li>
-                    <li>• Validates MRV (Measurement, Reporting, Verification) data from Locus AG platform</li>
-                    <li>• Issues registry-backed credits that can be sold via CZMP</li>
-                    <li>• Position in value chain: Locus AG (MRV) → 3Degrees (Verify) → CZMP (Sell)</li>
-                  </ul>
-                </div>
-
-                <div className="space-y-3">
-                  {/* Role in Value Chain */}
-                  <div className="p-4 rounded-lg bg-violet-50/50 border border-violet-100">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-violet-700 mb-2">Role in HISAGEN Value Chain</p>
-                    <div className="grid gap-2 md:grid-cols-2">
-                      <div className="p-3 rounded bg-white border border-violet-100">
-                        <p className="text-xs font-bold text-violet-800 mb-1">MRV Verification</p>
-                        <p className="text-[11px] text-violet-700">Independent validation of Locus AG soil carbon measurements and farmer data.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-violet-100">
-                        <p className="text-xs font-bold text-violet-800 mb-1">Credit Issuance</p>
-                        <p className="text-[11px] text-violet-700">Issues verified carbon credits onto recognized registry for trading.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-violet-100">
-                        <p className="text-xs font-bold text-violet-800 mb-1">Credibility Layer</p>
-                        <p className="text-[11px] text-violet-700">Third-party verification provides buyer confidence and regulatory compliance.</p>
-                      </div>
-                      <div className="p-3 rounded bg-white border border-violet-100">
-                        <p className="text-xs font-bold text-violet-800 mb-1">Standard Alignment</p>
-                        <p className="text-[11px] text-violet-700">Ensures credits meet Verra, Gold Standard, or other recognized methodologies.</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Fee Structure */}
-                  <div className="p-4 rounded-lg bg-slate-50 border border-slate-200">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-600 mb-2">Typical Verification Fee Models</p>
-                    <ul className="text-xs text-slate space-y-1">
-                      <li>• <strong>Per-credit fee:</strong> $X per tonne verified (e.g., $0.10-0.50/tCO2e)</li>
-                      <li>• <strong>Project fee:</strong> Fixed fee per verification cycle + volume-based component</li>
-                      <li>• <strong>Annual retainer:</strong> Ongoing verification relationship with periodic audits</li>
-                    </ul>
-                    <p className="text-[11px] text-slate/70 mt-2 italic">Actual 3Degrees terms for HISAGEN to be confirmed.</p>
-                  </div>
-
-                  {/* Questions */}
-                  <div className="p-3 rounded-lg bg-amber-50 border border-amber-200">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-amber-700 mb-2">Questions to Clarify with Keir</p>
-                    <ul className="text-xs text-amber-800 space-y-1">
-                      <li>• What is the formal relationship with 3Degrees? (Contract, MoU, preferred partner?)</li>
-                      <li>• What is their verification fee structure?</li>
-                      <li>• Which registry will credits be issued on? (Verra, Gold Standard, other?)</li>
-                      <li>• What methodology is being used for soil carbon verification?</li>
-                      <li>• What is the verification timeline? (Annual? Per vintage?)</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Note about HISAGEN USA and Uganda */}
-          <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-2">
-            <p className="text-xs text-slate">
-              <strong>HISAGEN USA</strong> and <strong>HISAGEN Uganda</strong> are internal entities - their contributions are captured in the professional services table above.
-              Separate scenario sections may be added as relationship structures are clarified.
-            </p>
-            <p className="text-xs text-slate/70 italic">
-              <strong>Other organisations mentioned but unclear:</strong> <strong>MAAIF</strong> (Ministry of Agriculture, Animal Industry and Fisheries, Uganda) - potential government/policy partner.
-            </p>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Lifecycle Integration */}
-      <section className="mt-16 mb-20">
-        <div className="flex items-center gap-4 mb-8">
-          <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.15em]">Grant Lifecycle Integration</h2>
+      {/* In-Kind Partner Contributions (safe summary - no rates) */}
+      <section className="mt-12">
+        <div className="flex items-center gap-4 mb-6">
+          <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.15em]">
+            In-Kind Partner Contributions
+          </h2>
           <div className="h-px flex-1 bg-mist" />
         </div>
 
-        <div className="grid gap-4 md:grid-cols-4">
-          <Link
-            href="/grant-lifecycle"
-            className="group p-6 rounded-xl border-2 border-amber-500/20 bg-amber-50 hover:border-amber-500 hover:shadow-xl transition-all"
-          >
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-600 mb-2">Phase 02</p>
-            <h3 className="text-base font-bold text-secondary group-hover:text-amber-700 transition-colors">
-              Landscape Scanning
-            </h3>
-            <p className="text-xs text-slate mt-2">This page covers prospect mapping</p>
-          </Link>
+        <div className="p-6 rounded-2xl border border-mist bg-white">
+          <p className="text-sm text-slate mb-6">
+            Match funding from partner contributions strengthens grant
+            applications and demonstrates commitment.
+          </p>
 
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="p-4 rounded-xl bg-green-50 border border-green-200">
+              <h3 className="text-sm font-bold text-green-800 mb-2">
+                Locus AG
+              </h3>
+              <ul className="text-xs text-green-700 space-y-1">
+                <li>&bull; Rhizolizer products for trials</li>
+                <li>&bull; Manufacturing equipment access</li>
+                <li>&bull; Technical expertise &amp; IP licensing</li>
+              </ul>
+            </div>
+            <div className="p-4 rounded-xl bg-orange-50 border border-orange-200">
+              <h3 className="text-sm font-bold text-orange-800 mb-2">NARO</h3>
+              <ul className="text-xs text-orange-700 space-y-1">
+                <li>&bull; Research infrastructure &amp; staff time</li>
+                <li>&bull; Field trial sites (4 regions)</li>
+                <li>&bull; Scientific validation &amp; credibility</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Categories Represented */}
+      <section className="mt-12">
+        <div className="flex items-center gap-4 mb-6">
+          <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.15em]">
+            Categories Represented
+          </h2>
+          <div className="h-px flex-1 bg-mist" />
+        </div>
+
+        <div className="grid gap-3 md:grid-cols-2">
+          {landscapeStats.categories.map((cat) => (
+            <div
+              key={cat}
+              className="p-4 rounded-lg border border-mist bg-white"
+            >
+              <p className="text-sm font-bold text-secondary">{cat}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Related Resources */}
+      <section className="mt-12 mb-20">
+        <div className="flex items-center gap-4 mb-6">
+          <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.15em]">
+            Related
+          </h2>
+          <div className="h-px flex-1 bg-mist" />
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-3">
           <Link
-            href="/grant-lifecycle"
-            className="group p-6 rounded-xl border border-mist bg-white hover:border-secondary/30 hover:shadow-md transition-all"
+            href="/funding-roadmap"
+            className="group p-5 rounded-xl border-2 border-primary/20 bg-primary/5 hover:border-primary hover:shadow-md transition-all"
           >
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-secondary/60 mb-2">Phase 03</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-2">
+              Strategy
+            </p>
             <h3 className="text-base font-bold text-secondary group-hover:text-primary transition-colors">
-              Donor Engagement
+              Funding Roadmap
             </h3>
-            <p className="text-xs text-slate mt-2">Relationship cultivation</p>
+            <p className="text-xs text-slate mt-2">
+              Full capital strategy &amp; timeline
+            </p>
+          </Link>
+
+          <Link
+            href="/stage-1/funding/opportunities"
+            className="group p-5 rounded-xl border border-mist bg-white hover:border-secondary/30 hover:shadow-md transition-all"
+          >
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-secondary/60 mb-2">
+              Pipeline
+            </p>
+            <h3 className="text-base font-bold text-secondary group-hover:text-primary transition-colors">
+              Opportunity Tracker
+            </h3>
+            <p className="text-xs text-slate mt-2">
+              Active opportunity records
+            </p>
           </Link>
 
           <Link
             href="/grant-lifecycle"
-            className="group p-6 rounded-xl border border-mist bg-white hover:border-secondary/30 hover:shadow-md transition-all"
+            className="group p-5 rounded-xl border border-mist bg-white hover:border-secondary/30 hover:shadow-md transition-all"
           >
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-secondary/60 mb-2">Phase 04</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-secondary/60 mb-2">
+              Methodology
+            </p>
             <h3 className="text-base font-bold text-secondary group-hover:text-primary transition-colors">
-              Due Diligence
+              Grant Lifecycle
             </h3>
-            <p className="text-xs text-slate mt-2">Eligibility verification</p>
-          </Link>
-
-          <Link
-            href="/stage-1/funding/v0-grant-proposal"
-            className="group p-6 rounded-xl border-2 border-emerald-500/20 bg-emerald-50 hover:border-emerald-500 hover:shadow-xl transition-all"
-          >
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-600 mb-2">Phase 05</p>
-            <h3 className="text-base font-bold text-secondary group-hover:text-emerald-700 transition-colors">
-              V1.1 Proposal
-            </h3>
-            <p className="text-xs text-slate mt-2">Ready for tailoring</p>
+            <p className="text-xs text-slate mt-2">
+              11-phase delivery methodology
+            </p>
           </Link>
         </div>
       </section>

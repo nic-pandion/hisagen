@@ -4,27 +4,11 @@ import StageBreadcrumb from "../../components/StageBreadcrumb";
 
 const frameworks = [
   {
-    title: "Capital Continuum Framework",
-    description:
-      "4-stage funding model mapping the journey from initial grants through to carbon market revenue. Guides capital strategy across incubation, implementation, stabilisation, and maturity.",
-    href: "/capital-continuum",
-    icon: "/icons/icon-circular-arrows.png",
-    status: "active" as const,
-  },
-  {
     title: "Sustainability Framework",
     description:
       "5-Layer assessment template covering biosphere, production, social, corporate governance, and enabling systems. Provides the analytical backbone for landscape-level sustainability evaluation.",
     href: "/strategy/sustainability-framework",
     icon: "/icons/icon-green-hands.png",
-    status: "active" as const,
-  },
-  {
-    title: "Grant Lifecycle Methodology",
-    description:
-      "11-stage grant management process from opportunity identification through to completion and learning capture. Includes the Stage 1 funding playbook.",
-    href: "/grant-lifecycle",
-    icon: "/icons/icon-graph.png",
     status: "active" as const,
   },
   {
@@ -122,8 +106,24 @@ export default function FrameworksPage() {
         ))}
       </section>
 
+      {/* Funding frameworks note */}
+      <section className="mt-8 p-6 rounded-xl bg-primary/5 border border-primary/20">
+        <p className="text-sm text-slate">
+          <strong className="text-secondary">Looking for funding frameworks?</strong>{" "}
+          Capital Continuum, Grant Lifecycle, and Funder Landscape have moved
+          to the{" "}
+          <Link
+            href="/funding-roadmap"
+            className="text-primary hover:text-primary/80 font-medium underline underline-offset-2"
+          >
+            Funding
+          </Link>{" "}
+          section.
+        </p>
+      </section>
+
       {/* Context Note */}
-      <section className="mt-8 mb-16 p-6 rounded-xl bg-parchment/30 border border-mist border-dashed text-center">
+      <section className="mt-4 mb-16 p-6 rounded-xl bg-parchment/30 border border-mist border-dashed text-center">
         <p className="text-sm text-slate">
           Frameworks are informed by evidence captured in the{" "}
           <Link

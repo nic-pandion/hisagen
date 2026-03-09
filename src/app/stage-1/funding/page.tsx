@@ -267,55 +267,70 @@ export default function Stage1FundingPage() {
         </div>
       </section>
 
-      {/* Funder Landscape - Link to Dedicated Page */}
+      {/* Capital Strategy - Link to Funding Roadmap */}
       <section className="mt-16">
         <div className="flex items-center gap-4 mb-8">
-          <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.2em]">Funder Landscape</h2>
+          <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.2em]">Capital Strategy</h2>
           <div className="h-px flex-1 bg-mist" />
         </div>
 
         <Link
-          href="/stage-1/funding/funder-landscape"
-          className="group block rounded-2xl border-2 border-emerald-500/30 bg-emerald-50 p-8 hover:border-emerald-500 hover:shadow-xl transition-all"
+          href="/funding-roadmap"
+          className="group block rounded-2xl border-2 border-primary/30 bg-primary/5 p-8 hover:border-primary hover:shadow-xl transition-all mb-6"
         >
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-4">
-                <span className="px-3 py-1 rounded-full bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-widest">
-                  20+ Funders
+                <span className="px-3 py-1 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-widest">
+                  12 Curated Funders
                 </span>
-                <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase tracking-widest">
-                  Updated Jan 2026
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest">
+                  Updated Mar 2026
                 </span>
               </div>
-              <h3 className="text-2xl font-bold text-emerald-900 group-hover:text-emerald-700 transition-colors">
-                Funder Landscape Analysis
+              <h3 className="text-2xl font-bold text-secondary group-hover:text-primary transition-colors">
+                HISAGEN Funding Roadmap
               </h3>
-              <p className="mt-3 text-base text-emerald-800 leading-relaxed">
-                Comprehensive database of 20+ funders across government, philanthropy, foundations, corporate,
-                and accelerator categories. Tiered by alignment and includes match funding tracker.
+              <p className="mt-3 text-base text-slate leading-relaxed">
+                Full capital strategy with 12 curated funders (from 40+ researched), application timeline,
+                and dual-track mapping across the Capital Continuum.
               </p>
 
-              <div className="mt-6 grid grid-cols-4 gap-4">
+              <div className="mt-6 grid grid-cols-3 gap-4">
                 <div className="p-3 rounded-lg bg-white/60 text-center">
-                  <p className="text-2xl font-bold text-emerald-700">2</p>
-                  <p className="text-[10px] uppercase tracking-widest text-emerald-600">Strong Match</p>
+                  <p className="text-2xl font-bold text-primary">6</p>
+                  <p className="text-[10px] uppercase tracking-widest text-primary/70">Tier 1 Priority</p>
                 </div>
                 <div className="p-3 rounded-lg bg-white/60 text-center">
-                  <p className="text-2xl font-bold text-amber-600">14</p>
-                  <p className="text-[10px] uppercase tracking-widest text-amber-600">Cultivate</p>
+                  <p className="text-2xl font-bold text-accent">6</p>
+                  <p className="text-[10px] uppercase tracking-widest text-accent/70">Tier 2 Strong Fit</p>
                 </div>
                 <div className="p-3 rounded-lg bg-white/60 text-center">
-                  <p className="text-2xl font-bold text-slate-500">5</p>
-                  <p className="text-[10px] uppercase tracking-widest text-slate-500">Monitor</p>
-                </div>
-                <div className="p-3 rounded-lg bg-white/60 text-center">
-                  <p className="text-2xl font-bold text-red-500">2</p>
-                  <p className="text-[10px] uppercase tracking-widest text-red-500">Next Cycle</p>
+                  <p className="text-2xl font-bold text-secondary">$670K&ndash;$9.7M</p>
+                  <p className="text-[10px] uppercase tracking-widest text-slate/60">Pipeline</p>
                 </div>
               </div>
             </div>
-            <svg className="w-8 h-8 text-emerald-300 group-hover:text-emerald-500 transition-colors shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-8 h-8 text-primary/30 group-hover:text-primary transition-colors shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </Link>
+
+        <Link
+          href="/stage-1/funding/funder-landscape"
+          className="group block rounded-2xl border border-mist bg-white p-6 hover:border-primary/30 hover:shadow-md transition-all"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-bold text-secondary group-hover:text-primary transition-colors">
+                Funder Landscape Detail
+              </h3>
+              <p className="text-sm text-slate mt-1">
+                Detailed funder profiles, pipeline stages, and alignment scoring
+              </p>
+            </div>
+            <svg className="w-6 h-6 text-slate/20 group-hover:text-primary transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </div>

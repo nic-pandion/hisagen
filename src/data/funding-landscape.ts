@@ -1,9 +1,10 @@
 // HISAGEN Funding Landscape Data
 // Source of truth: HISAGEN-FUNDER-PIPELINE.md (delivery/grants-fundraising/02-landscape-scanning/)
 // Phase E: for-profit eligibility filter — 8 of 11 traditional funders ineligible
-// Phase F: for-profit-friendly scan — verified funders only (removed Village Capital, SBIR/STTR; reclassified START II, DIV)
+// Phase F: for-profit-friendly scan — verified funders only
+// Phase G: cross-validated expansion (ChatGPT + Gemini deep research) — 6 new verified funders
 // Sync chain: Pipeline tracker -> this file -> page renders
-// Last synced: 2026-03-10 (post-verification)
+// Last synced: 2026-03-10 (post cross-validation expansion)
 
 export type FunderTier = "tier1" | "tier2";
 export type FunderCategory =
@@ -267,7 +268,32 @@ const allFundersRaw: CuratedFunder[] = [
     eligibilityNote: "Verified: for-profit explicitly accepted. Investment capital for for-profits (not grant). Board seat required. Mati Carbon (2025) = direct precedent for HISAGEN's model.",
     score: 4.10,
   },
+  // --- TIER 1 (Cross-validated via ChatGPT + Gemini deep research, 2026-03-10) ---
+  // (No new Tier 1 funders from cross-validation — DRK validated independently by both)
+
   // --- TIER 2 ---
+  {
+    id: "world-food-prize",
+    name: "World Food Prize \u2014 Innovate for Impact Challenge",
+    shortName: "World Food Prize",
+    tier: "tier2",
+    category: "accelerator",
+    grantRange: "$50,000 (1st place), $10,000 (2nd), $5,000 (3rd)",
+    grantMin: 5000,
+    grantMax: 50000,
+    currency: "USD",
+    deadline: "April 15, 2026",
+    deadlineNote: "URGENT \u2014 5 weeks. Applications open now. Top 10 announced Jul 16. Finals at Borlaug Dialogue, Des Moines (Oct 20-22).",
+    applyVia: "HISAGEN USA Inc. or HISAGEN Africa Ltd",
+    whyStrongFit:
+      "Open to early-stage, for-profit startups in AgTech. Worldwide eligibility. 'From validated concepts to pre-Series A.' Non-dilutive prize. Prior winner: APOLO Biotech (Argentina, 2025). No age restriction.",
+    process: "Online application via programme page. Timeline: Top 10 (Jul 16) \u2192 pitch video + financials \u2192 Top 3 \u2192 live pitch at Borlaug Dialogue.",
+    consideration: "Competitive prize \u2014 only top 3 receive funding. Need strong AgTech innovation narrative (not just input distribution). Travel to Des Moines required for finalists.",
+    url: "https://www.worldfoodprize.org/en/nominations/innovate_for_impact_challenge/",
+    eligibility: "eligible",
+    eligibilityNote: "Verified: 'open to early-stage, for-profit startups in the AgTech space.' Worldwide. No age gate.",
+    score: 3.90,
+  },
   {
     id: "mulago",
     name: "Mulago Foundation",
@@ -324,8 +350,114 @@ const allFundersRaw: CuratedFunder[] = [
     eligibilityNote: "Accepts private sector with 25% co-financing. No current open call — monitor monthly.",
     score: 3.75,
   },
+  {
+    id: "wfp-innovation",
+    name: "WFP Innovation Challenge",
+    shortName: "WFP Innovation",
+    tier: "tier2",
+    category: "agricultural-food",
+    grantRange: "Up to $100,000 (equity-free)",
+    grantMin: 10000,
+    grantMax: 100000,
+    currency: "USD",
+    deadline: "Rolling",
+    deadlineNote: "Rolling submissions reviewed multiple times per year. Apply when MVP story is strong.",
+    applyVia: "HISAGEN Africa Ltd (must have or be willing to build presence in WFP country)",
+    whyStrongFit:
+      "Explicitly accepts for-profit: 'It can be for profit or not-for-profit.' Uganda is a WFP operating country. Up to $100K equity-free + innovation consultancy, WFP access, mentors, visibility.",
+    process: "Apply via 'Start-Ups and Companies' application on programme page. 6-month sprint plan required.",
+    consideration: "Requires MVP stage with 'proof-of-concept and initial traction preferred.' Must show financial sustainability beyond WFP funding. Frame bio-stimulant as food security + climate adaptation intervention.",
+    url: "https://innovation.wfp.org/wfp-innovation-challenge",
+    eligibility: "eligible",
+    eligibilityNote: "Verified: 'It can be for profit or not-for-profit.' Uganda included. Rolling applications. Need MVP narrative.",
+    score: 3.75,
+  },
+  {
+    id: "hello-tomorrow",
+    name: "Hello Tomorrow Global Challenge",
+    shortName: "Hello Tomorrow",
+    tier: "tier2",
+    category: "accelerator",
+    grantRange: "\u20AC100,000 grand prize (equity-free)",
+    grantMin: 0,
+    grantMax: 100000,
+    currency: "EUR",
+    deadline: "September 2026",
+    deadlineNote: "2026 cycle closed (deadline Jan 5, 2026). Next: applications open Sep 2026 for 2027 cycle.",
+    applyVia: "HISAGEN USA Inc. or HISAGEN Africa Ltd",
+    whyStrongFit:
+      "International deep-tech startup competition. Food & Agriculture is one of 13 tracks \u2014 covers regenerative farming, smart inputs, precision agriculture. Worldwide eligibility. Pre-revenue allowed. African winners exist (RxAll, Nigeria). 800 Deep Tech Pioneers selected \u2192 Investor Day (350+ VCs).",
+    process: "Online application Sep-Dec 2026. Multi-stage: 800 Pioneers \u2192 Investor Day \u2192 Grand Finals in Amsterdam.",
+    consideration: "Next cycle 6+ months away. Start preparing in summer 2026. Past finalists collectively raised $4B+ in subsequent funding.",
+    url: "https://hello-tomorrow.org/global-challenge/",
+    eligibility: "eligible",
+    eligibilityNote: "Verified: worldwide, for-profit accepted, pre-revenue allowed. 2026 cycle closed \u2014 target 2027.",
+    score: 3.55,
+  },
   // Village Capital removed: Uganda ineligible, training programme not investment
   // SBIR/STTR removed: programme expired Sep 2025, domestic R&D requirement blocks Uganda work
+  {
+    id: "katapult-africa",
+    name: "Katapult Africa Accelerator",
+    shortName: "Katapult Africa",
+    tier: "tier2",
+    category: "accelerator",
+    grantRange: "\u20AC150,000 - \u20AC500,000",
+    grantMin: 150000,
+    grantMax: 500000,
+    currency: "EUR",
+    deadline: "April 25, 2026",
+    deadlineNote: "URGENT \u2014 applications open now. Equity terms unclear (official site says equity, some listings say non-dilutive). Clarify before applying.",
+    applyVia: "HISAGEN Africa Ltd",
+    whyStrongFit:
+      "Impact VC accelerator. 'Open to impactful startups across Africa.' For-profit by design. Sustainable agriculture is core vertical. Partners: Tony Blair Institute, Norrsken, Norad. Portfolio: Complete Farmer (Ghana), Crop2Cash (Nigeria).",
+    process: "Apply via Typeform on katapult.vc/africa/accelerator/. 90-day digital accelerator + investor day.",
+    consideration: "Equity terms unclear. If priced equity at pre-revenue stage, dilution risk is high. Clarify terms before investing time in application.",
+    url: "https://katapult.vc/africa/accelerator/",
+    eligibility: "conditional",
+    eligibilityNote: "For-profit by design. But equity terms unclear \u2014 could be dilutive. Deadline April 25. Clarify before applying.",
+    score: 4.00,
+  },
+  {
+    id: "gogettaz-prize",
+    name: "GoGettaz Agripreneur Prize",
+    shortName: "GoGettaz",
+    tier: "tier2",
+    category: "accelerator",
+    grantRange: "$50,000 grand prize + $60,000 impact awards",
+    grantMin: 10000,
+    grantMax: 50000,
+    currency: "USD",
+    deadlineNote: "2025 cycle closed (Apr-Jun 2025). 2026 cycle expected similar timing. Requires founder aged 18-35.",
+    applyVia: "HISAGEN Africa Ltd",
+    whyStrongFit:
+      "Generation Africa prize backed by Mastercard Foundation, AGRA, SNV, Yara. Non-dilutive. For-profit eligible. Uganda eligible. Finalists attend Africa Food Systems Forum + Agribusiness Deal Room.",
+    consideration: "Founder must be aged 18-35. Same blocker as YouthADAPT. If Keir confirms age eligibility, both GoGettaz AND YouthADAPT become live opportunities.",
+    url: "https://gogettaz.africa/",
+    eligibility: "conditional",
+    eligibilityNote: "For-profit eligible. But founder must be aged 18-35. Same gate as YouthADAPT. Confirm with Keir.",
+    score: 3.95,
+  },
+  {
+    id: "finca-ventures",
+    name: "FINCA Ventures",
+    shortName: "FINCA Ventures",
+    tier: "tier2",
+    category: "impact-fund",
+    grantRange: "$100,000 - $500,000 (patient equity or convertible notes)",
+    grantMin: 100000,
+    grantMax: 500000,
+    currency: "USD",
+    deadlineNote: "Targets post-revenue companies. Not viable for HISAGEN now. Revisit in 6-12 months when revenue traction exists.",
+    applyVia: "HISAGEN Africa Ltd",
+    whyStrongFit:
+      "Impact investment arm of FINCA International. $7.8M deployed to 32 companies. Uganda in operational footprint. Portfolio: Good Nature Agro (Zambia), East Africa Fruits (Tanzania). 2X Global member \u2014 gender lens encouraged.",
+    consideration: "Post-revenue required. Pre-revenue is likely a dealbreaker. Also runs annual FINCA Ventures Prize ($100K) but that also requires revenue. Strong thematic fit for Stage 2.",
+    url: "https://fincaventures.com/",
+    eligibility: "conditional",
+    eligibilityNote: "For-profit by design. But targets post-revenue companies. Pre-revenue HISAGEN is likely ineligible now. Revisit when revenue achieved.",
+    score: 3.30,
+  },
   {
     id: "eic-accelerator",
     name: "European Innovation Council (EIC) Accelerator",
@@ -460,7 +592,7 @@ export const grantPhases: GrantPhase[] = [
     name: "Landscape Scanning",
     status: "complete",
     statusLabel: "Complete",
-    description: "40 funders researched, 15 scored across 7 categories. Traditional grants, venture philanthropy, DFI windows, and impact funds. All leads verified against primary sources.",
+    description: "50+ funders researched, 21 scored across 8 categories. Traditional grants, venture philanthropy, DFI windows, impact funds, accelerators, and prizes. Cross-validated via ChatGPT + Gemini deep research. All leads verified against official programme pages.",
   },
   {
     number: 3,
@@ -481,7 +613,7 @@ export const grantPhases: GrantPhase[] = [
     name: "Due Diligence &amp; Eligibility",
     status: "complete",
     statusLabel: "Complete",
-    description: "For-profit eligibility filter applied. Traditional grant funders largely ineligible. Pipeline rebuilt around verified for-profit-friendly capital: 3 Tier 1, 3 Tier 2 eligible + 3 conditional.",
+    description: "For-profit eligibility filter applied. Traditional grant funders largely ineligible. Pipeline rebuilt around verified for-profit-friendly capital, then expanded via cross-validation: 3 Tier 1, 6 Tier 2 eligible + 6 conditional.",
   },
   {
     number: 6,
@@ -497,19 +629,48 @@ export const grantPhases: GrantPhase[] = [
 // ─────────────────────────────────────────────────────────────
 
 export const applicationTimeline: TimelineEntry[] = [
+  // URGENT DEADLINES
+  {
+    when: "Apr 15, 2026",
+    what: "Submit Innovate for Impact Challenge application \u2014 $50K non-dilutive AgTech prize",
+    funder: "World Food Prize",
+    funderId: "world-food-prize",
+    urgency: "urgent",
+  },
+  {
+    when: "Apr 25, 2026",
+    what: "Katapult Africa deadline \u2014 clarify equity terms, then decide whether to apply",
+    funder: "Katapult Africa",
+    funderId: "katapult-africa",
+    urgency: "urgent",
+  },
   // IMMEDIATE (Mar 2026)
+  {
+    when: "Mar 2026",
+    what: "Submit WFP Innovation application (rolling \u2014 $100K equity-free)",
+    funder: "WFP Innovation Challenge",
+    funderId: "wfp-innovation",
+    urgency: "high",
+  },
+  {
+    when: "Mar 2026",
+    what: "Confirm founder age (18-35 \u2014 unlocks YouthADAPT + GoGettaz)",
+    funder: "AAAP/YouthADAPT + GoGettaz",
+    funderId: "aaap-gca",
+    urgency: "high",
+  },
+  {
+    when: "Mar 2026",
+    what: "Review DRK application + Mati Carbon case (rolling, strongest long-term opportunity)",
+    funder: "DRK Foundation",
+    funderId: "draper-richards-kaplan",
+    urgency: "high",
+  },
   {
     when: "Mar 2026",
     what: "Contact Acumen East Africa investment team (explore remaining ARAF allocation)",
     funder: "Acumen/ARAF",
     funderId: "acumen-araf",
-    urgency: "urgent",
-  },
-  {
-    when: "Mar 2026",
-    what: "Confirm founder age (18-35 eligibility)",
-    funder: "AAAP/YouthADAPT",
-    funderId: "aaap-gca",
     urgency: "high",
   },
   {
@@ -521,8 +682,8 @@ export const applicationTimeline: TimelineEntry[] = [
   },
   // SHORT TERM (Apr-Jun 2026)
   {
-    when: "Apr 2026",
-    what: "Apply to DRK Foundation (rolling, review Mati Carbon precedent)",
+    when: "Q2 2026",
+    what: "Submit DRK Foundation application",
     funder: "DRK Foundation",
     funderId: "draper-richards-kaplan",
     urgency: "high",
@@ -549,6 +710,13 @@ export const applicationTimeline: TimelineEntry[] = [
     funderId: "mulago",
     urgency: "medium",
   },
+  {
+    when: "Sep 2026",
+    what: "Apply to Hello Tomorrow Global Challenge (2027 cycle) \u2014 \u20AC100K deep-tech prize",
+    funder: "Hello Tomorrow",
+    funderId: "hello-tomorrow",
+    urgency: "medium",
+  },
   // ONGOING
   {
     when: "Monthly",
@@ -557,6 +725,13 @@ export const applicationTimeline: TimelineEntry[] = [
     funderId: "ifad",
     urgency: "medium",
   },
+  {
+    when: "Quarterly",
+    what: "Check WFP Innovation rolling review status",
+    funder: "WFP Innovation Challenge",
+    funderId: "wfp-innovation",
+    urgency: "low",
+  },
 ];
 
 // ─────────────────────────────────────────────────────────────
@@ -564,15 +739,16 @@ export const applicationTimeline: TimelineEntry[] = [
 // ─────────────────────────────────────────────────────────────
 
 export const landscapeStats = {
-  totalResearched: 40,
-  totalScored: 15, // 11 original + 4 verified for-profit-friendly (Village Capital + SBIR removed)
-  // Post-verification pipeline
+  totalResearched: 50, // 40 original + cross-validation expansion
+  totalScored: 21, // 11 original + 4 verified + 6 cross-validated (Village Capital + SBIR removed)
+  // Post cross-validation pipeline (2026-03-10)
   eligibleTier1Count: 3, // Echoing Green, ARAF, DRK
-  eligibleTier2Count: 3, // Mulago, IFAD, START II
-  conditionalCount: 3, // AAAP/YouthADAPT, EIC Accelerator, DIV Fund
+  eligibleTier2Count: 6, // World Food Prize, Mulago, IFAD, WFP Innovation, Hello Tomorrow, START II
+  conditionalCount: 6, // Katapult Africa, GoGettaz, AAAP/YouthADAPT, DIV Fund, FINCA Ventures, EIC Accelerator
   ineligibleCount: 5, // CFH, AFCIA, AfDB TAAT, Rockefeller FILab, TrustAfrica, Noel Buxton
   deprioritisedCount: 1, // Climate Finance Lab
-  eligiblePipelineValue: "$400K - $3.6M",
+  eligiblePipelineValue: "$400K - $5M+",
+  urgentDeadlines: 2, // World Food Prize (Apr 15), Katapult Africa (Apr 25)
   categories: [
     "Climate Adaptation Funds",
     "Agricultural & Food Security Foundations",
@@ -581,6 +757,7 @@ export const landscapeStats = {
     "Venture Philanthropy",
     "DFI Private Sector Windows",
     "Impact Funds",
+    "Accelerators & Prizes",
   ],
 };
 
@@ -593,8 +770,8 @@ export const strategicRecommendations: StrategicRecommendation[] = [
     id: "for-profit-capital",
     title: "Pursue Verified For-Profit-Friendly Capital (Active)",
     description:
-      "Venture philanthropy (DRK Foundation, Echoing Green), impact funds (Acumen/ARAF), and the new DIV Fund form the core pipeline. All verified against primary sources. DRK is the strongest immediate opportunity (rolling applications, direct precedent). ARAF worth exploring but 84% disbursed.",
-    impact: "Verified pipeline: 3 Tier 1 + 3 Tier 2 eligible, 3 conditional. $400K-$3.6M potential. DRK actionable now.",
+      "Venture philanthropy (DRK Foundation, Echoing Green), impact funds (Acumen/ARAF), prizes (World Food Prize, GoGettaz, Hello Tomorrow), innovation challenges (WFP, Katapult), and the new DIV Fund. All verified against primary sources. World Food Prize is the most urgent (April 15 deadline). DRK is the strongest long-term opportunity.",
+    impact: "Verified pipeline: 3 Tier 1 + 6 Tier 2 eligible, 6 conditional. $400K-$5M+ potential. Two urgent deadlines: April 15 + April 25.",
   },
   {
     id: "partner-led",
@@ -618,24 +795,38 @@ export const strategicRecommendations: StrategicRecommendation[] = [
 
 export const keirActionItems: KeirAction[] = [
   {
-    id: "acumen-outreach",
-    action: "Contact Acumen East Africa investment team \u2014 explore remaining ARAF allocation ($58M fund, 84% disbursed, runs to 2030). Pipeline-driven, no open application. Direct outreach required.",
-    funder: "Acumen/ARAF",
-    byWhen: "This month",
+    id: "world-food-prize",
+    action: "Submit World Food Prize Innovate for Impact application \u2014 $50K non-dilutive AgTech prize. Frame as productivity + resilience innovation. Pandion shapes narrative.",
+    funder: "World Food Prize",
+    byWhen: "April 15, 2026",
+    status: "not-started",
+  },
+  {
+    id: "confirm-age",
+    action: "Confirm founder age \u2014 is any co-founder aged 18-35? Unlocks BOTH YouthADAPT ($30K) AND GoGettaz ($50K). Two prizes, one answer.",
+    funder: "AAAP/YouthADAPT + GoGettaz",
+    byWhen: "Next call",
     status: "not-started",
   },
   {
     id: "drk-application",
-    action: "Review DRK Foundation application at drkfoundation.org/apply. Rolling applications. Review Mati Carbon portfolio company (2025, soil restoration for smallholders in Africa \u2014 near-identical model). Note: DRK takes board seat for 3 years.",
+    action: "Review DRK Foundation application at drkfoundation.org/apply. Rolling applications. Review Mati Carbon portfolio company (2025, soil restoration for smallholders in Africa \u2014 near-identical model). DRK takes board seat for 3 years.",
     funder: "DRK Foundation",
     byWhen: "End of March",
     status: "not-started",
   },
   {
-    id: "confirm-age",
-    action: "Confirm founder age \u2014 is any co-founder aged 18-35?",
-    funder: "AAAP/YouthADAPT",
-    byWhen: "Next call",
+    id: "katapult-decision",
+    action: "Clarify Katapult Africa equity terms (dilutive vs non-dilutive). If reasonable \u2192 apply. If heavy dilution at pre-revenue \u2192 skip.",
+    funder: "Katapult Africa",
+    byWhen: "April 25, 2026",
+    status: "not-started",
+  },
+  {
+    id: "acumen-outreach",
+    action: "Contact Acumen East Africa investment team \u2014 explore remaining ARAF allocation ($58M fund, 84% disbursed, runs to 2030). Pipeline-driven, no open application.",
+    funder: "Acumen/ARAF",
+    byWhen: "This month",
     status: "not-started",
   },
   {

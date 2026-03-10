@@ -431,6 +431,7 @@ function PhaseAccordion({ phase, isOpen, onToggle }: { phase: Phase; isOpen: boo
 
 export default function CapitalStrategyPage() {
   const [openPhases, setOpenPhases] = useState<Set<number>>(new Set());
+  const [activePathway, setActivePathway] = useState<string>("grants");
 
   const toggle = (phase: number) => {
     setOpenPhases((prev) => {
@@ -461,9 +462,9 @@ export default function CapitalStrategyPage() {
           HISAGEN Capital Strategy
         </h1>
         <p className="mt-4 text-lg text-slate leading-relaxed max-w-3xl">
-          Two capital tracks &mdash; grant funding (active) and commercial capital (future) &mdash;
-          mapped across the Capital Continuum. The grant track follows a 6-phase pre-award
-          methodology from vision through to proposal submission.
+          Five sources of capital mapped across the Capital Continuum, each with its own
+          pathway. Grant fundraising is active at Stage 1, following a 6-phase pre-award
+          methodology. Other capital pathways unlock as evidence matures.
         </p>
 
         {/* Capital Continuum bar */}
@@ -717,69 +718,422 @@ export default function CapitalStrategyPage() {
         </div>
       </section>
 
-      {/* ── GRANT FUNDRAISING JOURNEY ───────────────────────── */}
+      {/* ── CAPITAL PATHWAYS ─────────────────────────────────── */}
       <section className="mt-12">
         <div className="flex items-center gap-4 mb-6">
           <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.2em]">
-            Grant Fundraising Journey
+            Capital Pathways
           </h2>
           <div className="h-px flex-1 bg-mist" />
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate/60">
-            6 Pre-Award Phases
+            Process by Source
           </span>
         </div>
 
-        <div className="flex items-center justify-between mb-4">
-          {/* Phase progress bar */}
-          <div className="flex items-center gap-1">
-            {phases.map((phase) => (
-              <div key={phase.number} className="flex items-center">
-                <div className={`w-6 h-1.5 rounded-full ${
-                  phase.status === "complete" ? "bg-emerald-400" :
-                  phase.status === "active" ? "bg-primary" :
-                  phase.status === "in-progress" ? "bg-amber-400" :
-                  phase.status === "foundation-ready" ? "bg-blue-400" :
-                  "bg-slate-200"
-                }`} />
-                {phase.number < 6 && <div className="w-1" />}
-              </div>
-            ))}
-          </div>
-          <div className="flex gap-2">
+        {/* Tab bar */}
+        <div className="flex overflow-x-auto border-b-2 border-mist mb-6 -mx-1">
+          {[
+            { id: "grants", label: "Grants & Philanthropy", status: "Active", statusClass: "bg-emerald-100 text-emerald-700" },
+            { id: "debt", label: "Green Bonds & Debt", status: "Stage 2", statusClass: "bg-slate-100 text-slate-500" },
+            { id: "equity", label: "Equity & VC", status: "Stage 2\u20133", statusClass: "bg-slate-100 text-slate-500" },
+            { id: "impact", label: "Impact Investing", status: "Stage 2\u20133", statusClass: "bg-slate-100 text-slate-500" },
+            { id: "blended", label: "Blended Finance", status: "Future", statusClass: "bg-slate-50 text-slate-400" },
+          ].map((tab) => (
             <button
-              onClick={expandAll}
-              className="text-[10px] font-bold uppercase tracking-widest text-slate/50 hover:text-primary transition-colors"
+              key={tab.id}
+              onClick={() => setActivePathway(tab.id)}
+              className={`flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 -mb-[2px] transition-colors ${
+                activePathway === tab.id
+                  ? "border-primary text-primary"
+                  : "border-transparent text-slate/60 hover:text-secondary hover:border-slate-200"
+              }`}
             >
-              Expand all
+              {tab.label}
+              <span className={`text-[8px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded ${tab.statusClass}`}>
+                {tab.status}
+              </span>
             </button>
-            <span className="text-slate/30">|</span>
-            <button
-              onClick={collapseAll}
-              className="text-[10px] font-bold uppercase tracking-widest text-slate/50 hover:text-primary transition-colors"
-            >
-              Collapse all
-            </button>
-          </div>
-        </div>
-
-        <div className="space-y-3">
-          {phases.map((phase) => (
-            <PhaseAccordion
-              key={phase.number}
-              phase={phase}
-              isOpen={openPhases.has(phase.number)}
-              onToggle={() => toggle(phase.number)}
-            />
           ))}
         </div>
 
-        {/* Post-award note */}
-        <div className="mt-4 p-4 rounded-xl border border-dashed border-mist bg-parchment/30">
-          <p className="text-xs text-slate/60 text-center">
-            Phases 07&ndash;12 (Award &amp; Handover, Project Setup, Delivery Planning,
-            Implementation, Reporting, Closeout) activate after first grant award.
-          </p>
-        </div>
+        {/* ── Tab: Grants & Philanthropy ───────────────────── */}
+        {activePathway === "grants" && (
+          <div>
+            <div className="mb-6 p-4 rounded-xl bg-primary/5 border border-primary/20">
+              <h3 className="text-sm font-bold text-secondary mb-1">Grant Fundraising Process</h3>
+              <p className="text-xs text-slate leading-relaxed">
+                Pandion&rsquo;s 6-phase pre-award methodology for grant and philanthropic funding.
+                This is HISAGEN&rsquo;s active capital pathway at Stage 1.
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between mb-4">
+              {/* Phase progress bar */}
+              <div className="flex items-center gap-1">
+                {phases.map((phase) => (
+                  <div key={phase.number} className="flex items-center">
+                    <div className={`w-6 h-1.5 rounded-full ${
+                      phase.status === "complete" ? "bg-emerald-400" :
+                      phase.status === "active" ? "bg-primary" :
+                      phase.status === "in-progress" ? "bg-amber-400" :
+                      phase.status === "foundation-ready" ? "bg-blue-400" :
+                      "bg-slate-200"
+                    }`} />
+                    {phase.number < 6 && <div className="w-1" />}
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={expandAll}
+                  className="text-[10px] font-bold uppercase tracking-widest text-slate/50 hover:text-primary transition-colors"
+                >
+                  Expand all
+                </button>
+                <span className="text-slate/30">|</span>
+                <button
+                  onClick={collapseAll}
+                  className="text-[10px] font-bold uppercase tracking-widest text-slate/50 hover:text-primary transition-colors"
+                >
+                  Collapse all
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              {phases.map((phase) => (
+                <PhaseAccordion
+                  key={phase.number}
+                  phase={phase}
+                  isOpen={openPhases.has(phase.number)}
+                  onToggle={() => toggle(phase.number)}
+                />
+              ))}
+            </div>
+
+            {/* Post-award note */}
+            <div className="mt-4 p-4 rounded-xl border border-dashed border-mist bg-parchment/30">
+              <p className="text-xs text-slate/60 text-center">
+                Phases 07&ndash;12 (Award &amp; Handover, Project Setup, Delivery Planning,
+                Implementation, Reporting, Closeout) activate after first grant award.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* ── Tab: Green Bonds & Debt ─────────────────────── */}
+        {activePathway === "debt" && (
+          <div className="space-y-6">
+            <div className="p-4 rounded-xl bg-parchment/40 border border-mist">
+              <h3 className="text-sm font-bold text-secondary mb-1">Concessional &amp; Commercial Debt</h3>
+              <p className="text-xs text-slate leading-relaxed">
+                Repayable capital at concessional or market rates. This pathway becomes viable when
+                HISAGEN has 2&ndash;3 years of operational track record and audited financials.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="rounded-xl border border-mist bg-white p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-amber-100 text-amber-700">
+                    Stage 2 Opportunity
+                  </span>
+                </div>
+                <h4 className="text-sm font-bold text-secondary mb-1">Common Fund for Commodities</h4>
+                <p className="text-xs text-slate leading-relaxed mb-3">
+                  Concessional loans up to $1.5M (regular) or $300K (fast-track). CFC&rsquo;s 2025
+                  Annual Report lists bio-fertilizer pilots in Kenya/Uganda in their pipeline.
+                </p>
+                <div className="p-3 rounded-lg bg-amber-50 border border-amber-100">
+                  <p className="text-[10px] text-amber-800">
+                    <strong>Why not now:</strong> CFC requires 3+ year track record and audited financials.
+                    HISAGEN is ineligible at Stage 1. Originally assessed as a grant funder &mdash;
+                    reclassified after verifying CFC&rsquo;s instrument type (loans, not grants).
+                  </p>
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/50 p-5">
+                <h4 className="text-xs font-bold text-slate-500 mb-2">Typical Debt Process</h4>
+                <div className="space-y-3">
+                  {[
+                    { step: "01", label: "Credit Application", desc: "Submit financial history, business plan, projections" },
+                    { step: "02", label: "Due Diligence", desc: "Lender reviews financials, operations, governance" },
+                    { step: "03", label: "Term Negotiation", desc: "Interest rate, tenure, covenants, collateral" },
+                    { step: "04", label: "Disbursement", desc: "Staged release against milestones" },
+                  ].map((s) => (
+                    <div key={s.step} className="flex items-start gap-3">
+                      <span className="text-[10px] font-bold text-slate-400 mt-0.5">{s.step}</span>
+                      <div>
+                        <p className="text-xs font-bold text-secondary">{s.label}</p>
+                        <p className="text-[11px] text-slate/70">{s.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-xl border border-mist bg-white">
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate/50 mb-2">
+                Readiness Triggers
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {["3+ years operational", "Audited financials", "Revenue track record", "Proven unit economics"].map((trigger) => (
+                  <span key={trigger} className="text-xs px-3 py-1.5 rounded-full bg-parchment border border-mist text-slate">
+                    {trigger}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Tab: Equity & VC ────────────────────────────── */}
+        {activePathway === "equity" && (
+          <div className="space-y-6">
+            <div className="p-4 rounded-xl bg-parchment/40 border border-mist">
+              <h3 className="text-sm font-bold text-secondary mb-1">Equity &amp; Venture Capital</h3>
+              <p className="text-xs text-slate leading-relaxed">
+                Ownership-based capital for scaling the HISAGEN model. Keir and Scott are leading
+                early seed conversations alongside the grant track.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Current state */}
+              <div className="rounded-xl border-2 border-secondary/20 bg-white p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-primary/10 text-primary">
+                    In Progress
+                  </span>
+                </div>
+                <h4 className="text-sm font-bold text-secondary mb-2">What&rsquo;s Happening</h4>
+                <ul className="space-y-2 text-xs text-slate">
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-500 mt-0.5">&bull;</span>
+                    <span>Initial investor pitch materials developed</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-500 mt-0.5">&bull;</span>
+                    <span>Angel/seed conversations active (Keir &amp; Scott leading)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-500 mt-0.5">&bull;</span>
+                    <span>Commercial framing uses same evidence base as grant track</span>
+                  </li>
+                </ul>
+                <div className="mt-4 p-3 rounded-lg bg-primary/5 border border-primary/10">
+                  <p className="text-[10px] text-primary font-medium">
+                    This is Keir &amp; Scott&rsquo;s domain. Grant evidence strengthens the investor
+                    narrative &mdash; every grant milestone de-risks the commercial case.
+                  </p>
+                </div>
+              </div>
+
+              {/* Typical VC process */}
+              <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/50 p-5">
+                <h4 className="text-xs font-bold text-slate-500 mb-2">Typical Seed / VC Process</h4>
+                <div className="space-y-3">
+                  {[
+                    { step: "01", label: "Pitch Deck &amp; Vision", desc: "Problem, solution, market size, team, ask" },
+                    { step: "02", label: "Investor Outreach", desc: "Warm intros, pitch events, accelerators" },
+                    { step: "03", label: "Due Diligence", desc: "Financials, legal, IP, team background" },
+                    { step: "04", label: "Term Sheet", desc: "Valuation, equity %, board seats, rights" },
+                    { step: "05", label: "Close &amp; Deploy", desc: "Legal completion, capital deployment" },
+                  ].map((s) => (
+                    <div key={s.step} className="flex items-start gap-3">
+                      <span className="text-[10px] font-bold text-slate-400 mt-0.5">{s.step}</span>
+                      <div>
+                        <p className="text-xs font-bold text-secondary" dangerouslySetInnerHTML={{ __html: s.label }} />
+                        <p className="text-[11px] text-slate/70">{s.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* How grant evidence feeds VC */}
+            <div className="p-4 rounded-xl border border-mist bg-white">
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate/50 mb-2">
+                How Grant Evidence Feeds the Investor Case
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
+                {[
+                  { grant: "NARO yield data (+17\u201348%)", investor: "Market validation" },
+                  { grant: "Farmer income improvement", investor: "Unit economics proof" },
+                  { grant: "5,000 ha operational", investor: "Scalability evidence" },
+                ].map((item) => (
+                  <div key={item.grant} className="flex items-center gap-2 text-xs">
+                    <span className="text-slate">{item.grant}</span>
+                    <span className="text-primary font-bold">&rarr;</span>
+                    <span className="font-medium text-secondary">{item.investor}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Placeholder for Keir input */}
+            <div className="p-5 rounded-xl border-2 border-dashed border-amber-200 bg-amber-50/50">
+              <h4 className="text-xs font-bold text-amber-800 mb-2">For Discussion: Keir&rsquo;s Seed Funding Approach</h4>
+              <p className="text-xs text-amber-700 leading-relaxed mb-3">
+                Keir and Scott are actively exploring seed funding. To align the grant and equity tracks,
+                it would be helpful to capture:
+              </p>
+              <ul className="space-y-1 text-xs text-amber-700">
+                <li>&bull; Target raise amount and timeline</li>
+                <li>&bull; Investor profile (impact, ag-tech, climate, generalist?)</li>
+                <li>&bull; Current conversations and warm connections</li>
+                <li>&bull; How grant milestones map to investor triggers</li>
+                <li>&bull; Entity structure for investment (USA Inc. or new vehicle?)</li>
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {/* ── Tab: Impact Investing ───────────────────────── */}
+        {activePathway === "impact" && (
+          <div className="space-y-6">
+            <div className="p-4 rounded-xl bg-parchment/40 border border-mist">
+              <h3 className="text-sm font-bold text-secondary mb-1">Impact Investing</h3>
+              <p className="text-xs text-slate leading-relaxed">
+                Capital seeking measurable social and environmental impact alongside financial return.
+                HISAGEN&rsquo;s dual mission (farmer livelihoods + climate adaptation) aligns strongly
+                with impact mandates.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Relevant funders from pipeline */}
+              <div className="rounded-xl border border-mist bg-white p-5">
+                <h4 className="text-xs font-bold text-secondary uppercase tracking-widest mb-3">
+                  Pipeline Opportunities (Tier 2)
+                </h4>
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-sm font-bold text-secondary">Mulago Foundation</p>
+                    <p className="text-xs text-primary font-medium mb-1">$100K fellowship + potential $340K portfolio</p>
+                    <p className="text-[11px] text-slate leading-relaxed">
+                      Referral-sourced only (no direct applications). Aug&ndash;Oct cycle.
+                      ~60% of fellows convert to long-term portfolio. Excellent fit for HISAGEN&rsquo;s
+                      profile but requires network building.
+                    </p>
+                  </div>
+                  <div className="border-t border-mist pt-4">
+                    <p className="text-sm font-bold text-secondary">Rockefeller Foundation Innovation Lab</p>
+                    <p className="text-xs text-primary font-medium mb-1">$100K first round, follow-on to $2.5M</p>
+                    <p className="text-[11px] text-slate leading-relaxed">
+                      Food security innovation focus. Q3 2026 expected opening. Strong growth
+                      ladder if initial funding secured.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Typical impact investing process */}
+              <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/50 p-5">
+                <h4 className="text-xs font-bold text-slate-500 mb-2">Typical Impact Investment Process</h4>
+                <div className="space-y-3">
+                  {[
+                    { step: "01", label: "Impact Thesis Alignment", desc: "Does the fund's theory of change match HISAGEN's?" },
+                    { step: "02", label: "Expression of Interest", desc: "Impact framework, financial model, team" },
+                    { step: "03", label: "Impact Due Diligence", desc: "Impact measurement plan, SDG alignment, additionality" },
+                    { step: "04", label: "Financial Due Diligence", desc: "Revenue model, unit economics, projections" },
+                    { step: "05", label: "Investment Committee", desc: "Both impact and financial case reviewed" },
+                  ].map((s) => (
+                    <div key={s.step} className="flex items-start gap-3">
+                      <span className="text-[10px] font-bold text-slate-400 mt-0.5">{s.step}</span>
+                      <div>
+                        <p className="text-xs font-bold text-secondary">{s.label}</p>
+                        <p className="text-[11px] text-slate/70">{s.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-xl border border-mist bg-white">
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate/50 mb-2">
+                HISAGEN&rsquo;s Impact Alignment
+              </p>
+              <div className="flex flex-wrap gap-3 mt-2">
+                {["SDG 1: No Poverty", "SDG 2: Zero Hunger", "SDG 13: Climate Action", "SDG 15: Life on Land"].map((sdg) => (
+                  <span key={sdg} className="text-xs px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700">
+                    {sdg}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Tab: Blended Finance ────────────────────────── */}
+        {activePathway === "blended" && (
+          <div className="space-y-6">
+            <div className="p-4 rounded-xl bg-parchment/40 border border-mist">
+              <h3 className="text-sm font-bold text-secondary mb-1">Blended Finance</h3>
+              <p className="text-xs text-slate leading-relaxed">
+                Structures combining concessional and commercial capital to de-risk investment and
+                mobilise private capital at scale. Becomes viable once HISAGEN has a track record
+                that enables layered financing.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="rounded-xl border border-mist bg-white p-5">
+                <h4 className="text-xs font-bold text-secondary uppercase tracking-widest mb-3">
+                  Pipeline Opportunity (Tier 2)
+                </h4>
+                <p className="text-sm font-bold text-secondary">Climate Finance Lab</p>
+                <p className="text-xs text-primary font-medium mb-1">$150,000 &ndash; $250,000 (milestone-based)</p>
+                <p className="text-[11px] text-slate leading-relaxed mb-3">
+                  Viable if bio-fertilizer distribution is structured as an investable financial
+                  instrument with carbon credit upside. Requires blended finance mechanism framing,
+                  not a standard project grant application.
+                </p>
+                <div className="p-3 rounded-lg bg-amber-50 border border-amber-100">
+                  <p className="text-[10px] text-amber-800">
+                    <strong>Key barrier:</strong> Requires financial instrument framing &mdash;
+                    this is a stretch at Stage 1 but becomes natural at Stage 2 when commercial
+                    revenue streams are established.
+                  </p>
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/50 p-5">
+                <h4 className="text-xs font-bold text-slate-500 mb-2">How Blended Finance Works</h4>
+                <div className="space-y-4">
+                  {[
+                    { layer: "First-Loss Capital", source: "Grants / DFIs", role: "Absorbs initial risk, protecting other investors" },
+                    { layer: "Concessional Debt", source: "Development banks", role: "Below-market rate, patient capital" },
+                    { layer: "Commercial Capital", source: "Private investors", role: "Market-rate return, de-risked by layers above" },
+                  ].map((l) => (
+                    <div key={l.layer} className="p-3 rounded-lg bg-white border border-slate-100">
+                      <p className="text-xs font-bold text-secondary">{l.layer}</p>
+                      <p className="text-[10px] text-primary font-medium">{l.source}</p>
+                      <p className="text-[11px] text-slate/70 mt-1">{l.role}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-xl border border-mist bg-white">
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate/50 mb-2">
+                Readiness Triggers
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {["Proven revenue model", "Measurable impact data", "3+ year track record", "Multiple capital sources engaged"].map((trigger) => (
+                  <span key={trigger} className="text-xs px-3 py-1.5 rounded-full bg-parchment border border-mist text-slate">
+                    {trigger}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* ── STRUCTURAL ADVANTAGES ───────────────────────────── */}

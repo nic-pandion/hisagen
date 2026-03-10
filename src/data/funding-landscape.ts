@@ -213,15 +213,15 @@ const allFundersRaw: CuratedFunder[] = [
     grantMin: 300000,
     grantMax: 3000000,
     currency: "USD",
-    deadlineNote: "Pipeline-driven. No open application. ARAF II ($120M) just began deploying — timing favourable.",
+    deadlineNote: "Pipeline-driven. No open application. Fund is 84% disbursed — limited remaining capital but runs until 2030.",
     applyVia: "HISAGEN Africa Ltd (East Africa focus)",
     whyStrongFit:
-      "GCF-backed fund ($58M Fund I, $120M Fund II approved Oct 2024) explicitly targeting for-profit early-stage agribusinesses building climate resilience in East Africa. Patient capital (5-10 year). 11 portfolio companies include Ugandan agribusinesses. Verified: Uganda explicitly included, for-profit by design.",
-    process: "Pipeline-driven \u2014 no open application. Contact investment team directly (arafund.com/investment-team). ARAF II entering deployment phase 2025-2026.",
-    consideration: "This is equity investment, not a grant. ARAF takes minority equity stake. Minimum $300K \u2014 HISAGEN needs to demonstrate capacity to deploy this capital productively.",
+      "GCF-backed $58M fund targeting for-profit early-stage agribusinesses building climate resilience in East Africa. Patient capital (5-10 year). 11 portfolio companies include Ugandan agribusinesses (Uzima Chicken). Uganda explicitly included, for-profit by design.",
+    process: "Pipeline-driven \u2014 no open application. Contact investment team directly. GCF project page: greenclimate.fund/project/fp078.",
+    consideration: "This is equity investment, not a grant. ARAF takes minority equity stake. Fund is 84% disbursed (GCF data) \u2014 most capital already deployed. Still worth exploring for remaining allocation or follow-on opportunities. No evidence of a second fund.",
     url: "https://arafund.com/",
     eligibility: "eligible",
-    eligibilityNote: "Verified: for-profit agribusinesses in Uganda explicitly eligible. Equity investment (not grant). ARAF II just started deploying \u2014 actively sourcing deals.",
+    eligibilityNote: "Verified: for-profit agribusinesses in Uganda explicitly eligible. Equity investment (not grant). Fund 84% disbursed \u2014 limited remaining capital.",
     score: 4.35,
   },
   {
@@ -500,7 +500,7 @@ export const applicationTimeline: TimelineEntry[] = [
   // IMMEDIATE (Mar 2026)
   {
     when: "Mar 2026",
-    what: "Contact Acumen East Africa investment team (ARAF II actively sourcing)",
+    what: "Contact Acumen East Africa investment team (explore remaining ARAF allocation)",
     funder: "Acumen/ARAF",
     funderId: "acumen-araf",
     urgency: "urgent",
@@ -593,8 +593,8 @@ export const strategicRecommendations: StrategicRecommendation[] = [
     id: "for-profit-capital",
     title: "Pursue Verified For-Profit-Friendly Capital (Active)",
     description:
-      "Venture philanthropy (DRK Foundation, Echoing Green), impact funds (Acumen/ARAF), and the new DIV Fund form the core pipeline. All verified against primary sources. DRK and ARAF are the strongest immediate opportunities.",
-    impact: "Verified pipeline: 3 Tier 1 + 3 Tier 2 eligible, 3 conditional. $400K-$3.6M potential. ARAF and DRK actionable now.",
+      "Venture philanthropy (DRK Foundation, Echoing Green), impact funds (Acumen/ARAF), and the new DIV Fund form the core pipeline. All verified against primary sources. DRK is the strongest immediate opportunity (rolling applications, direct precedent). ARAF worth exploring but 84% disbursed.",
+    impact: "Verified pipeline: 3 Tier 1 + 3 Tier 2 eligible, 3 conditional. $400K-$3.6M potential. DRK actionable now.",
   },
   {
     id: "partner-led",
@@ -619,9 +619,9 @@ export const strategicRecommendations: StrategicRecommendation[] = [
 export const keirActionItems: KeirAction[] = [
   {
     id: "acumen-outreach",
-    action: "Contact Acumen East Africa investment team \u2014 ARAF II ($120M) just started deploying. Pipeline-driven, no open application. Direct outreach required.",
+    action: "Contact Acumen East Africa investment team \u2014 explore remaining ARAF allocation ($58M fund, 84% disbursed, runs to 2030). Pipeline-driven, no open application. Direct outreach required.",
     funder: "Acumen/ARAF",
-    byWhen: "This week",
+    byWhen: "This month",
     status: "not-started",
   },
   {

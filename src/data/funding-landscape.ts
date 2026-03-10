@@ -1,7 +1,8 @@
 // HISAGEN Funding Landscape Data
 // Source of truth: content/funding/grant-landscape.md
-// 12 curated funders (6 Tier 1, 6 Tier 2) from 40+ researched
-// Last synced: 2026-03-09
+// 11 curated grant funders (5 Tier 1, 6 Tier 2) from 40+ researched
+// CFC removed from Tier 1 — concessional debt (Stage 2 capital), not grants
+// Last synced: 2026-03-10
 
 export type FunderTier = "tier1" | "tier2";
 export type FunderCategory =
@@ -75,23 +76,9 @@ export const tier1Funders: CuratedFunder[] = [
       "Innovation in climate adaptation is the exact mandate. Designed to generate evidence for scaling. 44 grants in 33 countries. Open to entrepreneurs and young innovators.",
     process: "Through UNDP Uganda country office.",
   },
-  {
-    id: "cfc",
-    name: "Common Fund for Commodities",
-    shortName: "CFC",
-    tier: "tier1",
-    category: "agricultural-food",
-    grantRange: "$300,000 - $2,000,000",
-    grantMin: 300000,
-    grantMax: 2000000,
-    currency: "USD",
-    deadline: "~April 30, 2026",
-    deadlineNote: "Rolling quarterly batch",
-    applyVia: "HISAGEN Africa Ltd",
-    whyStrongFit:
-      "CFC 2025 Annual Report lists bio-fertilizer pilots in Kenya/Uganda in their pipeline \u2014 direct signal of interest. LDCs prioritised. Mix of grants and soft loans.",
-    process: "Pre-proposal via CFC online portal.",
-  },
+  // CFC removed — concessional debt instrument (loans, not grants), requires 3+ year
+  // track record and audited financials. Stage 2 capital per Capital Continuum.
+  // Retained in content/funding/ as Stage 2 pipeline opportunity.
   {
     id: "aaap-gca",
     name: "AAAP (Africa Adaptation Acceleration Program)",
@@ -258,13 +245,7 @@ export const getFundersByCategory = (category: FunderCategory): CuratedFunder[] 
 // ─────────────────────────────────────────────────────────────
 
 export const applicationTimeline: TimelineEntry[] = [
-  {
-    when: "Mar 2026",
-    what: "Submit pre-proposal",
-    funder: "Common Fund for Commodities",
-    funderId: "cfc",
-    urgency: "urgent",
-  },
+  // CFC removed from timeline — concessional debt, not grant pipeline
   {
     when: "Mar 2026",
     what: "Contact UNDP Uganda",
@@ -315,12 +296,12 @@ export const applicationTimeline: TimelineEntry[] = [
 
 export const landscapeStats = {
   totalResearched: 40,
-  totalShortlisted: 12,
-  tier1Count: 6,
+  totalShortlisted: 11,
+  tier1Count: 5,
   tier2Count: 6,
-  tier1PipelineValue: "$475K - $7.6M",
+  tier1PipelineValue: "$175K - $5.6M",
   tier2PipelineValue: "$195K - $2.1M",
-  totalPipelineValue: "$670K - $9.7M",
+  totalPipelineValue: "$370K - $7.7M",
   categories: [
     "Climate Adaptation Funds",
     "Agricultural & Food Security Foundations",

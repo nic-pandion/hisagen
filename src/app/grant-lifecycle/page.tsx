@@ -18,7 +18,7 @@ const phases = [
     description: "Identify and score potential funders by fit, eligibility, size, and timeline.",
     purpose: "Builds a prioritized pipeline of funding opportunities matched to project needs.",
     keyOutputs: ["Funder Database", "Tiered Priority List", "Deadline Calendar"],
-    operationalLink: { label: "Funder Landscape Tool", href: "/stage-1/funding/funder-landscape" },
+    operationalLink: { label: "Capital Strategy", href: "/funding-roadmap" },
   },
   {
     number: "03",
@@ -27,7 +27,7 @@ const phases = [
     description: "Build relationships with target funders through warm intros and structured outreach.",
     purpose: "Warms the relationship before formal application, increasing success probability.",
     keyOutputs: ["Contact Registry", "Engagement History", "Relationship Map"],
-    operationalLink: { label: "Opportunities Tracker", href: "/stage-1/funding/opportunities" },
+    operationalLink: { label: "Capital Strategy", href: "/funding-roadmap" },
   },
   {
     number: "04",
@@ -36,7 +36,7 @@ const phases = [
     description: "Verify eligibility, build compliance matrices, and establish go/no-go criteria.",
     purpose: "Prevents wasted effort on ineligible or misaligned opportunities.",
     keyOutputs: ["Eligibility Checklist", "Compliance Matrix", "Go/No-Go Gate"],
-    operationalLink: { label: "Opportunities Tracker", href: "/stage-1/funding/opportunities" },
+    operationalLink: { label: "Capital Strategy", href: "/funding-roadmap" },
   },
   {
     number: "05",
@@ -45,7 +45,7 @@ const phases = [
     description: "Develop and submit proposals following funder requirements and best practices.",
     purpose: "Converts opportunity into formal submission with compelling narrative and budget.",
     keyOutputs: ["Proposal Document", "Budget & Narrative", "Supporting Evidence"],
-    operationalLink: { label: "Opportunities Tracker", href: "/stage-1/funding/opportunities" },
+    operationalLink: { label: "Capital Strategy", href: "/funding-roadmap" },
   },
   {
     number: "06",
@@ -54,7 +54,7 @@ const phases = [
     description: "Negotiate terms, sign agreements, and transition from pursuit to delivery.",
     purpose: "Bridges pre-award and post-award phases with clear handover.",
     keyOutputs: ["Signed Contract", "Handover Checklist", "Project Record Creation"],
-    operationalLink: { label: "Opportunities Tracker", href: "/stage-1/funding/opportunities" },
+    operationalLink: { label: "Capital Strategy", href: "/funding-roadmap" },
   },
   {
     number: "07",
@@ -385,7 +385,7 @@ export default function GrantLifecycleFrameworkPage() {
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           <Link
-            href="/stage-1/funding/opportunities"
+            href="/funding-roadmap"
             className="p-5 rounded-xl bg-white/10 border border-white/20 hover:bg-white/20 transition-colors group"
           >
             <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-300 mb-2">Phases 02-06</p>

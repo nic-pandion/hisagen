@@ -143,7 +143,7 @@ export default function ProjectPage() {
               <p className="text-sm font-bold text-primary">{project.owner}</p>
             </div>
             <Link
-              href={`/stage-1/funding/opportunities/sample-climate-foundation-won`}
+              href={`/funding-roadmap/sample-climate-foundation-won`}
               className="text-xs text-primary hover:underline"
             >
               View Source Opportunity →
@@ -732,7 +732,7 @@ export default function ProjectPage() {
             ← All Projects
           </Link>
           <Link
-            href="/stage-1/funding/opportunities"
+            href="/funding-roadmap"
             className="px-6 py-3 rounded-lg border border-mist bg-white hover:border-secondary/30 transition-colors text-sm font-medium text-secondary"
           >
             Opportunities

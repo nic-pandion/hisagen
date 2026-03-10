@@ -24,7 +24,7 @@ const routeLabels: Record<string, string> = {
   "stage-3": "Stage 3: Stabilization",
   "stage-4": "Stage 4: Maturity",
   "funding": "Funding",
-  "funding-roadmap": "Funding Roadmap",
+  "funding-roadmap": "Capital Strategy",
   "funder-landscape": "Funder Landscape",
   "opportunities": "Pipeline Tracker",
   "v0-grant-proposal": "Grant Proposal",
@@ -109,13 +109,11 @@ const navSections: NavSection[] = [
   {
     label: "Funding",
     href: "/funding-roadmap",
-    flyoutColumns: ["Capital Strategy", "Grant Pipeline", "Proposals & Methodology"],
+    flyoutColumns: ["Capital Strategy", "Proposals & Methodology"],
     items: [
-      { name: "Funding Roadmap", href: "/funding-roadmap", icon: "/icons/icon-circular-arrows.png", description: "Full capital strategy", column: "Capital Strategy" },
+      { name: "Capital Strategy", href: "/funding-roadmap", icon: "/icons/icon-circular-arrows.png", description: "Two tracks, 6-phase grant journey", column: "Capital Strategy" },
       { name: "Capital Continuum", href: "/capital-continuum", icon: "/icons/icon-circular-arrows.png", description: "4-stage framework", column: "Capital Strategy" },
-      { name: "Funder Landscape", href: "/stage-1/funding/funder-landscape", icon: "/icons/icon-green-hands.png", description: "12 curated funders", column: "Grant Pipeline" },
-      { name: "Pipeline Tracker", href: "/stage-1/funding/opportunities", icon: "/icons/icon-graph.png", description: "Active opportunities", column: "Grant Pipeline" },
-      { name: "Grant Lifecycle", href: "/grant-lifecycle", icon: "/icons/icon-graph.png", description: "11-phase methodology", column: "Grant Pipeline" },
+      { name: "Grant Lifecycle", href: "/grant-lifecycle", icon: "/icons/icon-graph.png", description: "12-phase delivery methodology", column: "Capital Strategy" },
       { name: "Concept Note", href: "/stage-1/funding/v0-concept-note", icon: "/icons/icon-certificate.png", description: "1-page elevator pitch", column: "Proposals & Methodology" },
       { name: "Grant Proposal (V1)", href: "/stage-1/funding/v0-grant-proposal", icon: "/icons/icon-certificate.png", description: "Full proposal + evidence", column: "Proposals & Methodology" },
     ],
@@ -197,7 +195,7 @@ function NavFlyout({
 
   return (
     <div
-      className="relative"
+      className={section.flyoutColumns ? "" : "relative"}
       onMouseEnter={open}
       onMouseLeave={close}
     >
@@ -225,12 +223,12 @@ function NavFlyout({
       {isOpen && section.flyoutColumns ? (
         /* ── Wide grouped flyout (e.g., Funding) ── */
         <div
-          className="fixed left-1/2 -translate-x-1/2 top-[52px] z-50 pt-2 w-full max-w-5xl px-4"
+          className="absolute inset-x-0 top-full z-50 pt-2 px-4"
           onMouseEnter={open}
           onMouseLeave={close}
         >
           <div className="rounded-xl border border-mist bg-white py-5 px-6 shadow-xl shadow-secondary/5">
-            <div className="grid grid-cols-3 gap-6">
+            <div className={`grid gap-6 ${section.flyoutColumns.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
               {section.flyoutColumns.map((colName) => {
                 const colItems = section.items.filter((i) => i.column === colName);
                 return (
@@ -374,7 +372,7 @@ export default function NavEnhanced() {
 
   return (
     <header className="relative z-50 mx-auto mb-10 bg-secondary">
-      <nav className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 py-3 px-4">
+      <nav className="relative mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 py-3 px-4">
         {/* Logo */}
         <div className="flex items-center gap-3">
           <Link
@@ -405,7 +403,7 @@ export default function NavEnhanced() {
               key={section.label}
               section={section}
               isActive={activeSection === section.label}
-              alignRight={idx >= navSections.length - 2}
+              alignRight={idx >= navSections.length - 3}
             />
           ))}
         </div>

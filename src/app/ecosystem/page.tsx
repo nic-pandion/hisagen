@@ -329,8 +329,8 @@ export default function EcosystemPage() {
           </div>
           <p className="text-sm text-amber-900">
             For <strong>contribution scenarios, value capture, and commercial relationships</strong> between partners,
-            see the <Link href="/stage-1/funding/funder-landscape" className="underline hover:text-amber-700">Partner Contribution Scenarios</Link> section
-            on the Funder Landscape page.
+            see the <Link href="/funding-roadmap" className="underline hover:text-amber-700">Capital Strategy</Link> page
+            for funding landscape and partner positioning.
           </p>
         </div>
       </section>

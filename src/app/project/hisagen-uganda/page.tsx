@@ -1486,7 +1486,7 @@ export default function PilotPage() {
           </Link>
 
           <Link
-            href="/stage-1/funding/funder-landscape"
+            href="/funding-roadmap"
             className="p-6 rounded-xl border-2 border-primary/20 bg-primary/5 hover:border-primary hover:shadow-lg transition-all group"
           >
             <div className="flex items-center gap-3 mb-3">
@@ -1502,7 +1502,7 @@ export default function PilotPage() {
           </Link>
 
           <Link
-            href="/stage-1/funding/opportunities"
+            href="/funding-roadmap"
             className="p-6 rounded-xl border-2 border-emerald-500/20 bg-emerald-50 hover:border-emerald-500 hover:shadow-lg transition-all group"
           >
             <div className="flex items-center gap-3 mb-3">

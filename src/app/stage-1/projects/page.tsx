@@ -78,7 +78,7 @@ export default function ProjectsPage() {
             </p>
           </div>
           <Link
-            href="/stage-1/funding/opportunities"
+            href="/funding-roadmap"
             className="px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary/90 transition-colors text-center"
           >
             View Opportunities →
@@ -168,7 +168,7 @@ export default function ProjectsPage() {
               Projects are created when opportunities are won and handed over.
             </p>
             <Link
-              href="/stage-1/funding/opportunities"
+              href="/funding-roadmap"
               className="text-primary hover:underline text-sm"
             >
               View active opportunities →
@@ -261,13 +261,13 @@ export default function ProjectsPage() {
       <section className="mt-8 mb-20">
         <div className="flex flex-wrap gap-4">
           <Link
-            href="/stage-1/funding/opportunities"
+            href="/funding-roadmap"
             className="px-6 py-3 rounded-lg border border-mist bg-white hover:border-secondary/30 transition-colors text-sm font-medium text-secondary"
           >
             ← Back to Opportunities
           </Link>
           <Link
-            href="/stage-1/funding/funder-landscape"
+            href="/funding-roadmap"
             className="px-6 py-3 rounded-lg border border-mist bg-white hover:border-secondary/30 transition-colors text-sm font-medium text-secondary"
           >
             Funder Landscape

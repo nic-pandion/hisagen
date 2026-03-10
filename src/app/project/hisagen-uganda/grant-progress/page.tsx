@@ -58,7 +58,7 @@ const phases: Phase[] = [
       "Keir network warm intro map",
     ],
     nextStep: "Continue funder research and warm intro identification.",
-    operationalLink: { label: "Funder Landscape", href: "/stage-1/funding/funder-landscape" },
+    operationalLink: { label: "Capital Strategy", href: "/funding-roadmap" },
   },
   {
     number: "03",
@@ -76,7 +76,7 @@ const phases: Phase[] = [
       "Engagement cadence",
     ],
     nextStep: "Build relationship plan and decide who approaches which contacts.",
-    operationalLink: { label: "Opportunities", href: "/stage-1/funding/opportunities" },
+    operationalLink: { label: "Capital Strategy", href: "/funding-roadmap" },
   },
   {
     number: "04",
@@ -93,7 +93,7 @@ const phases: Phase[] = [
       "Complete eligibility checks for all active opportunities",
     ],
     nextStep: "Complete due diligence checklists for priority opportunities.",
-    operationalLink: { label: "Opportunities", href: "/stage-1/funding/opportunities" },
+    operationalLink: { label: "Capital Strategy", href: "/funding-roadmap" },
     keyDocs: [
       { label: "Due Diligence Sign-offs", href: "#", type: "placeholder" },
     ],
@@ -116,7 +116,7 @@ const phases: Phase[] = [
       "Evidence inserts",
     ],
     nextStep: "Apply proposal framework rigorously for active submissions.",
-    operationalLink: { label: "Opportunities", href: "/stage-1/funding/opportunities" },
+    operationalLink: { label: "Capital Strategy", href: "/funding-roadmap" },
     keyDocs: [
       { label: "Concept Note", href: "/stage-1/funding/v0-concept-note", type: "internal" },
       { label: "Base Proposal (v0)", href: "/stage-1/funding/v0-grant-proposal", type: "internal" },
@@ -137,7 +137,7 @@ const phases: Phase[] = [
       "Contract negotiation playbook",
     ],
     nextStep: "Prepare award pack template for first successful opportunity.",
-    operationalLink: { label: "Opportunities", href: "/stage-1/funding/opportunities" },
+    operationalLink: { label: "Capital Strategy", href: "/funding-roadmap" },
     keyDocs: [
       { label: "Grant Contracts", href: "#", type: "placeholder" },
       { label: "Award Pack", href: "#", type: "placeholder" },
@@ -470,7 +470,7 @@ export default function UgandaPilotGrantProgressPage() {
           </Link>
 
           <Link
-            href="/stage-1/funding/opportunities"
+            href="/funding-roadmap"
             className="group p-6 rounded-xl border border-mist bg-white hover:border-secondary/30 hover:shadow-md transition-all"
           >
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-600 mb-2">Pre-Award</p>

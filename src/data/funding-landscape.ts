@@ -65,15 +65,13 @@ export type CostToCompany =
   | "mixed";
 
 export type PipelineStatus =
-  | "not-started"
-  | "researching"
-  | "preparing"
-  | "submitted"
-  | "in-review"
-  | "shortlisted"
-  | "awarded"
-  | "rejected"
-  | "on-hold";
+  | "prospect"
+  | "qualification"
+  | "relationship"
+  | "application"
+  | "due-diligence"
+  | "closed-won"
+  | "closed-lost";
 
 export interface CuratedFunder {
   id: string;
@@ -153,7 +151,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "grants",
     fundingMechanism: "grant",
     costToCompany: "non-dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "$25,000 - $50,000",
     grantMin: 25000,
     grantMax: 50000,
@@ -179,7 +177,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "grants",
     fundingMechanism: "programme-grant",
     costToCompany: "non-dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "Up to $250,000",
     grantMax: 250000,
     currency: "USD",
@@ -203,7 +201,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "grants",
     fundingMechanism: "programme-grant",
     costToCompany: "non-dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "Up to $30,000 (YouthADAPT)",
     grantMax: 30000,
     currency: "USD",
@@ -229,7 +227,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "grants",
     fundingMechanism: "recoverable-grant",
     costToCompany: "conditionally-repayable",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "$100,000 (unrestricted) + 18 months support",
     grantMin: 100000,
     grantMax: 100000,
@@ -256,7 +254,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "grants",
     fundingMechanism: "programme-grant",
     costToCompany: "non-dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "Variable (via Calls for Proposals)",
     currency: "USD",
     deadlineNote: "Monitor for CFP",
@@ -280,7 +278,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "debt",
     fundingMechanism: "reimbursable-grant",
     costToCompany: "repayable",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "UGX 20M-80M reimbursable grant (~$5K-$21K) + UGX 20M-40M TA grant (~$5K-$11K)",
     grantMin: 5000,
     grantMax: 21000,
@@ -308,7 +306,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "equity",
     fundingMechanism: "equity",
     costToCompany: "dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "$300,000 - $3,000,000 (equity/quasi-equity)",
     grantMin: 300000,
     grantMax: 3000000,
@@ -335,7 +333,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "grants",
     fundingMechanism: "grant",
     costToCompany: "non-dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "$25,000 - $200,000 (Stage 1 Pilot)",
     grantMin: 25000,
     grantMax: 200000,
@@ -362,7 +360,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "grants",
     fundingMechanism: "equity",
     costToCompany: "dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "Up to $300,000 over 3 years + $500K in-kind support",
     grantMin: 100000,
     grantMax: 300000,
@@ -394,7 +392,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "grants",
     fundingMechanism: "prize",
     costToCompany: "non-dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "$50,000 (1st place), $10,000 (2nd), $5,000 (3rd)",
     grantMin: 5000,
     grantMax: 50000,
@@ -422,7 +420,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "impact",
     fundingMechanism: "fellowship",
     costToCompany: "non-dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "$100K fellowship, potential $340K portfolio",
     grantMin: 100000,
     grantMax: 340000,
@@ -447,7 +445,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "impact",
     fundingMechanism: "design-grant",
     costToCompany: "non-dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "$100K first round, follow-on to $2.5M",
     grantMin: 100000,
     grantMax: 2500000,
@@ -471,7 +469,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "grants",
     fundingMechanism: "programme-grant",
     costToCompany: "non-dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "Up to $1.5M",
     grantMax: 1500000,
     currency: "USD",
@@ -496,7 +494,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "grants",
     fundingMechanism: "grant",
     costToCompany: "non-dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "Up to $100,000 (equity-free)",
     grantMin: 10000,
     grantMax: 100000,
@@ -524,7 +522,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "grants",
     fundingMechanism: "prize",
     costToCompany: "non-dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "\u20AC100,000 grand prize (equity-free)",
     grantMin: 0,
     grantMax: 100000,
@@ -554,7 +552,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "equity",
     fundingMechanism: "equity",
     costToCompany: "dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "\u20AC150,000 - \u20AC500,000",
     grantMin: 150000,
     grantMax: 500000,
@@ -582,7 +580,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "grants",
     fundingMechanism: "prize",
     costToCompany: "non-dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "$50,000 grand prize + $60,000 impact awards",
     grantMin: 10000,
     grantMax: 50000,
@@ -608,7 +606,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "equity",
     fundingMechanism: "equity",
     costToCompany: "dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "$100,000 - $500,000 (patient equity or convertible notes)",
     grantMin: 100000,
     grantMax: 500000,
@@ -634,7 +632,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "blended",
     fundingMechanism: "blended",
     costToCompany: "mixed",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "EUR 500,000 - 2,500,000 (grant) + equity",
     grantMin: 500000,
     grantMax: 2500000,
@@ -660,7 +658,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "grants",
     fundingMechanism: "grant",
     costToCompany: "non-dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "$20,000 - $30,000",
     grantMin: 20000,
     grantMax: 30000,
@@ -684,7 +682,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "blended",
     fundingMechanism: "design-grant",
     costToCompany: "non-dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "$150,000 - $250,000 (milestone-based)",
     grantMin: 150000,
     grantMax: 250000,
@@ -708,7 +706,7 @@ const allFundersRaw: CuratedFunder[] = [
     capitalSource: "grants",
     fundingMechanism: "grant",
     costToCompany: "non-dilutive",
-    pipelineStatus: "not-started",
+    pipelineStatus: "qualification",
     grantRange: "GBP 5,000/year for up to 3 years",
     grantMin: 5000,
     grantMax: 15000,
@@ -788,15 +786,13 @@ export const costToCompanyLabels: Record<CostToCompany, string> = {
 };
 
 export const pipelineStatusLabels: Record<PipelineStatus, string> = {
-  "not-started": "Not Started",
-  "researching": "Researching",
-  "preparing": "Preparing",
-  "submitted": "Submitted",
-  "in-review": "In Review",
-  "shortlisted": "Shortlisted",
-  "awarded": "Awarded",
-  "rejected": "Rejected",
-  "on-hold": "On Hold",
+  "prospect": "1 — Prospect",
+  "qualification": "2 — Qualification",
+  "relationship": "3 — Relationship",
+  "application": "4 — Application",
+  "due-diligence": "5 — Due Diligence",
+  "closed-won": "6 — Closed (Won)",
+  "closed-lost": "6 — Closed (Lost)",
 };
 
 // ─────────────────────────────────────────────────────────────

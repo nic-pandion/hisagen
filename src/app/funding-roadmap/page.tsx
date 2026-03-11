@@ -522,15 +522,13 @@ const eligibilityOrder: Record<EligibilityStatus, number> = {
 };
 
 const pipelineStatusBadge: Record<PipelineStatus, { label: string; className: string }> = {
-  "not-started": { label: "Not Started", className: "bg-slate-100 text-slate-500" },
-  "researching": { label: "Researching", className: "bg-blue-100 text-blue-700" },
-  "preparing": { label: "Preparing", className: "bg-amber-100 text-amber-700" },
-  "submitted": { label: "Submitted", className: "bg-primary/10 text-primary" },
-  "in-review": { label: "In Review", className: "bg-purple-100 text-purple-700" },
-  "shortlisted": { label: "Shortlisted", className: "bg-emerald-100 text-emerald-700" },
-  "awarded": { label: "Awarded", className: "bg-emerald-200 text-emerald-800" },
-  "rejected": { label: "Rejected", className: "bg-red-100 text-red-600" },
-  "on-hold": { label: "On Hold", className: "bg-slate-200 text-slate-600" },
+  "prospect": { label: "1 — Prospect", className: "bg-slate-100 text-slate-500" },
+  "qualification": { label: "2 — Qualified", className: "bg-blue-100 text-blue-700" },
+  "relationship": { label: "3 — Relationship", className: "bg-amber-100 text-amber-700" },
+  "application": { label: "4 — Application", className: "bg-primary/10 text-primary" },
+  "due-diligence": { label: "5 — Due Diligence", className: "bg-purple-100 text-purple-700" },
+  "closed-won": { label: "6 — Won", className: "bg-emerald-200 text-emerald-800" },
+  "closed-lost": { label: "6 — Lost", className: "bg-red-100 text-red-600" },
 };
 
 const capitalSourceShort: Record<CapitalSource, string> = {
@@ -804,7 +802,7 @@ function PipelineOverview() {
                         Deadline <SortIcon col="deadline" />
                       </th>
                       <th className="text-center px-2 py-2.5 font-bold text-secondary uppercase tracking-widest text-[10px] whitespace-nowrap">
-                        Status
+                        Pipeline Stage
                       </th>
                     </tr>
                   </thead>
@@ -1017,6 +1015,18 @@ const glossarySections = [
       { term: "Conditional", definition: "Potentially eligible but with specific conditions that must be met first \u2014 e.g. founder age requirement, need for an EU entity, or programme not yet accepting applications." },
       { term: "Ineligible", definition: "The funder only accepts nonprofit/NGO/CSO applicants. HISAGEN cannot apply as either entity (USA Inc. or Africa Ltd). Retained in the pipeline as research record." },
       { term: "Deprioritised", definition: "Technically eligible but strategically misaligned at HISAGEN\u2019s current stage. May become relevant later as the company matures or pivots." },
+    ],
+  },
+  {
+    title: "Pipeline Stages",
+    description: "Where each funder sits in our engagement journey",
+    terms: [
+      { term: "1 \u2014 Prospect", definition: "Initial fit identified through landscape research. The funder has been found but not yet assessed against HISAGEN\u2019s specific eligibility criteria." },
+      { term: "2 \u2014 Qualification", definition: "Eligibility verified against official programme documentation. We know whether HISAGEN can apply, what the requirements are, and what the timeline looks like." },
+      { term: "3 \u2014 Relationship", definition: "Contact established with the funder or intermediary. Introductory conversations, referral pathways activated, or programme officer engaged." },
+      { term: "4 \u2014 Application", definition: "Proposal or application submitted. Includes concept notes, full proposals, fellowship applications, or accelerator programme entries." },
+      { term: "5 \u2014 Due Diligence", definition: "Funder evaluation phase. The application is under review, additional information may be requested, site visits or interviews may occur." },
+      { term: "6 \u2014 Closed (Won/Lost)", definition: "Final outcome. Funded (awarded, terms agreed) or rejected. Either way, the engagement is complete for this cycle." },
     ],
   },
 ];
@@ -1398,8 +1408,8 @@ export default function CapitalStrategyPage() {
           </div>
         </div>
 
-        {/* Programme Revenue Model + Evidence Flow */}
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Programme Revenue Model + Evidence Flow + Social & Environmental Benefits */}
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="p-4 rounded-xl bg-parchment border border-mist">
             <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate/50 mb-2">
               Programme Revenue Model
@@ -1420,8 +1430,24 @@ export default function CapitalStrategyPage() {
               engaged &rarr; commercial capital unlocked.
             </p>
           </div>
+          <div className="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200/60">
+            <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-emerald-600/70 mb-2">
+              Social &amp; Environmental Benefits
+            </p>
+            <p className="text-sm text-slate">
+              Crop yield improvements (+17&ndash;48%), soil biodiversity restoration,
+              farmer income growth, and community food security. These outcomes demonstrate
+              impact beyond commercial returns &mdash; central to grant eligibility and
+              impact investor mandates.
+            </p>
+          </div>
         </div>
       </section>
+
+      {/* ── FOR-PROFIT CONSTRAINT (first thing Keir sees) ───── */}
+      <div className="mt-8">
+        <ForProfitConstraintBanner />
+      </div>
 
       {/* ── PIPELINE OVERVIEW (all capital sources) ────────── */}
       <PipelineOverview />
@@ -1470,9 +1496,6 @@ export default function CapitalStrategyPage() {
         {/* ── Tab: Grants & Philanthropy ───────────────────── */}
         {activePathway === "grants" && (
           <div>
-            {/* For-profit constraint banner — most important thing */}
-            <ForProfitConstraintBanner />
-
             <div className="mb-6 p-4 rounded-xl bg-primary/5 border border-primary/20">
               <h3 className="text-sm font-bold text-secondary mb-1">Grant Fundraising Process</h3>
               <p className="text-xs text-slate leading-relaxed">
@@ -1896,6 +1919,101 @@ export default function CapitalStrategyPage() {
               <p className="text-sm text-slate leading-relaxed" dangerouslySetInnerHTML={{ __html: advantage.desc }} />
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── STRUCTURAL CONSIDERATIONS ───────────────────────── */}
+      <section className="mt-12">
+        <div className="flex items-center gap-4 mb-8">
+          <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.2em]">
+            Structural Considerations
+          </h2>
+          <div className="h-px flex-1 bg-mist" />
+        </div>
+
+        <div className="rounded-xl border border-amber-200 bg-amber-50/30 p-6 mb-6">
+          <p className="text-sm font-bold text-amber-900 mb-2">The Nonprofit Gap</p>
+          <p className="text-sm text-slate leading-relaxed">
+            Both HISAGEN entities are for-profit limited companies. Of 22 funders researched,
+            <strong> 8 are ineligible</strong> because they require nonprofit/NGO/501(c)(3) status.
+            This is the single largest constraint on the current funding pipeline. The funders
+            excluded are often the most accessible, lowest-barrier entry points for early-stage
+            organisations.
+          </p>
+        </div>
+
+        <div className="mb-6">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate/50 mb-4">
+            Possible Mitigations &mdash; For Discussion with Keir
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="rounded-xl border border-mist bg-white p-6">
+              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                <span className="text-primary font-bold text-sm">1</span>
+              </div>
+              <h3 className="text-base font-bold text-secondary mb-2">
+                Establish a Charitable Entity
+              </h3>
+              <p className="text-sm text-slate leading-relaxed mb-3">
+                Set up a CIO (Charitable Incorporated Organisation) or CLG (Company Limited by
+                Guarantee) to handle grant-eligible social impact work. This unlocks the 8
+                currently ineligible funders.
+              </p>
+              <p className="text-xs text-slate/60 leading-relaxed">
+                <strong>Consideration:</strong> Governance overhead, charity registration timeline
+                (3&ndash;6 months), and need for independent trustees.
+              </p>
+            </div>
+            <div className="rounded-xl border border-mist bg-white p-6">
+              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                <span className="text-primary font-bold text-sm">2</span>
+              </div>
+              <h3 className="text-base font-bold text-secondary mb-2">
+                Partner with an Existing Nonprofit
+              </h3>
+              <p className="text-sm text-slate leading-relaxed mb-3">
+                Channel funds through an established nonprofit partner for social and environmental
+                outcomes (farmer training, biodiversity monitoring, food security programmes).
+                HISAGEN delivers the commercial layer; the partner holds the grant.
+              </p>
+              <p className="text-xs text-slate/60 leading-relaxed">
+                <strong>Consideration:</strong> Requires finding the right partner with aligned
+                mission, shared reporting, and trust. Indirect cost overhead.
+              </p>
+            </div>
+            <div className="rounded-xl border border-mist bg-white p-6">
+              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                <span className="text-primary font-bold text-sm">3</span>
+              </div>
+              <h3 className="text-base font-bold text-secondary mb-2">
+                Dual-Entity Strategy
+              </h3>
+              <p className="text-sm text-slate leading-relaxed mb-3">
+                Combine both approaches: for-profit entities handle commercial operations
+                (bio-fertilizer sales, carbon credits), while a nonprofit entity or partner
+                handles grant-eligible social impact work (farmer livelihoods, food security,
+                biodiversity).
+              </p>
+              <p className="text-xs text-slate/60 leading-relaxed">
+                <strong>Consideration:</strong> Most comprehensive but highest complexity.
+                Common in AgTech &mdash; many successful organisations use this structure.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-emerald-200/60 bg-emerald-50/30 p-6">
+          <p className="text-sm font-bold text-emerald-800 mb-2">
+            Why Social &amp; Environmental Benefits Matter Here
+          </p>
+          <p className="text-sm text-slate leading-relaxed">
+            HISAGEN&rsquo;s crop yield improvements, soil biodiversity restoration, farmer income growth,
+            and food security outcomes go beyond the commercial interests of HISAGEN Ltd. These are
+            exactly the outcomes that grant funders want to see &mdash; and they justify a nonprofit
+            partnership or charitable entity route. The stronger the evidence of social impact,
+            the stronger the case for unlocking the 8 currently ineligible funders through a
+            partner-led or dual-entity approach.
+          </p>
         </div>
       </section>
 

@@ -21,6 +21,8 @@ import {
   fundingMechanismLabels,
   costToCompanyLabels,
   pipelineStatusLabels,
+  applicationWindowLabels,
+  estimatedEffortLabels,
 } from "../../data/funding-landscape";
 import type {
   CuratedFunder,
@@ -34,6 +36,8 @@ import type {
   CostToCompany,
   EligibilityStatus,
   PipelineStatus,
+  ApplicationWindow,
+  EstimatedEffort,
 } from "../../data/funding-landscape";
 
 // ─────────────────────────────────────────────────────────────
@@ -531,6 +535,20 @@ const pipelineStatusBadge: Record<PipelineStatus, { label: string; className: st
   "closed-lost": { label: "6 — Lost", className: "bg-red-100 text-red-600" },
 };
 
+const applicationWindowBadge: Record<ApplicationWindow, { label: string; className: string }> = {
+  "rolling": { label: "Rolling", className: "bg-emerald-100 text-emerald-700" },
+  "open": { label: "Open", className: "bg-emerald-200 text-emerald-800" },
+  "closed": { label: "Closed", className: "bg-slate-100 text-slate-500" },
+  "upcoming": { label: "Upcoming", className: "bg-amber-100 text-amber-700" },
+  "monitor": { label: "Monitor", className: "bg-blue-100 text-blue-700" },
+};
+
+const effortBadge: Record<EstimatedEffort, { label: string; className: string }> = {
+  "low": { label: "Low", className: "bg-emerald-100 text-emerald-700" },
+  "medium": { label: "Medium", className: "bg-amber-100 text-amber-700" },
+  "high": { label: "High", className: "bg-red-100 text-red-600" },
+};
+
 const capitalSourceShort: Record<CapitalSource, string> = {
   grants: "Grants",
   debt: "Debt",
@@ -644,6 +662,7 @@ function PipelineOverview() {
             </div>
             <p className="text-xs text-slate/70">
               All capital sources in one view. Sort by column headers. Filter by eligibility, capital type, funder type, or tier.
+              <span className="ml-2 text-slate/40">Last synced: 11 March 2026</span>
             </p>
           </div>
           <svg
@@ -802,6 +821,12 @@ function PipelineOverview() {
                         Deadline <SortIcon col="deadline" />
                       </th>
                       <th className="text-center px-2 py-2.5 font-bold text-secondary uppercase tracking-widest text-[10px] whitespace-nowrap">
+                        Window
+                      </th>
+                      <th className="text-center px-2 py-2.5 font-bold text-secondary uppercase tracking-widest text-[10px] whitespace-nowrap">
+                        Effort
+                      </th>
+                      <th className="text-center px-2 py-2.5 font-bold text-secondary uppercase tracking-widest text-[10px] whitespace-nowrap">
                         Pipeline Stage
                       </th>
                     </tr>
@@ -895,6 +920,16 @@ function PipelineOverview() {
                             ) : (
                               <span className="text-slate/40">{funder.deadlineNote ? funder.deadlineNote.slice(0, 30) : "TBC"}</span>
                             )}
+                          </td>
+                          <td className="text-center px-2 py-2.5">
+                            <span className={`text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded ${applicationWindowBadge[funder.applicationWindow].className}`}>
+                              {applicationWindowBadge[funder.applicationWindow].label}
+                            </span>
+                          </td>
+                          <td className="text-center px-2 py-2.5">
+                            <span className={`text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded ${effortBadge[funder.estimatedEffort].className}`}>
+                              {effortBadge[funder.estimatedEffort].label}
+                            </span>
                           </td>
                           <td className="text-center px-2 py-2.5">
                             <span className={`text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded ${sBadge.className}`}>
@@ -1027,6 +1062,26 @@ const glossarySections = [
       { term: "4 \u2014 Application", definition: "Proposal or application submitted. Includes concept notes, full proposals, fellowship applications, or accelerator programme entries." },
       { term: "5 \u2014 Due Diligence", definition: "Funder evaluation phase. The application is under review, additional information may be requested, site visits or interviews may occur." },
       { term: "6 \u2014 Closed (Won/Lost)", definition: "Final outcome. Funded (awarded, terms agreed) or rejected. Either way, the engagement is complete for this cycle." },
+    ],
+  },
+  {
+    title: "Application Window",
+    description: "Whether applications are currently being accepted",
+    terms: [
+      { term: "Open", definition: "Applications are currently being accepted. There is a known deadline or submission route available now." },
+      { term: "Rolling", definition: "Applications accepted on an ongoing basis with no fixed deadline. Reviewed periodically or as received." },
+      { term: "Closed", definition: "The current application cycle has closed. Cannot apply until the next cycle opens." },
+      { term: "Upcoming", definition: "A known application window is expected to open soon. Dates may be approximate based on historical patterns." },
+      { term: "Monitor", definition: "No open application route currently. Requires monitoring for Calls for Proposals, programme announcements, or intermediary access." },
+    ],
+  },
+  {
+    title: "Estimated Effort",
+    description: "How much work is involved in preparing and submitting an application",
+    terms: [
+      { term: "Low", definition: "Straightforward application \u2014 short form, limited documentation, minimal narrative required. Typically a few hours of work." },
+      { term: "Medium", definition: "Standard application requiring a structured proposal, supporting documents (budget, theory of change, evidence), and funder-specific formatting. Typically 1\u20132 weeks." },
+      { term: "High", definition: "Complex application involving multi-stage processes, detailed proposals, pitch decks, financial models, referral pathways, or institutional partnerships. Typically 2\u20134 weeks or ongoing relationship building." },
     ],
   },
 ];

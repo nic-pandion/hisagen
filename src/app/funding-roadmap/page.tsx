@@ -917,6 +917,144 @@ function PipelineOverview() {
 }
 
 // ─────────────────────────────────────────────────────────────
+// Pipeline Glossary
+// ─────────────────────────────────────────────────────────────
+
+const glossarySections = [
+  {
+    title: "Funding Mechanisms",
+    description: "How the capital is deployed to HISAGEN",
+    terms: [
+      { term: "Grant", definition: "Non-repayable funding for a specific project or purpose. No ownership given up, no repayment required. The simplest and most favourable form of funding." },
+      { term: "Programme Grant", definition: "Grant funding tied to a specific development programme run by a larger institution (e.g. UNDP, AfDB, EU). Comes with programme-level reporting, co-financing requirements, and thematic constraints." },
+      { term: "Prize / Award", definition: "Competitive, non-dilutive lump sum awarded to winners of innovation challenges or competitions. Often comes with visibility, mentoring, and investor access. Only top finalists receive funding." },
+      { term: "Fellowship", definition: "Structured support combining funding with mentorship, network access, and capacity building over a fixed period (typically 12\u201318 months). Usually competitive and cohort-based." },
+      { term: "Recoverable Grant", definition: "Starts as a grant but becomes repayable if the company hits certain success thresholds (e.g. revenue or valuation targets). If the company stays below thresholds, the money is effectively free." },
+      { term: "Reimbursable Grant", definition: "Zero-interest funding where the principal must be repaid within a fixed period (typically 6\u201318 months), but there is no interest charged. Closer to an interest-free loan than a true grant." },
+      { term: "Equity Investment", definition: "The funder takes an ownership stake (shares) in the company in exchange for capital. Dilutive \u2014 the founder\u2019s percentage ownership decreases. Common in VC and impact investing." },
+      { term: "Concessional Loan", definition: "A loan with below-market interest rates and/or longer repayment periods than commercial lending. Must be repaid but on favourable terms. Common from DFIs and government programmes." },
+      { term: "Design Grant", definition: "Funding specifically to design or structure a financial instrument or mechanism, not to fund operations or projects directly. Useful for creating blended finance vehicles." },
+      { term: "Blended (Grant + Equity)", definition: "A package combining non-repayable grant funding with an equity investment. Part of the money is free; part requires giving up ownership. The grant component reduces risk for the equity portion." },
+    ],
+  },
+  {
+    title: "Cost to HISAGEN",
+    description: "What the company gives up in exchange for capital",
+    terms: [
+      { term: "Non-Dilutive", definition: "No ownership given up, no repayment required. The funder receives nothing financial in return \u2014 only impact outcomes and reporting. Grants, prizes, and fellowships are typically non-dilutive." },
+      { term: "Dilutive (Equity Stake)", definition: "The funder receives ownership shares in the company. The founder\u2019s percentage ownership decreases. The funder may also require a board seat or governance rights. Important: at pre-revenue stage, equity valuations can be unfavourable." },
+      { term: "Repayable", definition: "The capital must be repaid, either with interest (loan) or at zero interest (reimbursable grant). No ownership given up, but creates a financial obligation that must be serviced." },
+      { term: "Conditionally Repayable", definition: "Repayment only triggers if specific success thresholds are met (e.g. company valued above $5M, or revenue exceeds $2M with net profit). If thresholds are not met, the funding is effectively a grant." },
+      { term: "Mixed (Part Dilutive)", definition: "A blended package where one component is non-dilutive (grant) and another is dilutive (equity). The overall cost depends on the split between grant and equity portions." },
+    ],
+  },
+  {
+    title: "Capital Sources",
+    description: "The pathway through which capital flows",
+    terms: [
+      { term: "Grants & Philanthropy", definition: "Funding from foundations, trusts, government programmes, and multilateral institutions. Typically non-dilutive. The primary capital source at Stage 1 (pre-revenue)." },
+      { term: "Equity & VC", definition: "Venture capital and impact investment funds that take ownership stakes in exchange for growth capital. Typically enters at Stage 2\u20133 when the company has revenue traction." },
+      { term: "Green Bonds & Debt", definition: "Loan-based instruments including concessional loans, green bonds, and sustainability-linked debt. Repayable but non-dilutive. Usually requires revenue to service repayments." },
+      { term: "Impact Investing", definition: "Investments made with the intention of generating measurable social/environmental impact alongside financial returns. Can be grants, equity, or debt \u2014 the defining feature is the dual mandate." },
+      { term: "Blended Finance", definition: "Structures that combine public/philanthropic capital with private investment. The concessional element (grant or guarantee) reduces risk to attract commercial capital that would not otherwise invest." },
+    ],
+  },
+  {
+    title: "Eligibility Statuses",
+    description: "Whether HISAGEN can apply as a for-profit company",
+    terms: [
+      { term: "Eligible", definition: "Verified: HISAGEN can apply as a for-profit limited company. The funder explicitly accepts for-profit applicants, confirmed against official programme documentation." },
+      { term: "Conditional", definition: "Potentially eligible but with specific conditions that must be met first \u2014 e.g. founder age requirement, need for an EU entity, or programme not yet accepting applications." },
+      { term: "Ineligible", definition: "The funder only accepts nonprofit/NGO/CSO applicants. HISAGEN cannot apply as either entity (USA Inc. or Africa Ltd). Retained in the pipeline as research record." },
+      { term: "Deprioritised", definition: "Technically eligible but strategically misaligned at HISAGEN\u2019s current stage. May become relevant later as the company matures or pivots." },
+    ],
+  },
+];
+
+function PipelineGlossary() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [openSections, setOpenSections] = useState<Set<number>>(new Set());
+
+  const toggleSection = (idx: number) => {
+    setOpenSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(idx)) next.delete(idx);
+      else next.add(idx);
+      return next;
+    });
+  };
+
+  return (
+    <section className="mt-4">
+      <div
+        className={`rounded-2xl border transition-colors ${
+          isOpen ? "border-slate-200 bg-white" : "border-mist bg-white hover:border-secondary/20"
+        }`}
+      >
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-full flex items-center gap-3 px-5 py-3.5 text-left"
+        >
+          <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-xs ${
+            isOpen ? "bg-secondary/10 text-secondary" : "bg-slate-100 text-slate-400"
+          }`}>
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+            </svg>
+          </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-sm font-bold text-secondary">Glossary of Terms</h3>
+            <p className="text-[10px] text-slate/60">Definitions for funding mechanisms, capital sources, costs, and eligibility statuses</p>
+          </div>
+          <svg
+            className={`w-4 h-4 text-slate/40 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+            fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+          <div className="overflow-hidden">
+            <div className="px-5 pb-5 pt-1 border-t border-mist space-y-2">
+              {glossarySections.map((section, idx) => (
+                <div key={section.title} className="rounded-xl border border-mist overflow-hidden">
+                  <button
+                    onClick={() => toggleSection(idx)}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-left bg-parchment/40 hover:bg-parchment/60 transition-colors"
+                  >
+                    <h4 className="text-xs font-bold text-secondary flex-1">{section.title}</h4>
+                    <span className="text-[9px] text-slate/50">{section.description}</span>
+                    <svg
+                      className={`w-3.5 h-3.5 text-slate/40 shrink-0 transition-transform duration-200 ${openSections.has(idx) ? "rotate-180" : ""}`}
+                      fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  <div className={`grid transition-all duration-200 ${openSections.has(idx) ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                    <div className="overflow-hidden">
+                      <div className="px-4 py-3 space-y-2.5">
+                        {section.terms.map((t) => (
+                          <div key={t.term} className="flex gap-3">
+                            <span className="text-[10px] font-bold text-secondary whitespace-nowrap min-w-[140px] pt-0.5">{t.term}</span>
+                            <p className="text-[10px] text-slate/80 leading-relaxed">{t.definition}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
 // For-Profit Constraint Banner
 // ─────────────────────────────────────────────────────────────
 
@@ -1237,6 +1375,9 @@ export default function CapitalStrategyPage() {
 
       {/* ── PIPELINE OVERVIEW (all capital sources) ────────── */}
       <PipelineOverview />
+
+      {/* ── GLOSSARY ──────────────────────────────────────────── */}
+      <PipelineGlossary />
 
       {/* ── CAPITAL PATHWAYS ─────────────────────────────────── */}
       <section className="mt-12">

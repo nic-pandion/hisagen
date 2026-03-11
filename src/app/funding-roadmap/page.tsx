@@ -9,12 +9,24 @@ import {
   conditionalFunders,
   ineligibleFunders,
   deprioritisedFunders,
+  allCuratedFunders,
   applicationTimeline,
   landscapeStats,
   grantPhases,
   keirActionItems,
+  categoryLabels,
+  capitalSourceLabels,
+  pipelineStatusLabels,
 } from "../../data/funding-landscape";
-import type { CuratedFunder, GrantPhase, PhaseStatus } from "../../data/funding-landscape";
+import type {
+  CuratedFunder,
+  GrantPhase,
+  PhaseStatus,
+  FunderCategory,
+  CapitalSource,
+  EligibilityStatus,
+  PipelineStatus,
+} from "../../data/funding-landscape";
 
 // ─────────────────────────────────────────────────────────────
 // Style Maps
@@ -33,7 +45,10 @@ const categoryLabel: Record<string, string> = {
   "agricultural-food": "Agricultural &amp; Food Security",
   "us-foundation": "US Foundation",
   "uk-trust": "UK Trust",
-  accelerator: "Accelerator",
+  "accelerator": "Accelerator / Prize",
+  "venture-philanthropy": "Venture Philanthropy",
+  "dfi-private-sector": "DFI / Govt Programme",
+  "impact-fund": "Impact Fund",
 };
 
 const urgencyColor: Record<string, string> = {
@@ -484,6 +499,373 @@ function PhaseAccordion({ phase, isOpen, onToggle }: { phase: GrantPhase; isOpen
 }
 
 // ─────────────────────────────────────────────────────────────
+// Pipeline Overview Table
+// ─────────────────────────────────────────────────────────────
+
+type SortKey = "shortName" | "score" | "tier" | "grantMax" | "deadline";
+type SortDir = "asc" | "desc";
+
+const eligibilityOrder: Record<EligibilityStatus, number> = {
+  eligible: 0,
+  conditional: 1,
+  deprioritised: 2,
+  reclassified: 3,
+  ineligible: 4,
+};
+
+const pipelineStatusBadge: Record<PipelineStatus, { label: string; className: string }> = {
+  "not-started": { label: "Not Started", className: "bg-slate-100 text-slate-500" },
+  "researching": { label: "Researching", className: "bg-blue-100 text-blue-700" },
+  "preparing": { label: "Preparing", className: "bg-amber-100 text-amber-700" },
+  "submitted": { label: "Submitted", className: "bg-primary/10 text-primary" },
+  "in-review": { label: "In Review", className: "bg-purple-100 text-purple-700" },
+  "shortlisted": { label: "Shortlisted", className: "bg-emerald-100 text-emerald-700" },
+  "awarded": { label: "Awarded", className: "bg-emerald-200 text-emerald-800" },
+  "rejected": { label: "Rejected", className: "bg-red-100 text-red-600" },
+  "on-hold": { label: "On Hold", className: "bg-slate-200 text-slate-600" },
+};
+
+const capitalSourceShort: Record<CapitalSource, string> = {
+  grants: "Grants",
+  debt: "Debt",
+  equity: "Equity",
+  impact: "Impact",
+  blended: "Blended",
+};
+
+function PipelineOverview() {
+  const [isOpen, setIsOpen] = useState(true);
+  const [sortKey, setSortKey] = useState<SortKey>("score");
+  const [sortDir, setSortDir] = useState<SortDir>("desc");
+  const [filterEligibility, setFilterEligibility] = useState<string>("all");
+  const [filterCapitalSource, setFilterCapitalSource] = useState<string>("all");
+  const [filterCategory, setFilterCategory] = useState<string>("all");
+  const [filterTier, setFilterTier] = useState<string>("all");
+
+  const handleSort = (key: SortKey) => {
+    if (sortKey === key) {
+      setSortDir(sortDir === "asc" ? "desc" : "asc");
+    } else {
+      setSortKey(key);
+      setSortDir(key === "score" || key === "grantMax" ? "desc" : "asc");
+    }
+  };
+
+  const SortIcon = ({ col }: { col: SortKey }) => (
+    <span className="inline-block ml-0.5 text-[8px] opacity-50">
+      {sortKey === col ? (sortDir === "asc" ? "\u25B2" : "\u25BC") : "\u25BC"}
+    </span>
+  );
+
+  // Filter
+  let filtered = allCuratedFunders.filter((f) => {
+    if (filterEligibility !== "all" && f.eligibility !== filterEligibility) return false;
+    if (filterCapitalSource !== "all" && f.capitalSource !== filterCapitalSource) return false;
+    if (filterCategory !== "all" && f.category !== filterCategory) return false;
+    if (filterTier !== "all" && f.tier !== filterTier) return false;
+    return true;
+  });
+
+  // Sort
+  filtered = [...filtered].sort((a, b) => {
+    const dir = sortDir === "asc" ? 1 : -1;
+    switch (sortKey) {
+      case "score":
+        return (a.score - b.score) * dir;
+      case "grantMax":
+        return ((a.grantMax || 0) - (b.grantMax || 0)) * dir;
+      case "shortName":
+        return a.shortName.localeCompare(b.shortName) * dir;
+      case "tier":
+        return a.tier.localeCompare(b.tier) * dir;
+      case "deadline": {
+        const aDate = a.deadline || "zzz";
+        const bDate = b.deadline || "zzz";
+        return aDate.localeCompare(bDate) * dir;
+      }
+      default:
+        return 0;
+    }
+  });
+
+  // Unique values for filter dropdowns
+  const uniqueCategories = [...new Set(allCuratedFunders.map((f) => f.category))];
+  const uniqueCapitalSources = [...new Set(allCuratedFunders.map((f) => f.capitalSource))];
+
+  const activeFilters = [filterEligibility, filterCapitalSource, filterCategory, filterTier].filter((f) => f !== "all").length;
+
+  return (
+    <section className="mt-12">
+      <div
+        className={`rounded-2xl border-2 transition-colors ${
+          isOpen ? "border-primary/30 bg-white" : "border-mist bg-white hover:border-secondary/20"
+        }`}
+      >
+        {/* Accordion header */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-full flex items-center gap-4 px-6 py-5 text-left"
+        >
+          <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-sm font-bold ${
+            isOpen ? "bg-primary/10 text-primary" : "bg-slate-100 text-slate-500"
+          }`}>
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+            </svg>
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-3 mb-0.5">
+              <h3 className="text-base font-bold text-secondary">Pipeline Overview</h3>
+              <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded border bg-primary/10 text-primary border-primary/20">
+                {allCuratedFunders.length} Funders
+              </span>
+              {activeFilters > 0 && (
+                <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-amber-100 text-amber-700">
+                  {activeFilters} filter{activeFilters > 1 ? "s" : ""} active
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-slate/70">
+              All capital sources in one view. Sort by column headers. Filter by eligibility, capital type, funder type, or tier.
+            </p>
+          </div>
+          <svg
+            className={`w-5 h-5 text-slate/40 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+            fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        {/* Expandable content */}
+        <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+          <div className="overflow-hidden">
+            <div className="px-6 pb-6 pt-2 border-t border-mist">
+              {/* Filters row */}
+              <div className="flex flex-wrap gap-3 mb-4">
+                <select
+                  value={filterEligibility}
+                  onChange={(e) => setFilterEligibility(e.target.value)}
+                  className="text-xs border border-mist rounded-lg px-3 py-1.5 bg-white text-secondary focus:outline-none focus:border-primary"
+                >
+                  <option value="all">All Eligibility</option>
+                  <option value="eligible">Eligible</option>
+                  <option value="conditional">Conditional</option>
+                  <option value="ineligible">Ineligible</option>
+                  <option value="deprioritised">Deprioritised</option>
+                </select>
+                <select
+                  value={filterCapitalSource}
+                  onChange={(e) => setFilterCapitalSource(e.target.value)}
+                  className="text-xs border border-mist rounded-lg px-3 py-1.5 bg-white text-secondary focus:outline-none focus:border-primary"
+                >
+                  <option value="all">All Capital Sources</option>
+                  {uniqueCapitalSources.map((cs) => (
+                    <option key={cs} value={cs}>{capitalSourceLabels[cs]}</option>
+                  ))}
+                </select>
+                <select
+                  value={filterCategory}
+                  onChange={(e) => setFilterCategory(e.target.value)}
+                  className="text-xs border border-mist rounded-lg px-3 py-1.5 bg-white text-secondary focus:outline-none focus:border-primary"
+                >
+                  <option value="all">All Funder Types</option>
+                  {uniqueCategories.map((cat) => (
+                    <option key={cat} value={cat}>{categoryLabels[cat]}</option>
+                  ))}
+                </select>
+                <select
+                  value={filterTier}
+                  onChange={(e) => setFilterTier(e.target.value)}
+                  className="text-xs border border-mist rounded-lg px-3 py-1.5 bg-white text-secondary focus:outline-none focus:border-primary"
+                >
+                  <option value="all">All Tiers</option>
+                  <option value="tier1">Tier 1</option>
+                  <option value="tier2">Tier 2</option>
+                </select>
+                {activeFilters > 0 && (
+                  <button
+                    onClick={() => {
+                      setFilterEligibility("all");
+                      setFilterCapitalSource("all");
+                      setFilterCategory("all");
+                      setFilterTier("all");
+                    }}
+                    className="text-[10px] font-bold uppercase tracking-widest text-red-500 hover:text-red-700 px-2 py-1.5 transition-colors"
+                  >
+                    Clear filters
+                  </button>
+                )}
+                <span className="ml-auto text-[10px] text-slate/50 self-center">
+                  {filtered.length} of {allCuratedFunders.length} shown
+                </span>
+              </div>
+
+              {/* Table */}
+              <div className="overflow-x-auto rounded-xl border border-mist">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="bg-parchment/60 border-b border-mist">
+                      <th
+                        className="text-left px-3 py-2.5 font-bold text-secondary uppercase tracking-widest text-[10px] cursor-pointer hover:text-primary transition-colors whitespace-nowrap"
+                        onClick={() => handleSort("shortName")}
+                      >
+                        Funder <SortIcon col="shortName" />
+                      </th>
+                      <th
+                        className="text-center px-2 py-2.5 font-bold text-secondary uppercase tracking-widest text-[10px] cursor-pointer hover:text-primary transition-colors whitespace-nowrap"
+                        onClick={() => handleSort("score")}
+                      >
+                        Score <SortIcon col="score" />
+                      </th>
+                      <th
+                        className="text-center px-2 py-2.5 font-bold text-secondary uppercase tracking-widest text-[10px] cursor-pointer hover:text-primary transition-colors whitespace-nowrap"
+                        onClick={() => handleSort("tier")}
+                      >
+                        Tier <SortIcon col="tier" />
+                      </th>
+                      <th className="text-left px-2 py-2.5 font-bold text-secondary uppercase tracking-widest text-[10px] whitespace-nowrap">
+                        Funder Type
+                      </th>
+                      <th className="text-left px-2 py-2.5 font-bold text-secondary uppercase tracking-widest text-[10px] whitespace-nowrap">
+                        Capital Source
+                      </th>
+                      <th className="text-center px-2 py-2.5 font-bold text-secondary uppercase tracking-widest text-[10px] whitespace-nowrap">
+                        Eligibility
+                      </th>
+                      <th
+                        className="text-right px-2 py-2.5 font-bold text-secondary uppercase tracking-widest text-[10px] cursor-pointer hover:text-primary transition-colors whitespace-nowrap"
+                        onClick={() => handleSort("grantMax")}
+                      >
+                        Capital Range <SortIcon col="grantMax" />
+                      </th>
+                      <th
+                        className="text-left px-2 py-2.5 font-bold text-secondary uppercase tracking-widest text-[10px] cursor-pointer hover:text-primary transition-colors whitespace-nowrap"
+                        onClick={() => handleSort("deadline")}
+                      >
+                        Deadline <SortIcon col="deadline" />
+                      </th>
+                      <th className="text-center px-2 py-2.5 font-bold text-secondary uppercase tracking-widest text-[10px] whitespace-nowrap">
+                        Status
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-mist">
+                    {filtered.map((funder) => {
+                      const eBadge = eligibilityBadge[funder.eligibility];
+                      const sBadge = pipelineStatusBadge[funder.pipelineStatus];
+                      const isInactive = funder.eligibility === "ineligible" || funder.eligibility === "deprioritised";
+                      const isUrgent = funder.deadline && !funder.deadline.includes("Rolling") && !funder.deadline.includes("September");
+
+                      return (
+                        <tr
+                          key={funder.id}
+                          className={`hover:bg-parchment/30 transition-colors ${isInactive ? "opacity-50" : ""}`}
+                        >
+                          <td className="px-3 py-2.5">
+                            <div className="flex items-center gap-1.5">
+                              {funder.url ? (
+                                <a
+                                  href={funder.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className={`font-bold hover:text-primary transition-colors ${isInactive ? "text-slate-400" : "text-secondary"}`}
+                                >
+                                  {funder.shortName}
+                                </a>
+                              ) : (
+                                <span className={`font-bold ${isInactive ? "text-slate-400" : "text-secondary"}`}>
+                                  {funder.shortName}
+                                </span>
+                              )}
+                            </div>
+                          </td>
+                          <td className="text-center px-2 py-2.5">
+                            <span className={`font-bold ${funder.score >= 4.0 ? "text-emerald-700" : funder.score >= 3.5 ? "text-secondary" : "text-slate"}`}>
+                              {funder.score.toFixed(2)}
+                            </span>
+                          </td>
+                          <td className="text-center px-2 py-2.5">
+                            <span className={`text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded ${
+                              funder.tier === "tier1" ? "bg-primary/10 text-primary" : "bg-slate-100 text-slate-600"
+                            }`}>
+                              {funder.tier === "tier1" ? "T1" : "T2"}
+                            </span>
+                          </td>
+                          <td className="px-2 py-2.5 text-slate/70 whitespace-nowrap">
+                            {categoryLabel[funder.category] || funder.category}
+                          </td>
+                          <td className="px-2 py-2.5 whitespace-nowrap">
+                            <span className={`text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded ${
+                              funder.capitalSource === "grants" ? "bg-emerald-50 text-emerald-700" :
+                              funder.capitalSource === "equity" ? "bg-blue-50 text-blue-700" :
+                              funder.capitalSource === "debt" ? "bg-amber-50 text-amber-700" :
+                              funder.capitalSource === "impact" ? "bg-purple-50 text-purple-700" :
+                              "bg-slate-100 text-slate-600"
+                            }`}>
+                              {capitalSourceShort[funder.capitalSource]}
+                            </span>
+                          </td>
+                          <td className="text-center px-2 py-2.5">
+                            <span className={`text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded border ${eBadge.className}`}>
+                              {eBadge.label}
+                            </span>
+                          </td>
+                          <td className="text-right px-2 py-2.5 text-slate whitespace-nowrap">
+                            {funder.grantRange}
+                          </td>
+                          <td className="px-2 py-2.5 whitespace-nowrap">
+                            {funder.deadline ? (
+                              <span className={`font-medium ${isUrgent ? "text-red-600" : "text-slate"}`}>
+                                {funder.deadline}
+                              </span>
+                            ) : (
+                              <span className="text-slate/40">{funder.deadlineNote ? funder.deadlineNote.slice(0, 30) : "TBC"}</span>
+                            )}
+                          </td>
+                          <td className="text-center px-2 py-2.5">
+                            <span className={`text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded ${sBadge.className}`}>
+                              {sBadge.label}
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                    {filtered.length === 0 && (
+                      <tr>
+                        <td colSpan={9} className="text-center py-8 text-slate/50">
+                          No funders match the selected filters.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Summary bar */}
+              <div className="mt-3 flex flex-wrap gap-4 text-[10px] text-slate/60">
+                <span>
+                  <strong className="text-emerald-600">{filtered.filter((f) => f.eligibility === "eligible").length}</strong> eligible
+                </span>
+                <span>
+                  <strong className="text-amber-600">{filtered.filter((f) => f.eligibility === "conditional").length}</strong> conditional
+                </span>
+                <span>
+                  <strong className="text-red-500">{filtered.filter((f) => f.eligibility === "ineligible").length}</strong> ineligible
+                </span>
+                <span className="ml-auto">
+                  Sort by clicking column headers &bull; Filter with dropdowns above
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
 // For-Profit Constraint Banner
 // ─────────────────────────────────────────────────────────────
 
@@ -801,6 +1183,9 @@ export default function CapitalStrategyPage() {
           </div>
         </div>
       </section>
+
+      {/* ── PIPELINE OVERVIEW (all capital sources) ────────── */}
+      <PipelineOverview />
 
       {/* ── CAPITAL PATHWAYS ─────────────────────────────────── */}
       <section className="mt-12">

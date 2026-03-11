@@ -24,12 +24,27 @@ export type EligibilityStatus =
   | "reclassified"
   | "deprioritised";
 
+export type CapitalSource = "grants" | "debt" | "equity" | "impact" | "blended";
+
+export type PipelineStatus =
+  | "not-started"
+  | "researching"
+  | "preparing"
+  | "submitted"
+  | "in-review"
+  | "shortlisted"
+  | "awarded"
+  | "rejected"
+  | "on-hold";
+
 export interface CuratedFunder {
   id: string;
   name: string;
   shortName: string;
   tier: FunderTier;
   category: FunderCategory;
+  capitalSource: CapitalSource;
+  pipelineStatus: PipelineStatus;
   grantRange: string;
   grantMin?: number;
   grantMax?: number;
@@ -91,6 +106,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "CFH Foundation",
     tier: "tier1",
     category: "us-foundation",
+    capitalSource: "grants",
+    pipelineStatus: "not-started",
     grantRange: "$25,000 - $50,000",
     grantMin: 25000,
     grantMax: 50000,
@@ -111,6 +128,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "AFCIA",
     tier: "tier1",
     category: "climate-adaptation",
+    capitalSource: "grants",
+    pipelineStatus: "not-started",
     grantRange: "Up to $250,000",
     grantMax: 250000,
     currency: "USD",
@@ -129,6 +148,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "AAAP/YouthADAPT",
     tier: "tier1",
     category: "climate-adaptation",
+    capitalSource: "grants",
+    pipelineStatus: "not-started",
     grantRange: "Up to $30,000 (YouthADAPT)",
     grantMax: 30000,
     currency: "USD",
@@ -149,6 +170,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "Echoing Green",
     tier: "tier1",
     category: "us-foundation",
+    capitalSource: "grants",
+    pipelineStatus: "not-started",
     grantRange: "$100,000 (unrestricted) + 18 months support",
     grantMin: 100000,
     grantMax: 100000,
@@ -170,6 +193,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "AfDB TAAT",
     tier: "tier1",
     category: "climate-adaptation",
+    capitalSource: "grants",
+    pipelineStatus: "not-started",
     grantRange: "Variable (via Calls for Proposals)",
     currency: "USD",
     deadlineNote: "Monitor for CFP",
@@ -188,6 +213,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "START II",
     tier: "tier2",
     category: "dfi-private-sector",
+    capitalSource: "debt",
+    pipelineStatus: "not-started",
     grantRange: "UGX 20M-80M reimbursable grant (~$5K-$21K) + UGX 20M-40M TA grant (~$5K-$11K)",
     grantMin: 5000,
     grantMax: 21000,
@@ -210,6 +237,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "Acumen/ARAF",
     tier: "tier1",
     category: "impact-fund",
+    capitalSource: "equity",
+    pipelineStatus: "not-started",
     grantRange: "$300,000 - $3,000,000 (equity/quasi-equity)",
     grantMin: 300000,
     grantMax: 3000000,
@@ -231,6 +260,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "DIV Fund",
     tier: "tier2",
     category: "venture-philanthropy",
+    capitalSource: "grants",
+    pipelineStatus: "not-started",
     grantRange: "$25,000 - $200,000 (Stage 1 Pilot)",
     grantMin: 25000,
     grantMax: 200000,
@@ -252,6 +283,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "DRK Foundation",
     tier: "tier1",
     category: "venture-philanthropy",
+    capitalSource: "grants",
+    pipelineStatus: "not-started",
     grantRange: "Up to $300,000 over 3 years + $500K in-kind support",
     grantMin: 100000,
     grantMax: 300000,
@@ -278,6 +311,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "World Food Prize",
     tier: "tier2",
     category: "accelerator",
+    capitalSource: "grants",
+    pipelineStatus: "not-started",
     grantRange: "$50,000 (1st place), $10,000 (2nd), $5,000 (3rd)",
     grantMin: 5000,
     grantMax: 50000,
@@ -300,6 +335,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "Mulago",
     tier: "tier2",
     category: "us-foundation",
+    capitalSource: "impact",
+    pipelineStatus: "not-started",
     grantRange: "$100K fellowship, potential $340K portfolio",
     grantMin: 100000,
     grantMax: 340000,
@@ -319,6 +356,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "Rockefeller FILab",
     tier: "tier2",
     category: "us-foundation",
+    capitalSource: "impact",
+    pipelineStatus: "not-started",
     grantRange: "$100K first round, follow-on to $2.5M",
     grantMin: 100000,
     grantMax: 2500000,
@@ -337,6 +376,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "IFAD",
     tier: "tier2",
     category: "agricultural-food",
+    capitalSource: "grants",
+    pipelineStatus: "not-started",
     grantRange: "Up to $1.5M",
     grantMax: 1500000,
     currency: "USD",
@@ -356,6 +397,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "WFP Innovation",
     tier: "tier2",
     category: "agricultural-food",
+    capitalSource: "grants",
+    pipelineStatus: "not-started",
     grantRange: "Up to $100,000 (equity-free)",
     grantMin: 10000,
     grantMax: 100000,
@@ -378,6 +421,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "Hello Tomorrow",
     tier: "tier2",
     category: "accelerator",
+    capitalSource: "grants",
+    pipelineStatus: "not-started",
     grantRange: "\u20AC100,000 grand prize (equity-free)",
     grantMin: 0,
     grantMax: 100000,
@@ -402,6 +447,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "Katapult Africa",
     tier: "tier2",
     category: "accelerator",
+    capitalSource: "equity",
+    pipelineStatus: "not-started",
     grantRange: "\u20AC150,000 - \u20AC500,000",
     grantMin: 150000,
     grantMax: 500000,
@@ -424,6 +471,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "GoGettaz",
     tier: "tier2",
     category: "accelerator",
+    capitalSource: "grants",
+    pipelineStatus: "not-started",
     grantRange: "$50,000 grand prize + $60,000 impact awards",
     grantMin: 10000,
     grantMax: 50000,
@@ -444,6 +493,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "FINCA Ventures",
     tier: "tier2",
     category: "impact-fund",
+    capitalSource: "equity",
+    pipelineStatus: "not-started",
     grantRange: "$100,000 - $500,000 (patient equity or convertible notes)",
     grantMin: 100000,
     grantMax: 500000,
@@ -464,6 +515,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "EIC Accelerator",
     tier: "tier2",
     category: "accelerator",
+    capitalSource: "blended",
+    pipelineStatus: "not-started",
     grantRange: "EUR 500,000 - 2,500,000 (grant) + equity",
     grantMin: 500000,
     grantMax: 2500000,
@@ -484,6 +537,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "TrustAfrica",
     tier: "tier2",
     category: "agricultural-food",
+    capitalSource: "grants",
+    pipelineStatus: "not-started",
     grantRange: "$20,000 - $30,000",
     grantMin: 20000,
     grantMax: 30000,
@@ -502,6 +557,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "Climate Finance Lab",
     tier: "tier2",
     category: "climate-adaptation",
+    capitalSource: "blended",
+    pipelineStatus: "not-started",
     grantRange: "$150,000 - $250,000 (milestone-based)",
     grantMin: 150000,
     grantMax: 250000,
@@ -520,6 +577,8 @@ const allFundersRaw: CuratedFunder[] = [
     shortName: "Noel Buxton Trust",
     tier: "tier2",
     category: "uk-trust",
+    capitalSource: "grants",
+    pipelineStatus: "not-started",
     grantRange: "GBP 5,000/year for up to 3 years",
     grantMin: 5000,
     grantMax: 15000,
@@ -533,6 +592,41 @@ const allFundersRaw: CuratedFunder[] = [
     score: 3.05,
   },
 ];
+
+// ─────────────────────────────────────────────────────────────
+// DISPLAY LABEL MAPS
+// ─────────────────────────────────────────────────────────────
+
+export const categoryLabels: Record<FunderCategory, string> = {
+  "climate-adaptation": "Climate Adaptation",
+  "agricultural-food": "Agricultural & Food Security",
+  "us-foundation": "US Foundation",
+  "uk-trust": "UK Trust",
+  "accelerator": "Accelerator / Prize",
+  "venture-philanthropy": "Venture Philanthropy",
+  "dfi-private-sector": "DFI / Govt Programme",
+  "impact-fund": "Impact Fund",
+};
+
+export const capitalSourceLabels: Record<CapitalSource, string> = {
+  grants: "Grants & Philanthropy",
+  debt: "Green Bonds & Debt",
+  equity: "Equity & VC",
+  impact: "Impact Investing",
+  blended: "Blended Finance",
+};
+
+export const pipelineStatusLabels: Record<PipelineStatus, string> = {
+  "not-started": "Not Started",
+  "researching": "Researching",
+  "preparing": "Preparing",
+  "submitted": "Submitted",
+  "in-review": "In Review",
+  "shortlisted": "Shortlisted",
+  "awarded": "Awarded",
+  "rejected": "Rejected",
+  "on-hold": "On Hold",
+};
 
 // ─────────────────────────────────────────────────────────────
 // FILTERED VIEWS

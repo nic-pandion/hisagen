@@ -19,26 +19,28 @@ Gaps:
 Next step:
 - Dedicated strategy session to formalize the program narrative and outcomes.
 
-## Phase 02: Landscape Scanning & Prospect Mapping
-Status: Partial. Reviewed Keir's identified prospects.
+## Phase 02: Case for Support
+Status: ACTIVE — master CfS + Foundation Summary drafted.
 Evidence so far:
-- Funder Alignment Matrix (first pass, top 6 priority funders).
+- Full Case for Support document (7 components, NARO data, ToC).
+- Foundation Summary (3-5 page condensed version).
 Gaps:
-- Broader landscape scan and a scored prospect pipeline.
+- Keir review and sign-off on funding tier amounts.
+- Audience-adapted versions for specific funder types.
 Next step:
-- Expand scan and score (fit, eligibility, size, competitiveness, timeline).
+- Keir review of master CfS. Polish CfS mock-up as deliverable.
+- Playbook: `del/methodologies/grants-and-fundraising/02-case-for-support/`.
 
-## Phase 03: Case for Support ← NEW
-Status: Not started.
+## Phase 03: Landscape Scanning & Prospect Mapping
+Status: ACTIVE — 22-funder pipeline built with CRM.
 Evidence so far:
-- No formal Case for Support document exists.
-- Elements are scattered across concept note and v0 proposal.
+- Internal CRM (22 funders, 7 field groups, 6-stage pipeline model).
+- Scored pipeline: 3 Tier 1, 6 Tier 2, 6 conditional.
+- Cross-validated via ChatGPT + Gemini deep research.
 Gaps:
-- Foundational narrative document (the 7 components).
-- Audience-adapted versions for different funder types.
+- Phase G: Client-ready landscape report for Keir walkthrough.
 Next step:
-- Build Case for Support using playbook at `del/methodologies/grants-and-fundraising/03-case-for-support/`.
-- Feed in: Keir's resources, Uganda programme context, Locus AG partnership.
+- Prepare walkthrough report for Keir. Begin World Food Prize application (Apr 15 deadline).
 
 ## Phase 04: Donor & Sponsor Engagement
 Status: Sparse.
@@ -112,15 +114,15 @@ Notes:
 ## Current HISAGEN Deliverables and Placement
 - Concept Note: Phase 06 (proposal foundation).
 - v0 Grant Proposal: Phase 06 (base narrative).
-- Funder Alignment Matrix: Phase 02 and Phase 05 (prospect mapping + due diligence).
-- Case for Support: Phase 03 (NOT YET BUILT — immediate next deliverable).
+- Funder Alignment Matrix: Phase 03 and Phase 05 (prospect mapping + due diligence).
+- Case for Support: Phase 02 (ACTIVE — master + foundation summary drafted).
 
 ---
 
 ## Recommended Next Build (Repeatable)
-1) Case for Support to close Phase 03 gap (foundational narrative).
+1) Case for Support to close Phase 02 gap (foundational narrative).
 2) Strategy workshop to close Phase 01 gaps.
-3) Expanded prospect scan + scoring (Phase 02).
+3) Expanded prospect scan + scoring (Phase 03).
 4) Compliance matrix + go/no-go gate (Phase 05).
 5) Proposal deepening using playbook structure (Phase 06).
 6) Define Phase 08-12 delivery standards using a PM framework.

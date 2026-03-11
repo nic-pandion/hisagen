@@ -439,8 +439,8 @@ function Phase6Content() {
 
 const phaseContentMap: Record<number, () => React.ReactNode> = {
   1: Phase1Content,
-  2: Phase2Content,
-  3: Phase3Content,
+  2: Phase3Content,
+  3: Phase2Content,
   4: Phase4Content,
   5: Phase5Content,
   6: Phase6Content,

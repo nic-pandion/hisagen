@@ -1,10 +1,8 @@
 // HISAGEN Funding Landscape Data
-// Source of truth: HISAGEN-FUNDER-PIPELINE.md (delivery/grants-fundraising/02-landscape-scanning/)
-// Phase E: for-profit eligibility filter — 8 of 11 traditional funders ineligible
-// Phase F: for-profit-friendly scan — verified funders only
-// Phase G: cross-validated expansion (ChatGPT + Gemini deep research) — 6 new verified funders
-// Sync chain: Pipeline tracker -> this file -> page renders
-// Last synced: 2026-03-10 (post cross-validation expansion)
+// Source of truth: HISAGEN-FUNDER-CRM.md (delivery/grants-fundraising/03-landscape-scanning/)
+// Research record: HISAGEN-FUNDER-PIPELINE.md (methodology, scoring, phase history)
+// Sync chain: CRM (internal) → this file (curated) → portal renders
+// Last synced: 2026-03-11
 
 export type FunderTier = "tier1" | "tier2";
 // Legacy — kept for backward compat, replaced by orgType + thematicFocus
@@ -946,17 +944,17 @@ export const grantPhases: GrantPhase[] = [
   },
   {
     number: 2,
-    name: "Landscape Scanning",
-    status: "complete",
-    statusLabel: "Complete",
-    description: "50+ funders researched, 21 scored across 8 categories. Traditional grants, venture philanthropy, DFI windows, impact funds, accelerators, and prizes. Cross-validated via ChatGPT + Gemini deep research. All leads verified against official programme pages.",
-  },
-  {
-    number: 3,
     name: "Case for Support",
     status: "active",
     statusLabel: "Active &mdash; Draft",
     description: "Master Case for Support and funder-adapted versions for grant applications.",
+  },
+  {
+    number: 3,
+    name: "Landscape Scanning",
+    status: "complete",
+    statusLabel: "Complete",
+    description: "50+ funders researched, 21 scored across 8 categories. Traditional grants, venture philanthropy, DFI windows, impact funds, accelerators, and prizes. Cross-validated via ChatGPT + Gemini deep research. All leads verified against official programme pages.",
   },
   {
     number: 4,

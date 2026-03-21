@@ -333,7 +333,7 @@ export default function WebsiteDigitalPage() {
               <ul className="space-y-2 text-sm text-slate">
                 <li><strong>Repo:</strong> KAB-HISAGEN/hisagen-website (private)</li>
                 <li><strong>Owner:</strong> KAB-HISAGEN (Keir)</li>
-                <li><strong>Collaborator:</strong> juakali100 (Pandion) &mdash; Write access</li>
+                <li><strong>Collaborator:</strong> nic-pandion (Pandion) &mdash; Write access</li>
                 <li><strong>Transferred:</strong> 2026-03-16</li>
               </ul>
             </div>

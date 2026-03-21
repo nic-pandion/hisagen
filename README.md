@@ -4,7 +4,7 @@ This folder contains the standalone Next.js site for the HISAGEN private portal.
 
 ## Location
 - Local path: `03-pandion-business/operations/del/clients/hisagen/site`
-- GitHub repo: `https://github.com/juakali100/hisagen`
+- GitHub repo: `https://github.com/nic-pandion/hisagen`
 
 ## Deployment
 - Hosting: Vercel

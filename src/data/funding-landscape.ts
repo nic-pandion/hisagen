@@ -2,7 +2,7 @@
 // Source of truth: HISAGEN-FUNDER-CRM.md (delivery/grants-fundraising/03-landscape-scanning/)
 // Research record: HISAGEN-FUNDER-PIPELINE.md (methodology, scoring, phase history)
 // Sync chain: CRM (internal) → this file (curated) → portal renders
-// Last synced: 2026-03-11
+// Last synced: 2026-03-20 (Part 1 landscape expansion scan)
 
 export type FunderTier = "tier1" | "tier2";
 // Legacy — kept for backward compat, replaced by orgType + thematicFocus
@@ -436,7 +436,7 @@ const allFundersRaw: CuratedFunder[] = [
     grantMax: 50000,
     currency: "USD",
     deadline: "April 15, 2026",
-    deadlineNote: "URGENT \u2014 5 weeks. Applications open now. Top 10 announced Jul 16. Finals at Borlaug Dialogue, Des Moines (Oct 20-22).",
+    deadlineNote: "URGENT \u2014 26 days. Applications open. Top 10: Jul 16. Public voting: Jul 16-25. Top 3: Aug 5. Finals: Oct 20-22 at Borlaug Dialogue, Des Moines. Contact: innovate@worldfoodprize.org. Judged on: Innovation Impact, Market Potential, Sustainability, Scalability.",
     applyVia: "HISAGEN USA Inc. or HISAGEN Africa Ltd",
     whyStrongFit:
       "Open to early-stage, for-profit startups in AgTech. Worldwide eligibility. 'From validated concepts to pre-Series A.' Non-dilutive prize. Prior winner: APOLO Biotech (Argentina, 2025). No age restriction.",
@@ -594,6 +594,70 @@ const allFundersRaw: CuratedFunder[] = [
     eligibility: "eligible",
     eligibilityNote: "Verified: worldwide, for-profit accepted, pre-revenue allowed. 2026 cycle closed \u2014 target 2027.",
     score: 3.55,
+  },
+  // --- NEW LEADS (Phase G expansion scan, 2026-03-20) ---
+  {
+    id: "undp-timbuktoo",
+    name: "UNDP timbuktoo AgriTech Hub",
+    shortName: "timbuktoo AgriTech",
+    tier: "tier2",
+    category: "accelerator",
+    orgType: "accelerator",
+    thematicFocus: "agriculture-food-security",
+    capitalSource: "grants",
+    fundingMechanism: "programme-grant",
+    costToCompany: "non-dilutive",
+    pipelineStatus: "prospect",
+    applicationWindow: "rolling",
+    estimatedEffort: "medium",
+    geographicEligibility: "HISAGEN Africa Ltd (Africa-based)",
+    grantRange: "Incubation support + investor pathways (no direct capital)",
+    grantMin: 0,
+    grantMax: 0,
+    currency: "USD",
+    deadline: "Rolling (quarterly cohorts, first May 2026)",
+    deadlineNote: "Pan-African incubation programme. Rolling applications, quarterly cohorts. First cohort May 2026. Part of $1B/10yr UNDP programme.",
+    applyVia: "HISAGEN Africa Ltd",
+    whyStrongFit:
+      "UNDP-backed pan-African AgriTech incubation. For-profit eligible. Requires MVP/prototype. Support includes mentors, investor readiness, demo days, acceleration pathways. Government of Japan backing. 10,000 startups targeted over 10 years.",
+    process: "Rolling applications via UNDP timbuktoo portal. Quarterly cohort intake. Hosted in Ghana with pan-African reach.",
+    consideration: "Provides incubation support and investor access, NOT direct capital. Value is in network, credibility, and investment readiness. Good complement to direct funding applications.",
+    url: "https://www.undp.org/ghana/press-releases/call-applications-join-pan-african-incubation-programme-agritech-startups",
+    eligibility: "eligible",
+    eligibilityNote: "For-profit eligible. Requires: Africa-based, MVP/prototype, committed founding team, agricultural value chain focus, scalability potential.",
+    score: 3.20,
+  },
+  {
+    id: "giz-developpp",
+    name: "GIZ develoPPP Classic",
+    shortName: "GIZ develoPPP",
+    tier: "tier2",
+    category: "dfi-private-sector",
+    orgType: "government-programme",
+    thematicFocus: "agriculture-food-security",
+    capitalSource: "grants",
+    fundingMechanism: "programme-grant",
+    costToCompany: "non-dilutive",
+    pipelineStatus: "prospect",
+    applicationWindow: "closed",
+    estimatedEffort: "high",
+    nextCycle: "Q3-Q4 2026 (next round)",
+    geographicEligibility: "HISAGEN USA Inc. (US is OECD-DAC member)",
+    grantRange: "Up to \u20AC2,000,000 (50% of project costs)",
+    grantMin: 100000,
+    grantMax: 2000000,
+    currency: "EUR",
+    deadline: "March 31, 2026 (current round closed)",
+    deadlineNote: "German BMZ programme via GIZ. Current round deadline Mar 31 \u2014 too tight for first application. Target next round (likely Q3-Q4 2026).",
+    applyVia: "HISAGEN USA Inc. (must be registered in EU/EFTA/OECD-DAC country)",
+    whyStrongFit:
+      "German government programme promoting private sector investment in developing countries. Food & agriculture is a priority sector. Up to \u20AC2M public contribution. Uganda qualifies as target country. For-profit by design.",
+    process: "Online application via developpp.de. Competitive ideas competition. Implementation by GIZ or KfW DEG Impulse.",
+    consideration: "Requires company registered in EU/EFTA/OECD-DAC country \u2014 HISAGEN USA Inc. may qualify (US is OECD-DAC). Requires established operations (not early-stage ideas without proof of concept). 50% co-funding required. Target next application round.",
+    url: "https://www.developpp.de/en",
+    eligibility: "conditional",
+    eligibilityNote: "For-profit by design. But requires EU/EFTA/OECD-DAC registration (HISAGEN USA may qualify). Current round closing Mar 31 \u2014 target next round. 50% co-funding required.",
+    score: 3.40,
   },
   // Village Capital removed: Uganda ineligible, training programme not investment
   // SBIR/STTR removed: programme expired Sep 2025, domestic R&D requirement blocks Uganda work
@@ -954,7 +1018,7 @@ export const grantPhases: GrantPhase[] = [
     name: "Landscape Scanning",
     status: "complete",
     statusLabel: "Complete",
-    description: "50+ funders researched, 21 scored across 8 categories. Traditional grants, venture philanthropy, DFI windows, impact funds, accelerators, and prizes. Cross-validated via ChatGPT + Gemini deep research. All leads verified against official programme pages.",
+    description: "55+ funders researched, 23 scored across 13 categories. Phase G expansion (Mar 20): scanned bilateral/DFI windows, corporate foundations, competitions, faith-based funders, and carbon pre-financing. 2 new leads added. Cross-validated pipeline verified against official programme pages.",
   },
   {
     number: 4,
@@ -1072,6 +1136,21 @@ export const applicationTimeline: TimelineEntry[] = [
     funderId: "hello-tomorrow",
     urgency: "medium",
   },
+  // NEW FROM PHASE G EXPANSION (2026-03-20)
+  {
+    when: "Q2 2026",
+    what: "Apply to UNDP timbuktoo AgriTech Hub (rolling \u2014 incubation + investor access)",
+    funder: "UNDP timbuktoo",
+    funderId: "undp-timbuktoo",
+    urgency: "medium",
+  },
+  {
+    when: "Q3-Q4 2026",
+    what: "Apply to GIZ develoPPP Classic next round (\u20AC2M, food & agriculture)",
+    funder: "GIZ develoPPP",
+    funderId: "giz-developpp",
+    urgency: "medium",
+  },
   // ONGOING
   {
     when: "Monthly",
@@ -1094,15 +1173,15 @@ export const applicationTimeline: TimelineEntry[] = [
 // ─────────────────────────────────────────────────────────────
 
 export const landscapeStats = {
-  totalResearched: 50, // 40 original + cross-validation expansion
-  totalScored: 21, // 11 original + 4 verified + 6 cross-validated (Village Capital + SBIR removed)
-  // Post cross-validation pipeline (2026-03-10)
+  totalResearched: 55, // 50 original + Phase G expansion (5 new categories scanned Mar 20)
+  totalScored: 23, // 21 original + 2 new leads (timbuktoo, GIZ develoPPP)
+  // Post Phase G expansion scan (2026-03-20)
   eligibleTier1Count: 3, // Echoing Green, ARAF, DRK
-  eligibleTier2Count: 6, // World Food Prize, Mulago, IFAD, WFP Innovation, Hello Tomorrow, START II
-  conditionalCount: 6, // Katapult Africa, GoGettaz, AAAP/YouthADAPT, DIV Fund, FINCA Ventures, EIC Accelerator
+  eligibleTier2Count: 7, // World Food Prize, Mulago, IFAD, WFP Innovation, Hello Tomorrow, START II, timbuktoo
+  conditionalCount: 7, // Katapult Africa, GoGettaz, AAAP/YouthADAPT, DIV Fund, FINCA Ventures, EIC Accelerator, GIZ develoPPP
   ineligibleCount: 5, // CFH, AFCIA, AfDB TAAT, Rockefeller FILab, TrustAfrica, Noel Buxton
   deprioritisedCount: 1, // Climate Finance Lab
-  eligiblePipelineValue: "$400K - $5M+",
+  eligiblePipelineValue: "$400K - $7M+",
   urgentDeadlines: 2, // World Food Prize (Apr 15), Katapult Africa (Apr 25)
   categories: [
     "Climate Adaptation Funds",
@@ -1113,6 +1192,11 @@ export const landscapeStats = {
     "DFI Private Sector Windows",
     "Impact Funds",
     "Accelerators & Prizes",
+    "Bilateral/DFI (Phase G)",
+    "Corporate Foundations (Phase G)",
+    "Competitions & Prizes (Phase G)",
+    "Faith-Based Funders (Phase G)",
+    "Carbon Pre-Financing (Phase G)",
   ],
 };
 
@@ -1122,25 +1206,25 @@ export const landscapeStats = {
 
 export const strategicRecommendations: StrategicRecommendation[] = [
   {
-    id: "for-profit-capital",
-    title: "Pursue Verified For-Profit-Friendly Capital (Active)",
-    description:
-      "Venture philanthropy (DRK Foundation, Echoing Green), impact funds (Acumen/ARAF), prizes (World Food Prize, GoGettaz, Hello Tomorrow), innovation challenges (WFP, Katapult), and the new DIV Fund. All verified against primary sources. World Food Prize is the most urgent (April 15 deadline). DRK is the strongest long-term opportunity.",
-    impact: "Verified pipeline: 3 Tier 1 + 6 Tier 2 eligible, 6 conditional. $400K-$5M+ potential. Two urgent deadlines: April 15 + April 25.",
-  },
-  {
-    id: "partner-led",
-    title: "Partner-Led Applications (Secondary)",
-    description:
-      "NARO or university as lead applicant, HISAGEN as implementing partner. Opens some doors (AfDB TAAT, CFH Foundation) but dependent on relationship and slower.",
-    impact: "Partial access to 2-3 traditional funders via partner route.",
-  },
-  {
     id: "nonprofit-entity",
-    title: "Establish a Nonprofit Entity (Deferred)",
+    title: "A: Establish a Nonprofit Entity or Foundation Arm",
     description:
-      "Create HISAGEN Foundation or Uganda-registered NGO for grant-eligible research work. Would reopen traditional grant funders. But takes months and may not be a priority.",
-    impact: "Deferred pending Keir's view on entity structure.",
+      "The single structural change that would most expand the pipeline. At least 5 ineligible funders scoring 3.75+ (CFH Foundation, AFCIA, AfDB TAAT, Rockefeller FILab, TrustAfrica) would become accessible. Options: HISAGEN Foundation (US 501(c)(3)), HISAGEN Community Trust (Uganda), or fiscal sponsor relationship. Even announcing establishment strengthens credibility with for-profit-eligible funders.",
+    impact: "Unlocks $300K\u2013$6M+ from 5 currently ineligible funders. Decide by June 2026.",
+  },
+  {
+    id: "naro-partnership",
+    title: "B: Formalise the NARO Partnership",
+    description:
+      "Probably the highest-return action in terms of effort vs. pipeline expansion. A formal MoU or partnership agreement opens partner-route applications (AfDB TAAT, CFH Foundation, McKnight CCRP, CGIAR) and strengthens every application \u2014 even to for-profit-eligible funders. Signals institutional credibility, research rigour, and government alignment.",
+    impact: "One MoU document could unlock 3\u20134 additional funding routes. Initiate by April 2026.",
+  },
+  {
+    id: "competition-strategy",
+    title: "C: Pursue a Competition / Prize Strategy",
+    description:
+      "Competitions offer non-dilutive capital, high visibility, investor network access, and validation. The probability of winning any single prize is low (5\u201315%), but with 4\u20135 applications per year, expected value is positive. Even reaching finals generates media, visibility, and investor introductions that support subsequent DRK and ARAF applications.",
+    impact: "Target: World Food Prize (Apr 15), GoGettaz (if eligible), Hello Tomorrow (Sep 2026), Echoing Green (Sep 2026), Katapult Africa (Apr 25).",
   },
 ];
 

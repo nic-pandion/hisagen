@@ -377,8 +377,8 @@ function Phase5Content() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {[
           { check: "Entity Eligibility", desc: "Both HISAGEN entities are for-profit. Most traditional grant funders require nonprofit/NGO/501(c)(3) status.", result: "8 of 11 ineligible" },
-          { check: "Eligible Pipeline", desc: "Echoing Green (Tier 1), Mulago Foundation (Tier 2), IFAD (Tier 2). All explicitly accept for-profit applicants.", result: `${landscapeStats.eligiblePipelineValue}` },
-          { check: "Conditional", desc: "AAAP/YouthADAPT requires founder aged 18-35. Keir must confirm age eligibility.", result: "Pending Keir" },
+          { check: "Eligible Pipeline", desc: "3 Tier 1 (Acumen/ARAF, DRK Foundation, Echoing Green) + 7 Tier 2 (World Food Prize, Mulago, IFAD, WFP Innovation, Hello Tomorrow, START II, timbuktoo). All verified for-profit eligible.", result: `${landscapeStats.eligiblePipelineValue}` },
+          { check: "Conditional", desc: "7 funders pending: founder age (GoGettaz, YouthADAPT), equity terms (Katapult), programme launch (DIV Fund), entity requirements (EIC, GIZ develoPPP), revenue stage (FINCA).", result: "Pending Keir / External" },
         ].map((item) => (
           <div key={item.check} className="p-4 rounded-lg border border-mist bg-white">
             <h5 className="text-xs font-bold text-secondary mb-1">{item.check}</h5>
@@ -428,8 +428,9 @@ function Phase6Content() {
 
       <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
         <p className="text-xs text-slate">
-          <strong className="text-secondary">Priority:</strong> Echoing Green is the only directly accessible,
-          high-scoring, for-profit-eligible Tier 1 opportunity. Prepare fellowship application Jul&ndash;Aug 2026.
+          <strong className="text-secondary">Priorities:</strong> World Food Prize (April 15 &mdash; most urgent, $50K non-dilutive).
+          DRK Foundation (rolling &mdash; strongest long-term opportunity, $300K/3yr + $500K in-kind, direct precedent in Mati Carbon).
+          WFP Innovation ($100K equity-free, rolling). Echoing Green fellowship (Sep 2026).
           Mulago requires referral pathway &mdash; start network building now.
         </p>
       </div>
@@ -662,7 +663,7 @@ function PipelineOverview() {
             </div>
             <p className="text-xs text-slate/70">
               All capital sources in one view. Sort by column headers. Filter by eligibility, capital type, funder type, or tier.
-              <span className="ml-2 text-slate/40">Last synced: 11 March 2026</span>
+              <span className="ml-2 text-slate/40">Last synced: 20 March 2026</span>
             </p>
           </div>
           <svg
@@ -1224,17 +1225,17 @@ export default function CapitalStrategyPage() {
             Late Stage 1: Incubation
           </span>
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate/40">
-            Capital Strategy &amp; Fundraising Journey
+            Capital Strategy &amp; Funding Journey
           </span>
         </div>
 
         <h1 className="text-4xl font-bold text-secondary leading-tight">
-          HISAGEN Capital Strategy
+          HISAGEN Capital Strategy &amp; Funding Journey
         </h1>
         <p className="mt-4 text-lg text-slate leading-relaxed max-w-3xl">
-          Five sources of capital mapped across the Capital Continuum, each with its own
-          pathway. Grant fundraising is active at Stage 1, following a 6-phase pre-award
-          methodology. Other capital pathways unlock as evidence matures.
+          Six sources of capital mapped across the Capital Continuum, anchored by founder
+          &amp; insider capital. Grant funding is active at Stage 1, following a 6-phase
+          pre-award methodology. Other capital pathways unlock as evidence matures.
         </p>
 
         {/* Capital Continuum bar */}
@@ -1266,7 +1267,84 @@ export default function CapitalStrategyPage() {
         </div>
       </section>
 
-      {/* ── FIVE SOURCES OF CAPITAL ──────────────────────────── */}
+      {/* ── FINANCING INTEGRITY CONTEXT ─────────────────────── */}
+      <section className="mt-12">
+        <div className="rounded-2xl border border-amber-200 bg-amber-50/50 p-6">
+          <div className="flex items-start gap-4">
+            <div className="shrink-0 w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+              <span className="text-lg">&#x26A0;</span>
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-secondary mb-2">
+                The Capital Challenge: Not Unique to HISAGEN
+              </h3>
+              <p className="text-sm text-slate leading-relaxed mb-3">
+                Nature-based ventures face a recognised structural financing gap. Even with strong
+                methodologies and committed buyers, projects struggle to access viable long-term
+                capital. Institutional investors typically require $5&ndash;50M minimum tickets,
+                locking out smaller, community-led projects. Tighter carbon market standards
+                improve integrity but make forward revenue less predictable, turning quality
+                requirements into financial constraints for developers.
+              </p>
+              <p className="text-sm text-slate leading-relaxed mb-3">
+                The response from the sustainable finance community is clear: projects need
+                <strong> blended capital stacks</strong> pairing concessional first-loss funding
+                with market commitments, <strong>shared risk structures</strong> across buyers,
+                financiers and developers, and <strong>financeable offtake</strong> with realistic
+                delivery terms. HISAGEN&rsquo;s multi-source capital strategy is designed around
+                exactly this approach.
+              </p>
+              <p className="text-[11px] text-slate/60 italic">
+                Source: &ldquo;Financing Integrity: The Missing Middle in Nature-Based Carbon&rdquo;
+                &mdash; Edit Kiss (Capital Continuum Management) &amp; Tripurari Prasad
+                (Climate Asset Management), Ecosystem Marketplace, March 2025
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── HISAGEN-SPECIFIC: NONPROFIT GAP ────────────────── */}
+      <section className="mt-6">
+        <div className="rounded-xl border border-amber-200 bg-amber-50/30 p-6">
+          <p className="text-sm font-bold text-amber-900 mb-2">HISAGEN&rsquo;s Specific Challenge: The Nonprofit Gap</p>
+          <p className="text-sm text-slate leading-relaxed mb-4">
+            Both HISAGEN entities are for-profit limited companies. The majority of grant
+            and philanthropic funders require nonprofit/NGO/501(c)(3) status &mdash; meaning
+            a large proportion of the available funding landscape is structurally inaccessible.
+            The pipeline below focuses specifically on funders that accept for-profit applicants,
+            but this significantly narrows the field.
+          </p>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate/50 mb-3">
+            Possible Mitigations &mdash; For Discussion with Keir
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="rounded-lg border border-mist bg-white p-4">
+              <p className="text-xs font-bold text-secondary mb-1">1. Establish a Charitable Entity</p>
+              <p className="text-[11px] text-slate leading-relaxed">
+                CIO or CLG for grant-eligible social impact work. Opens up the wider funding landscape.
+                Timeline: 3&ndash;6 months.
+              </p>
+            </div>
+            <div className="rounded-lg border border-mist bg-white p-4">
+              <p className="text-xs font-bold text-secondary mb-1">2. Partner with Existing Nonprofit</p>
+              <p className="text-[11px] text-slate leading-relaxed">
+                Channel funds through an aligned nonprofit partner. HISAGEN delivers commercial
+                layer; partner holds the grant.
+              </p>
+            </div>
+            <div className="rounded-lg border border-mist bg-white p-4">
+              <p className="text-xs font-bold text-secondary mb-1">3. Dual-Entity Strategy</p>
+              <p className="text-[11px] text-slate leading-relaxed">
+                For-profit handles commercial ops; nonprofit/partner handles social impact grants.
+                Most comprehensive. Common in AgTech.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SOURCES OF CAPITAL ──────────────────────────── */}
       <section className="mt-12">
         <div className="flex items-center gap-4 mb-4">
           <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.2em]">
@@ -1281,9 +1359,63 @@ export default function CapitalStrategyPage() {
           </Link>
         </div>
         <p className="text-sm text-slate mb-8 max-w-3xl">
-          Five categories of sustainable finance capital, mapped to HISAGEN&rsquo;s position on the
-          Capital Continuum. Stage 1 capital is active; later stages unlock as evidence matures.
+          Six sources of capital mapped to HISAGEN&rsquo;s position on the Capital Continuum,
+          anchored by founder &amp; insider capital. Stage 1 external capital is active;
+          later stages unlock as evidence matures.
         </p>
+
+        {/* 0. Founder, Friends & Family Capital — ANCHOR */}
+        <div className="rounded-2xl border-2 border-secondary/20 bg-secondary/5 p-6 mb-4">
+          <div className="flex flex-col md:flex-row md:items-start gap-6">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-xs font-bold text-secondary/50 w-5">00</span>
+                <h3 className="text-lg font-bold text-secondary">Founder, Friends &amp; Family</h3>
+                <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-secondary/10 text-secondary">
+                  Anchor
+                </span>
+                <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 ml-auto hidden sm:block">
+                  Active
+                </span>
+              </div>
+              <p className="text-sm text-slate leading-relaxed mb-3">
+                Capital and time invested by the founding team, directors, and trusted network
+                contacts. Includes cash investment, sweat equity, in-kind contributions, and
+                seed capital from angel investors in Keir&rsquo;s network. This is the first-loss
+                layer that de-risks all subsequent external capital &mdash; every funder and
+                investor asks &ldquo;what has the team put in?&rdquo;
+              </p>
+              <div className="space-y-2 mb-3">
+                <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-secondary font-medium">
+                  <span>&rarr; Founder cash invested: [TBC &mdash; Keir to confirm]</span>
+                  <span>&rarr; Founder &amp; director time: [TBC]</span>
+                </div>
+                <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-secondary font-medium">
+                  <span>&rarr; Network seed investment: conversations active</span>
+                  <span>&rarr; First-loss position anchors all external funding</span>
+                </div>
+              </div>
+              <div className="p-3 rounded-lg bg-white/60 border border-secondary/10">
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-amber-600 mb-1">Action: Conversation Needed</p>
+                <p className="text-xs text-slate leading-relaxed">
+                  How does Keir currently track capital invested (cash + time) by himself,
+                  Scott, and other HISAGEN Africa directors? And what is the status of seed
+                  investment conversations with network contacts? This doesn&rsquo;t need to
+                  be precise yet &mdash; but understanding what&rsquo;s in this bucket helps
+                  frame the full capital picture for external funders.
+                </p>
+              </div>
+            </div>
+            <div className="md:w-48 shrink-0 p-3 rounded-xl bg-white/60 border border-secondary/10">
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate/50 mb-2">Why It Matters</p>
+              <p className="text-xs text-slate leading-relaxed">
+                Grant makers and impact investors consistently cite founder skin-in-the-game
+                as a key decision factor. This capital &mdash; plus network seed investment
+                &mdash; is the credibility anchor for every application in the pipeline.
+              </p>
+            </div>
+          </div>
+        </div>
 
         <div className="space-y-4">
           {/* 1. Grants & Philanthropy — ACTIVE */}
@@ -1525,11 +1657,12 @@ export default function CapitalStrategyPage() {
         {/* Tab bar */}
         <div className="flex overflow-x-auto border-b-2 border-mist mb-6 -mx-1">
           {[
-            { id: "grants", label: "Grants & Philanthropy", status: "Active", statusClass: "bg-emerald-100 text-emerald-700" },
-            { id: "debt", label: "Green Bonds & Debt", status: "Stage 2", statusClass: "bg-slate-100 text-slate-500" },
+            { id: "fff", label: "FFF", status: "Active", statusClass: "bg-emerald-100 text-emerald-700" },
+            { id: "grants", label: "Grants", status: "Active", statusClass: "bg-emerald-100 text-emerald-700" },
+            { id: "debt", label: "Debt", status: "Stage 2", statusClass: "bg-slate-100 text-slate-500" },
             { id: "equity", label: "Equity & VC", status: "Stage 2\u20133", statusClass: "bg-slate-100 text-slate-500" },
-            { id: "impact", label: "Impact Investing", status: "Stage 2\u20133", statusClass: "bg-slate-100 text-slate-500" },
-            { id: "blended", label: "Blended Finance", status: "Future", statusClass: "bg-slate-50 text-slate-400" },
+            { id: "impact", label: "Impact", status: "Stage 2\u20133", statusClass: "bg-slate-100 text-slate-500" },
+            { id: "blended", label: "Blended", status: "Future", statusClass: "bg-slate-50 text-slate-400" },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -1547,6 +1680,73 @@ export default function CapitalStrategyPage() {
             </button>
           ))}
         </div>
+
+        {/* ── Tab: Founder, Friends & Family ──────────────── */}
+        {activePathway === "fff" && (
+          <div>
+            <div className="mb-6 p-4 rounded-xl bg-secondary/5 border border-secondary/20">
+              <h3 className="text-sm font-bold text-secondary mb-1">Founder, Friends &amp; Family Pathway</h3>
+              <p className="text-xs text-slate leading-relaxed">
+                The foundation layer of HISAGEN&rsquo;s capital stack. Includes founder cash
+                investment, sweat equity from directors, and seed capital from trusted network contacts.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 rounded-xl border border-mist bg-white">
+                <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate/50 mb-3">
+                  Capital Already Deployed
+                </p>
+                <div className="space-y-3">
+                  {[
+                    { step: "01", label: "Founder cash investment", desc: "Keir\u2019s personal capital invested to date [amount TBC]" },
+                    { step: "02", label: "Director time &amp; sweat equity", desc: "Keir, Scott, and HISAGEN Africa directors\u2019 unpaid time [terms TBC]" },
+                    { step: "03", label: "In-kind contributions", desc: "Equipment, facilities, land access, local relationships" },
+                  ].map((s) => (
+                    <div key={s.step} className="flex items-start gap-3">
+                      <span className="text-[10px] font-bold text-slate-400 mt-0.5">{s.step}</span>
+                      <div>
+                        <p className="text-xs font-bold text-secondary" dangerouslySetInnerHTML={{ __html: s.label }} />
+                        <p className="text-[11px] text-slate/70">{s.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="p-4 rounded-xl border border-mist bg-white">
+                <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate/50 mb-3">
+                  Network Seed Investment (Active)
+                </p>
+                <div className="space-y-3">
+                  {[
+                    { step: "01", label: "Identify contacts", desc: "Keir\u2019s network \u2014 people who trust him and believe in the mission" },
+                    { step: "02", label: "Conversations &amp; pitch", desc: "Informal conversations about HISAGEN\u2019s vision and capital needs" },
+                    { step: "03", label: "Terms agreed", desc: "Investment amount, equity %, valuation basis, timeline" },
+                    { step: "04", label: "Capital deployed", desc: "Funds received and deployed to product, logistics, distribution, packaging" },
+                  ].map((s) => (
+                    <div key={s.step} className="flex items-start gap-3">
+                      <span className="text-[10px] font-bold text-slate-400 mt-0.5">{s.step}</span>
+                      <div>
+                        <p className="text-xs font-bold text-secondary" dangerouslySetInnerHTML={{ __html: s.label }} />
+                        <p className="text-[11px] text-slate/70">{s.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4 p-4 rounded-xl border border-amber-200 bg-amber-50/50">
+              <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-amber-600 mb-1">Key Question for Keir</p>
+              <p className="text-xs text-slate leading-relaxed">
+                What are the seed investment conversations looking like? Who has expressed interest,
+                what amounts are being discussed, and what would the capital be used for
+                (product development, packaging, logistics, distribution)?
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* ── Tab: Grants & Philanthropy ───────────────────── */}
         {activePathway === "grants" && (
@@ -1977,100 +2177,7 @@ export default function CapitalStrategyPage() {
         </div>
       </section>
 
-      {/* ── STRUCTURAL CONSIDERATIONS ───────────────────────── */}
-      <section className="mt-12">
-        <div className="flex items-center gap-4 mb-8">
-          <h2 className="text-xl font-bold text-secondary uppercase tracking-[0.2em]">
-            Structural Considerations
-          </h2>
-          <div className="h-px flex-1 bg-mist" />
-        </div>
-
-        <div className="rounded-xl border border-amber-200 bg-amber-50/30 p-6 mb-6">
-          <p className="text-sm font-bold text-amber-900 mb-2">The Nonprofit Gap</p>
-          <p className="text-sm text-slate leading-relaxed">
-            Both HISAGEN entities are for-profit limited companies. Of 22 funders researched,
-            <strong> 8 are ineligible</strong> because they require nonprofit/NGO/501(c)(3) status.
-            This is the single largest constraint on the current funding pipeline. The funders
-            excluded are often the most accessible, lowest-barrier entry points for early-stage
-            organisations.
-          </p>
-        </div>
-
-        <div className="mb-6">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate/50 mb-4">
-            Possible Mitigations &mdash; For Discussion with Keir
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="rounded-xl border border-mist bg-white p-6">
-              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                <span className="text-primary font-bold text-sm">1</span>
-              </div>
-              <h3 className="text-base font-bold text-secondary mb-2">
-                Establish a Charitable Entity
-              </h3>
-              <p className="text-sm text-slate leading-relaxed mb-3">
-                Set up a CIO (Charitable Incorporated Organisation) or CLG (Company Limited by
-                Guarantee) to handle grant-eligible social impact work. This unlocks the 8
-                currently ineligible funders.
-              </p>
-              <p className="text-xs text-slate/60 leading-relaxed">
-                <strong>Consideration:</strong> Governance overhead, charity registration timeline
-                (3&ndash;6 months), and need for independent trustees.
-              </p>
-            </div>
-            <div className="rounded-xl border border-mist bg-white p-6">
-              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                <span className="text-primary font-bold text-sm">2</span>
-              </div>
-              <h3 className="text-base font-bold text-secondary mb-2">
-                Partner with an Existing Nonprofit
-              </h3>
-              <p className="text-sm text-slate leading-relaxed mb-3">
-                Channel funds through an established nonprofit partner for social and environmental
-                outcomes (farmer training, biodiversity monitoring, food security programmes).
-                HISAGEN delivers the commercial layer; the partner holds the grant.
-              </p>
-              <p className="text-xs text-slate/60 leading-relaxed">
-                <strong>Consideration:</strong> Requires finding the right partner with aligned
-                mission, shared reporting, and trust. Indirect cost overhead.
-              </p>
-            </div>
-            <div className="rounded-xl border border-mist bg-white p-6">
-              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                <span className="text-primary font-bold text-sm">3</span>
-              </div>
-              <h3 className="text-base font-bold text-secondary mb-2">
-                Dual-Entity Strategy
-              </h3>
-              <p className="text-sm text-slate leading-relaxed mb-3">
-                Combine both approaches: for-profit entities handle commercial operations
-                (bio-fertilizer sales, carbon credits), while a nonprofit entity or partner
-                handles grant-eligible social impact work (farmer livelihoods, food security,
-                biodiversity).
-              </p>
-              <p className="text-xs text-slate/60 leading-relaxed">
-                <strong>Consideration:</strong> Most comprehensive but highest complexity.
-                Common in AgTech &mdash; many successful organisations use this structure.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-emerald-200/60 bg-emerald-50/30 p-6">
-          <p className="text-sm font-bold text-emerald-800 mb-2">
-            Why Social &amp; Environmental Benefits Matter Here
-          </p>
-          <p className="text-sm text-slate leading-relaxed">
-            HISAGEN&rsquo;s crop yield improvements, soil biodiversity restoration, farmer income growth,
-            and food security outcomes go beyond the commercial interests of HISAGEN Ltd. These are
-            exactly the outcomes that grant funders want to see &mdash; and they justify a nonprofit
-            partnership or charitable entity route. The stronger the evidence of social impact,
-            the stronger the case for unlocking the 8 currently ineligible funders through a
-            partner-led or dual-entity approach.
-          </p>
-        </div>
-      </section>
+      {/* Structural Considerations content moved up to sit below Capital Challenge */}
 
       {/* ── RELATED ─────────────────────────────────────────── */}
       <section className="mt-12 mb-20">

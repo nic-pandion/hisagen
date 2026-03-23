@@ -22,7 +22,9 @@ export default function LogoPage() {
             <span className="text-white/40">&rarr;</span>
             <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Phase 4: Refinement</span>
             <span className="text-white/40">&rarr;</span>
-            <span className="px-3 py-1 bg-accent/40 border border-accent rounded-full text-sm font-medium">Phase 5: Production</span>
+            <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Phase 5: Production</span>
+            <span className="text-white/40">&rarr;</span>
+            <span className="px-3 py-1 bg-amber-400/40 border border-amber-400 rounded-full text-sm font-medium">Phase 6: Client Review</span>
           </div>
         </div>
       </div>
@@ -727,7 +729,7 @@ export default function LogoPage() {
         {/* ============================================ */}
         {/* PHASE 5: LOGO PACK PRODUCTION               */}
         {/* ============================================ */}
-        <details className="group" open>
+        <details className="group">
           <summary className="cursor-pointer list-none">
             <div className="flex items-center gap-4 bg-white border-2 border-accent/40 rounded-lg p-5 hover:border-accent transition-colors">
               <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold text-sm shrink-0">5</div>
@@ -1189,6 +1191,231 @@ export default function LogoPage() {
           </div>
         </details>
 
+        {/* ============================================ */}
+        {/* PHASE 6: CLIENT REVIEW & NEW DIRECTION       */}
+        {/* ============================================ */}
+        <details className="group" open>
+          <summary className="cursor-pointer list-none">
+            <div className="flex items-center gap-4 bg-white border-2 border-amber-300 rounded-lg p-5 hover:border-amber-400 transition-colors">
+              <div className="w-10 h-10 rounded-full bg-amber-400 text-white flex items-center justify-center font-bold text-sm shrink-0">6</div>
+              <div className="flex-1">
+                <h2 className="text-xl font-serif font-semibold text-ink">Client Review &amp; New Direction</h2>
+                <p className="text-sm text-slate">March 2026 &mdash; Team feedback on delivered pack, Keir shares reworked design</p>
+              </div>
+              <div className="text-slate ml-4 shrink-0 transition-transform group-open:rotate-180">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </div>
+            </div>
+          </summary>
+
+          <div className="mt-4 space-y-8 pl-5 border-l-2 border-amber-300/40 ml-10">
+
+            {/* Timeline */}
+            <section>
+              <h3 className="text-lg font-serif font-semibold text-ink mb-4">Team Review Timeline</h3>
+              <div className="space-y-3">
+                <div className="bg-white border border-mist rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xs font-bold text-slate bg-parchment px-2 py-1 rounded shrink-0">Mar 17</span>
+                    <div>
+                      <p className="text-sm text-ink font-medium">Pandion sent 3 colour variants</p>
+                      <p className="text-xs text-slate mt-1">
+                        Full colour, light (for dark backgrounds), and dark (monochrome) &mdash; the three variants
+                        from the delivered Phase 5 logo pack. Sent to Keir with link to this /logo page for full context.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white border border-mist rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xs font-bold text-slate bg-parchment px-2 py-1 rounded shrink-0">Mar 17</span>
+                    <div>
+                      <p className="text-sm text-ink font-medium">Keir circulated to wider team</p>
+                      <p className="text-xs text-slate mt-1">
+                        Forwarded variants to Daniel, Scott, and team with feedback deadline of Friday March 20.
+                        Noted that a local logo variation could be addressed at a later stage &mdash; priority
+                        was finalising a primary logo for business cards, letterheads, and production materials.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white border border-mist rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xs font-bold text-slate bg-parchment px-2 py-1 rounded shrink-0">Mar 17&ndash;20</span>
+                    <div>
+                      <p className="text-sm text-ink font-medium">Daniel and Scott responded</p>
+                      <p className="text-xs text-slate mt-1">
+                        Both gave preferences on the variants &mdash; indicating which they preferred. However, the feedback
+                        suggested the colour variants were being read as different logo concepts rather than the same
+                        logo in different colour formats (full colour, light, dark) for different use contexts.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white border border-amber-300 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xs font-bold text-white bg-amber-400 px-2 py-1 rounded shrink-0">Mar 22</span>
+                    <div>
+                      <p className="text-sm text-ink font-medium">Keir clarified &amp; shared new direction</p>
+                      <p className="text-xs text-slate mt-1">
+                        Clarified that the previous variants were the same logo in different colour formats. Then shared
+                        a reworked design he had developed independently, with two new variants. Also raised a strategic
+                        branding question: should HISAGEN emphasise &ldquo;SOIL application&rdquo; or &ldquo;SEED application&rdquo;
+                        in its positioning.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* V5 Concepts */}
+            <section>
+              <h3 className="text-lg font-serif font-semibold text-ink mb-4">Keir&apos;s Reworked Design (V5)</h3>
+              <p className="text-sm text-slate mb-4">
+                Two variants of a new concept developed by Keir using AI generation tools. The design features a gold
+                teardrop/seed shape enclosing a seedling with visible root structure below a soil line.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-white rounded-lg border-2 border-amber-300/50 overflow-hidden">
+                  <div className="aspect-square bg-parchment flex items-center justify-center p-8">
+                    <img src="/logos/keir-mar22-v5-teardrop.png" alt="Keir V5 — gold teardrop with seedling and roots (PNG)" className="max-w-[220px] max-h-[220px] object-contain" />
+                  </div>
+                  <div className="p-4 border-t border-mist">
+                    <p className="font-medium text-sm text-ink">V5 &mdash; Variant A</p>
+                    <p className="text-xs text-slate mt-1">Gold teardrop border, seedling with 3 leaves, branching root system below soil horizon.</p>
+                    <p className="text-[10px] text-slate mt-2">Tagline: &ldquo;High Impact Seed Application for Greener Environment&rdquo;</p>
+                  </div>
+                </div>
+                <div className="bg-white rounded-lg border-2 border-amber-300/50 overflow-hidden">
+                  <div className="aspect-square bg-parchment flex items-center justify-center p-8">
+                    <img src="/logos/keir-mar22-v5-teardrop-alt.jpeg" alt="Keir V5 — gold teardrop with seedling and roots (JPEG)" className="max-w-[220px] max-h-[220px] object-contain" />
+                  </div>
+                  <div className="p-4 border-t border-mist">
+                    <p className="font-medium text-sm text-ink">V5 &mdash; Variant B</p>
+                    <p className="text-xs text-slate mt-1">Same concept with slightly different proportions and styling. Bolder text treatment.</p>
+                    <p className="text-[10px] text-slate mt-2">Tagline: &ldquo;High Impact Seed Application for Greener Environment&rdquo;</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* What the concept communicates */}
+              <div className="mt-6 bg-white border border-mist rounded-lg p-5">
+                <p className="text-xs font-bold uppercase tracking-widest text-slate mb-3">What This Concept Communicates</p>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-xs font-semibold text-ink mb-2">Strengths</p>
+                    <ul className="text-xs text-slate space-y-1">
+                      <li>&bull; <strong className="text-ink">Clear narrative</strong> &mdash; seed shape enclosing what happens underground. Immediate story.</li>
+                      <li>&bull; <strong className="text-ink">Above/below duality</strong> &mdash; consistent with all previous directions. The core theme lands.</li>
+                      <li>&bull; <strong className="text-ink">Gold teardrop</strong> &mdash; the seed/drop shape ties to both the product (seed application) and value.</li>
+                      <li>&bull; <strong className="text-ink">Root detail</strong> &mdash; at large sizes, the root network is visually striking and communicates depth.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-ink mb-2">Production Considerations</p>
+                    <ul className="text-xs text-slate space-y-1">
+                      <li>&bull; <strong className="text-ink">Gradients &amp; reflections</strong> &mdash; the gold border has 3D lighting effects that won&apos;t translate to flat print, embossing, or single-colour use</li>
+                      <li>&bull; <strong className="text-ink">Detail density</strong> &mdash; roots, soil texture, leaf veins, and gradient layers compress at small sizes (same issue documented in Phase 5 for Roots Circle)</li>
+                      <li>&bull; <strong className="text-ink">Raster source</strong> &mdash; AI-generated PNGs would need vector tracing and significant cleanup for production files</li>
+                      <li>&bull; <strong className="text-ink">Colour reproduction</strong> &mdash; gradient gold reads differently on screen vs print vs embroidery</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* SOIL vs SEED */}
+            <section>
+              <h3 className="text-lg font-serif font-semibold text-ink mb-4">Strategic Question: SOIL vs SEED</h3>
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 space-y-4">
+                <p className="text-sm text-slate">
+                  Keir raised whether the brand should emphasise <strong className="text-ink">&ldquo;Soil Application&rdquo;</strong> or
+                  <strong className="text-ink"> &ldquo;Seed Application&rdquo;</strong> in its positioning. Since HISAGEN&apos;s products
+                  cover both, the question is which framing best serves the brand externally.
+                </p>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="bg-white rounded-lg p-4 border border-mist">
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">SOIL Application</p>
+                    <ul className="text-xs text-slate space-y-1">
+                      <li>&bull; Aligns with industry focus on <strong className="text-ink">plant health and biodiversity</strong></li>
+                      <li>&bull; Connects to the <strong className="text-ink">adaptation-first narrative</strong> (farmer livelihoods, resilience)</li>
+                      <li>&bull; Positions HISAGEN in the <strong className="text-ink">regenerative agriculture</strong> space</li>
+                      <li>&bull; Broader scope &mdash; soil health encompasses seed treatment and more</li>
+                      <li>&bull; Stronger for <strong className="text-ink">grant and investor audiences</strong> (outcome-focused)</li>
+                    </ul>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 border border-mist">
+                    <p className="text-xs font-bold uppercase tracking-widest text-slate mb-2">SEED Application</p>
+                    <ul className="text-xs text-slate space-y-1">
+                      <li>&bull; Technically accurate for the <strong className="text-ink">product delivery mechanism</strong></li>
+                      <li>&bull; More specific &mdash; describes what a farmer physically does</li>
+                      <li>&bull; Narrower framing &mdash; positions as an <strong className="text-ink">agricultural input product</strong></li>
+                      <li>&bull; Less differentiated &mdash; seed treatment is a crowded category</li>
+                      <li>&bull; The current V5 tagline uses &ldquo;Seed Application&rdquo;</li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="bg-parchment rounded-lg p-4">
+                  <p className="text-xs font-semibold text-ink mb-2">Observation</p>
+                  <p className="text-xs text-slate">
+                    Keir&apos;s own instinct &mdash; to lead with &ldquo;Soil Application&rdquo; on the website and investor pitch because it
+                    &ldquo;aligns with the current industry focus on plant health and biodiversity&rdquo; &mdash; is consistent with the
+                    strategic messaging pivot completed in February 2026. The adaptation-first narrative leads with outcomes
+                    (healthier soil, better yields, farmer livelihoods) rather than inputs (seed treatment).
+                    The V5 design concept (seed exterior revealing soil and root benefits inside) could work well with either
+                    framing, though the visual story naturally tells a &ldquo;soil&rdquo; narrative.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            {/* Current Status */}
+            <section>
+              <h3 className="text-lg font-serif font-semibold text-ink mb-4">Current Status</h3>
+              <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-6 space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-amber-400 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">i</div>
+                  <div>
+                    <p className="text-sm font-semibold text-ink mb-2">Awaiting Team Direction</p>
+                    <p className="text-sm text-slate">
+                      Keir&apos;s V5 design and SOIL/SEED question are with the wider team for review. The next step depends
+                      on the team&apos;s feedback and Keir&apos;s decision on direction.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="bg-white rounded-lg p-4 border border-amber-200">
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">Delivered (Phase 5)</p>
+                    <ul className="text-xs text-slate space-y-1">
+                      <li>&bull; Roots Circle logo pack &mdash; 3 colour variants</li>
+                      <li>&bull; 3 SVG vector files</li>
+                      <li>&bull; 9 PNG exports (512/256/128px per variant)</li>
+                      <li>&bull; Favicon (ICO + PNG + Apple Touch Icon)</li>
+                      <li>&bull; Context testing, design rationale documented</li>
+                    </ul>
+                    <p className="text-[10px] text-primary mt-2 font-medium">Complete &mdash; production-ready</p>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 border border-amber-200">
+                    <p className="text-xs font-bold uppercase tracking-widest text-amber-600 mb-2">If V5 Direction Confirmed</p>
+                    <ul className="text-xs text-slate space-y-1">
+                      <li>&bull; Flatten gradients to solid colours</li>
+                      <li>&bull; Simplify detail for small-size legibility</li>
+                      <li>&bull; Vector trace from raster source</li>
+                      <li>&bull; Produce 3 colour variants (full, light, dark)</li>
+                      <li>&bull; Full export pipeline (SVG + PNG + favicon)</li>
+                      <li>&bull; Resolve SOIL vs SEED in tagline</li>
+                    </ul>
+                    <p className="text-[10px] text-amber-600 mt-2 font-medium">New production cycle required</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </details>
+
         {/* Quick Links */}
         <section className="flex gap-4 mt-8">
           <a href="/brand" className="flex-1 bg-white border border-mist rounded-lg p-4 hover:border-primary transition-colors">
@@ -1204,7 +1431,7 @@ export default function LogoPage() {
         {/* Footer */}
         <section className="text-center pt-8 border-t border-mist">
           <p className="text-slate text-sm">HISAGEN Logo Design Journey &bull; Internal Working Document</p>
-          <p className="text-xs text-mist mt-2">Last updated: February 22, 2026 &bull; Status: Logo Pack Complete &mdash; 3 variants, 3 SVGs, 9 PNGs, favicon</p>
+          <p className="text-xs text-mist mt-2">Last updated: March 23, 2026 &bull; Status: Phase 5 delivered &mdash; Phase 6 client review in progress</p>
         </section>
       </div>
     </main>

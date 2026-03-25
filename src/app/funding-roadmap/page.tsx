@@ -1202,7 +1202,7 @@ function ForProfitConstraintBanner() {
 
 export default function CapitalStrategyPage() {
   const [openPhases, setOpenPhases] = useState<Set<number>>(new Set());
-  const [activePathway, setActivePathway] = useState<string>("grants");
+  const [activePathway, setActivePathway] = useState<string>("fff");
 
   const toggle = (phase: number) => {
     setOpenPhases((prev) => {

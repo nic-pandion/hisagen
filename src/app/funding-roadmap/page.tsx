@@ -1737,6 +1737,31 @@ export default function CapitalStrategyPage() {
               </div>
             </div>
 
+            {/* ── Investor Pitch Deck ──────────────────────── */}
+            <div className="mt-4 p-4 rounded-xl border border-secondary/20 bg-secondary/5">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-secondary/60 mb-1">Investor Pitch Deck</p>
+                  <p className="text-xs font-bold text-secondary mb-1">HISAGEN Investor Deck v4.1</p>
+                  <p className="text-[11px] text-slate/70 leading-relaxed">
+                    14-slide pitch deck plus 3 appendices for FFF and angel/seed conversations.
+                    Follows the Sequoia narrative arc: Problem, Why Now, Solution, Evidence, Market,
+                    Business Model, Go-to-Market, Team, The Ask. Contains placeholder figures
+                    awaiting financial model inputs.
+                  </p>
+                </div>
+                <a
+                  href="/documents/investor-deck/hisagen-investor-deck-v4.1.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 mt-1 px-3 py-1.5 rounded-lg bg-secondary text-white text-[10px] font-bold uppercase tracking-[0.15em] hover:bg-secondary/90 transition-colors"
+                >
+                  View Deck &rarr;
+                </a>
+              </div>
+              <p className="text-[10px] text-slate/50 mt-2">DRAFT &ndash; CONFIDENTIAL &ndash; Last updated 25 March 2026</p>
+            </div>
+
             <div className="mt-4 p-4 rounded-xl border border-amber-200 bg-amber-50/50">
               <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-amber-600 mb-1">Key Question for Keir</p>
               <p className="text-xs text-slate leading-relaxed">

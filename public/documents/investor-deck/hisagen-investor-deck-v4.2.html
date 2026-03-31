@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HISAGEN - Investor Deck v4.1</title>
+    <title>HISAGEN - Investor Deck v4.2</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         /* ============================================
-           HISAGEN INVESTOR DECK v4.1
-           Blueprint-aligned. v4 content + Sequoia spine.
+           HISAGEN INVESTOR DECK v4.2
+           Keir feedback applied (30 Mar 2026). v4.1 archived.
            Thin image strips (30%) where helpful.
            Fonts: Source Serif 4 + Inter
            ============================================ */
@@ -650,8 +650,17 @@
                 break-after: page;
                 page-break-inside: avoid;
                 break-inside: avoid;
+                overflow: hidden;
             }
             .slide:last-child { page-break-after: auto; }
+
+            /* Tighten padding for print to prevent overflow */
+            .slide--content { padding: 48px 80px; }
+            .split__text { padding: 48px 40px 48px 80px; }
+            .hero__content { padding: 48px 80px; }
+
+            /* Ensure consistent font rendering */
+            * { -webkit-font-smoothing: subpixel-antialiased; }
         }
 
         @page {
@@ -671,12 +680,13 @@
     <div class="hero__content">
         <img src="assets/hisagen-logo-v1-light.png" alt="HISAGEN" class="title-logo">
         <div class="title-wordmark">HISAGEN</div>
+        <div style="font-family: var(--font-sans); font-size: 13px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; color: var(--clay); margin-top: -4px; margin-bottom: 8px;">High Impact Soil Application for Greener Environment</div>
         <div class="title-tagline">Restoring Africa&rsquo;s Soils. Transforming Farmer Livelihoods.</div>
         <div style="font-family: var(--font-sans); font-size: 15px; font-weight: 400; color: var(--clay); max-width: 640px; line-height: 1.6; margin: 20px auto 24px;">Patented US microbial technology &mdash; independently validated at +17&ndash;48% yield improvement &mdash; deploying to 4&nbsp;million smallholder farmers in East Africa.</div>
         <div style="font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--harvest-gold);">Seed Investment Opportunity</div>
     </div>
     <div class="title-meta">DRAFT &nbsp;&mdash;&nbsp; Confidential &nbsp;&mdash;&nbsp; Seed Round &nbsp;&mdash;&nbsp; March 2026</div>
-    <div class="slide__number">01 / 18</div>
+    <div class="slide__number">01 / 20</div>
 </div>
 
 <!-- ============================================
@@ -689,21 +699,21 @@
 
     <div style="max-width: 720px; margin-bottom: 28px;">
         <div class="body" style="font-size: 16px; line-height: 1.8; margin-bottom: 8px;">
-            Patented US microbial technology &mdash; <strong>exclusive Africa distribution rights secured.</strong>
+            Patented US microbial technology &mdash; <strong>exclusive Africa distribution rights.</strong>
         </div>
         <div class="body" style="font-size: 16px; line-height: 1.8; margin-bottom: 8px;">
             Independently validated: <strong>+17&ndash;48% yield improvement</strong> across 3 sites, 4 crops (NARO, Uganda).
         </div>
         <div class="body" style="font-size: 16px; line-height: 1.8;">
-            <strong>Raising $[AMOUNT] via SAFE note</strong> to launch commercially in Uganda, Q2 2026.
+            <strong>Raising $2M via SAFE note</strong> to launch commercially in Uganda, Q2 2026.
         </div>
     </div>
 
     <div class="stats">
         <div>
-            <div class="stat__number">$[AMT]</div>
+            <div class="stat__number">$2M</div>
             <div class="stat__label">Seed Round</div>
-            <div style="font-size: 11px; color: var(--slate); margin-top: 4px; line-height: 1.4;">SAFE note<br>$[X]M cap</div>
+            <div style="font-size: 11px; color: var(--slate); margin-top: 4px; line-height: 1.4;">SAFE note</div>
         </div>
         <div>
             <div class="stat__number">+48%</div>
@@ -725,7 +735,7 @@
     <div class="footnote">The science is validated. The team is assembled. This capital buys the commercial launch.</div>
 
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">02 / 18</div>
+    <div class="slide__number">02 / 20</div>
 </div>
 
 <!-- ============================================
@@ -739,7 +749,7 @@
         <div class="headline">The Soil Is Failing.<br><span class="gold">Farmers Are Paying the Price.</span></div>
 
         <div class="narrative" style="font-size: 17px; margin-bottom: 16px;">
-            A farmer in central Uganda has two hectares and a family of seven. Her soil has been planted and replanted for generations without replenishment. Each season, it gives a little less. She is one of millions.
+            A farmer in central Uganda has five acres and a family of seven. Her soil has been planted and replanted for generations without replenishment. Each season, it gives a little less. She is one of millions.
         </div>
 
         <div class="body" style="margin-bottom: 20px; font-size: 14px;">
@@ -769,7 +779,7 @@
         <img src="assets/soil-crisi-africa-failed-maize.jpeg" alt="Failed maize crop in Africa" style="object-position: center;">
     </div>
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">03 / 18</div>
+    <div class="slide__number">03 / 20</div>
 </div>
 
 <!-- ============================================
@@ -811,11 +821,53 @@
     </div>
 
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">04 / 18</div>
+    <div class="slide__number">04 / 20</div>
 </div>
 
 <!-- ============================================
-     SLIDE 5: THE SOLUTION (Dark — full width)
+     SLIDE 5: THE BIGGER PICTURE (Light — standalone)
+     Carbon, biodiversity, water — the science case
+     for soil restoration as planetary infrastructure.
+     ============================================ -->
+<div class="slide slide--light slide--content">
+    <div class="label">The Bigger Picture</div>
+    <div class="headline">Soil Is Planetary Infrastructure.<br><span class="gold">Restoring It Solves More Than Yields.</span></div>
+
+    <div class="subheadline" style="max-width: 780px;">
+        Agriculture drives the transgression of 5 of 9 planetary boundaries (Rockstr&ouml;m et al., 2026). Degraded soil is now a greater carbon risk than fossil fuels alone. Restoring it unlocks a cascade of benefits &mdash; for farmers, for climate, and for investors.
+    </div>
+
+    <div style="display: flex; gap: 24px; max-width: 880px; margin: 24px 0;">
+        <div style="flex: 1; padding: 24px; border-radius: 10px; background: var(--white); border: 1px solid rgba(31,77,58,0.15); box-shadow: 0 1px 4px rgba(0,0,0,0.06); border-top: 3px solid var(--deep-green);">
+            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--deep-green); margin-bottom: 10px;">Carbon Repository</div>
+            <div class="body" style="font-size: 13px; line-height: 1.6;">
+                Soil holds more carbon than the atmosphere and all plant life combined. Degraded soils release it. Restored soils sequester it. Conservation agriculture &mdash; no-till, crop diversification, permanent soil cover &mdash; <strong>keeps carbon locked in the ground.</strong> Every hectare HISAGEN treats begins rebuilding this store.
+            </div>
+        </div>
+        <div style="flex: 1; padding: 24px; border-radius: 10px; background: var(--white); border: 1px solid rgba(31,77,58,0.15); box-shadow: 0 1px 4px rgba(0,0,0,0.06); border-top: 3px solid var(--deep-green);">
+            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--deep-green); margin-bottom: 10px;">Biodiversity &amp; Water</div>
+            <div class="body" style="font-size: 13px; line-height: 1.6;">
+                Healthy soil biology &mdash; fungi, bacteria, microorganisms &mdash; is the foundation everything else depends on. As microbial life recovers, <strong>soils become self-improving:</strong> delivering natural nutrition to plants, holding water, preventing erosion, and stopping chemical runoff into the water table. Biodiversity rebuilds from the ground up.
+            </div>
+        </div>
+        <div style="flex: 1; padding: 24px; border-radius: 10px; background: var(--white); border: 1px solid rgba(31,77,58,0.15); box-shadow: 0 1px 4px rgba(0,0,0,0.06); border-top: 3px solid var(--deep-green);">
+            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--deep-green); margin-bottom: 10px;">Future Revenue Stack</div>
+            <div class="body" style="font-size: 13px; line-height: 1.6;">
+                HISAGEN&rsquo;s MRV baseline captures soil health and carbon data from day one &mdash; <strong>building the evidence base now</strong> for ecosystem service revenue as markets mature. Carbon credits, biodiversity credits, sustainable sourcing premiums, and NDC-aligned climate finance all become accessible as regulatory frameworks develop.
+            </div>
+        </div>
+    </div>
+
+    <div class="body" style="margin-top: 8px; font-size: 14px; max-width: 880px;">
+        <strong>The farmer case is immediate:</strong> better yields, lower costs, healthier land. <strong>The investor case compounds:</strong> product revenue from day one, with carbon, nature, and ecosystem service revenue layering on as markets and regulation catch up with the science.
+    </div>
+
+    <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
+    <div class="slide__number">05 / 20</div>
+</div>
+
+<!-- ============================================
+     SLIDE 6: THE SOLUTION (Dark — full width)
      ============================================ -->
 <div class="slide slide--dark slide--split">
     <div class="split__text">
@@ -823,7 +875,7 @@
         <div class="headline">Biological, Not Chemical.<br><span class="gold">The Soil Restores Itself.</span></div>
 
         <div class="subheadline">
-            US-developed, patented microbial bio-stimulant technology &mdash; validated across 15+ crops in commercial agriculture. Exclusive distribution rights secured for Africa.
+            US-developed, patented microbial bio-stimulant technology &mdash; validated across 15+ crops in commercial agriculture. Production and distribution rights secured for Africa.
         </div>
 
         <div class="body" style="margin-bottom: 28px;">
@@ -853,11 +905,11 @@
         <img src="assets/maize-roots-close.jpeg" alt="Maize roots close-up showing healthy root development" style="object-position: center;">
     </div>
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">05 / 18</div>
+    <div class="slide__number">06 / 20</div>
 </div>
 
 <!-- ============================================
-     SLIDE 6: PRODUCT & DEFENSIBILITY (Light)
+     SLIDE 7: PRODUCT & DEFENSIBILITY (Light)
      Blueprint: product detail + moat ladder on
      one slide — defensibility shown early
      ============================================ -->
@@ -891,9 +943,9 @@
     </div>
 
     <div style="margin-top: 16px; padding: 14px 20px; border-radius: 8px; background: var(--white); border-left: 3px solid var(--deep-green); box-shadow: 0 1px 3px rgba(0,0,0,0.06); max-width: 880px;">
-        <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--deep-green); margin-bottom: 4px;">Not a Fertiliser. Better Than Fertiliser.</div>
+        <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--deep-green); margin-bottom: 4px;">Good for Farmers. Good for Their Wallets. Good for the Environment.</div>
         <div class="body" style="font-size: 12px; line-height: 1.55;">
-            Where farmers can&rsquo;t afford NPK (3.3 kg/ha vs 134 global average), our products replace the need entirely. Where NPK is present, they enhance its effectiveness. <strong>Works with or without. Standalone or complementary.</strong>
+            Our products reduce the dependency on expensive chemical fertilizers. Where farmers can&rsquo;t afford NPK (3.3 kg/ha vs 134 global average), our products replace the need entirely. Where NPK is present, they enhance its effectiveness. <strong>Works with or without. Standalone or complementary.</strong>
         </div>
         <div class="body" style="font-size: 11px; line-height: 1.5; color: var(--slate); margin-top: 8px;">
             <strong>Naturally self-limiting.</strong> These are soil-native microbes, not synthetic organisms. They colonise, deliver their benefit, and die off naturally within the crop cycle &mdash; no accumulation, no persistence, no ecological disruption. No cold-chain required &mdash; standard temperature-controlled storage and transport (no freezing, no extreme heat). Seasonal purchase cycle built in.
@@ -903,8 +955,8 @@
     <!-- FOUR MOATS -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; max-width: 880px;">
         <div style="padding: 14px 18px; border-radius: 8px; background: var(--white); border: 1px solid rgba(31,77,58,0.12); box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
-            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--deep-green); margin-bottom: 4px;">Moat 1 &mdash; Exclusive Technology</div>
-            <div style="font-size: 11px; line-height: 1.5; color: var(--slate);">Sole distribution rights for patented US microbial formulations across Africa. Multi-year exclusivity agreement.</div>
+            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--deep-green); margin-bottom: 4px;">Moat 1 &mdash; Protected Technology</div>
+            <div style="font-size: 11px; line-height: 1.5; color: var(--slate);">Production and distribution rights for patented US microbial formulations across Africa. Multi-year agreement.</div>
         </div>
         <div style="padding: 14px 18px; border-radius: 8px; background: var(--white); border: 1px solid rgba(31,77,58,0.12); box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
             <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--deep-green); margin-bottom: 4px;">Moat 2 &mdash; Regulatory First-Mover</div>
@@ -921,7 +973,7 @@
     </div>
 
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">06 / 18</div>
+    <div class="slide__number">07 / 20</div>
 </div>
 
 <!-- ============================================
@@ -1004,7 +1056,7 @@
         <img src="assets/uganda-smallhold-farner-soil-samples-field-plan.jpeg" alt="Field trial">
     </div>
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">07 / 18</div>
+    <div class="slide__number">08 / 20</div>
 </div>
 
 <!-- ============================================
@@ -1019,9 +1071,9 @@
         <div style="padding: 18px 22px; border-radius: 10px; background: rgba(198,160,74,0.1); border: 1px solid rgba(198,160,74,0.3); max-width: 680px; margin-bottom: 20px;">
             <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--harvest-gold); margin-bottom: 8px;">Bottom-Up: Year 1 Addressable Revenue</div>
             <div style="font-size: 15px; color: var(--parchment); line-height: 1.7;">
-                <strong style="color: var(--white);">[X] hectares</strong> reachable via cooperatives + commercial farms
+                <strong style="color: var(--white);">[X] acres</strong> reachable via cooperatives + commercial farms
                 &nbsp;&times;&nbsp; <strong style="color: var(--white);">[X]%</strong> adoption
-                &nbsp;&times;&nbsp; <strong style="color: var(--white);">$[X]</strong>/ha
+                &nbsp;&times;&nbsp; <strong style="color: var(--white);">$[X]</strong>/acre
                 &nbsp;=&nbsp; <strong style="color: var(--harvest-gold);">$[X] Year 1</strong>
             </div>
             <div style="font-size: 11px; color: var(--slate); margin-top: 6px;">[Figures TBC &mdash; Keir to confirm pricing, channel reach, and expected adoption rates]</div>
@@ -1075,7 +1127,7 @@
         <img src="assets/east-africa-landscape.jpeg" alt="East African landscape">
     </div>
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">08 / 18</div>
+    <div class="slide__number">09 / 20</div>
 </div>
 
 <!-- ============================================
@@ -1094,7 +1146,7 @@
 
             <div style="padding: 16px 18px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); margin-bottom: 10px;">
                 <div style="font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 4px;">Smallholder Cooperatives</div>
-                <div style="font-size: 12px; color: var(--slate); line-height: 1.5;">Sachets distributed through cooperatives and extension services. Per-hectare pricing for 1&ndash;3 ha farms. 4M households in Uganda.</div>
+                <div style="font-size: 12px; color: var(--slate); line-height: 1.5;">Sachets distributed through cooperatives and extension services. Per-acre pricing for 1&ndash;5 acre farms. 4M households in Uganda.</div>
             </div>
             <div style="padding: 16px 18px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); margin-bottom: 10px;">
                 <div style="font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 4px;">Commercial Farms &amp; Seed Facilities</div>
@@ -1108,7 +1160,7 @@
 
         <!-- MARGIN STACK -->
         <div style="flex: 1;">
-            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--harvest-gold); margin-bottom: 14px;">Margin Stack (Per Hectare)</div>
+            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--harvest-gold); margin-bottom: 14px;">Margin Stack (Per Acre)</div>
 
             <div style="display: flex; flex-direction: column; gap: 8px;">
                 <div style="display: flex; justify-content: space-between; padding: 10px 14px; border-radius: 6px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);">
@@ -1133,6 +1185,10 @@
                 [Figures TBC &mdash; Keir to confirm pricing, COGS, and distributor terms]
             </div>
         </div>
+    </div>
+
+    <div class="body" style="font-size: 14px; max-width: 880px; margin: 16px 0 8px; color: var(--parchment);">
+        The product pays for itself within one season through yield improvement. With grants, sustainable sourcing premiums, and carbon credits compounding over time.
     </div>
 
     <!-- REVENUE TIMELINE -->
@@ -1162,12 +1218,8 @@
         </div>
     </div>
 
-    <div class="footnote" style="margin-top: 12px;">
-        Product pays for itself within one season through yield improvement. With grants, sustainable sourcing premiums, and carbon credits compounding over time.
-    </div>
-
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">09 / 18</div>
+    <div class="slide__number">10 / 20</div>
 </div>
 
 <!-- ============================================
@@ -1232,17 +1284,17 @@
     </div>
 
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">10 / 18</div>
+    <div class="slide__number">11 / 20</div>
 </div>
 
 <!-- ============================================
      SLIDE 11: UNIT ECONOMICS (Dark — full width)
      Blueprint: "arguably the most important slide"
-     Value > Price > Cost per hectare
+     Value > Price > Cost per acre
      ============================================ -->
 <div class="slide slide--dark slide--content">
     <div class="label">Unit Economics</div>
-    <div class="headline">The Per-Hectare Maths.<br><span class="gold">The Product Pays for Itself in One Harvest.</span></div>
+    <div class="headline">The Per-Acre Maths.<br><span class="gold">The Product Pays for Itself in One Harvest.</span></div>
 
     <div class="subheadline">
         Three numbers tell the story: what the farmer <strong>gains</strong> from using the product (Value), what the farmer <strong>pays</strong> for it (Price), and what it <strong>costs</strong> HISAGEN to deliver it (COGS). For the business to work, each must be significantly larger than the next.
@@ -1257,7 +1309,7 @@
                     <div style="display: flex; justify-content: space-between; align-items: baseline;">
                         <div>
                             <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--harvest-gold); margin-bottom: 4px;">Value to Farmer</div>
-                            <div style="font-size: 12px; color: var(--clay); line-height: 1.5;">Extra income from yield uplift per hectare</div>
+                            <div style="font-size: 12px; color: var(--clay); line-height: 1.5;">Extra income from yield uplift per acre</div>
                             <div style="font-size: 10px; color: var(--slate); margin-top: 3px; font-style: italic;">This is what the farmer gains &mdash; the bigger this number, the easier the sale</div>
                         </div>
                         <div style="font-family: var(--font-serif); font-size: 28px; font-weight: 700; color: var(--harvest-gold);">$[X]</div>
@@ -1272,7 +1324,7 @@
                     <div style="display: flex; justify-content: space-between; align-items: baseline;">
                         <div>
                             <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--white); margin-bottom: 4px;">Product Price</div>
-                            <div style="font-size: 12px; color: var(--slate); line-height: 1.5;">What the farmer (or donor programme) pays per hectare</div>
+                            <div style="font-size: 12px; color: var(--slate); line-height: 1.5;">What the farmer (or donor programme) pays per acre</div>
                             <div style="font-size: 10px; color: var(--slate); margin-top: 3px; font-style: italic;">Must be low enough that the value justifies the purchase</div>
                         </div>
                         <div style="font-family: var(--font-serif); font-size: 28px; font-weight: 700; color: var(--white);">$[X]</div>
@@ -1334,7 +1386,7 @@
     </div>
 
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">11 / 18</div>
+    <div class="slide__number">12 / 20</div>
 </div>
 
 <!-- ============================================
@@ -1346,7 +1398,7 @@
     <div class="headline">Wall Street Meets East Africa.<br><span class="gold">85+ Years. Two Continents.</span></div>
 
     <div class="body" style="margin-bottom: 8px; font-size: 14px; max-width: 780px;">
-        Four co-founders &mdash; two from Wall Street, two from multinational operations across East Africa &mdash; secured exclusive rights to a US-developed, patented microbial technology, asked Uganda&rsquo;s national research body to test it independently, and are now executing a commercial launch. This isn&rsquo;t an idea. It&rsquo;s an execution team.
+        Four co-founders &mdash; two from Wall Street, two from multinational operations across East Africa &mdash; secured rights to a US-developed, patented microbial technology, asked Uganda&rsquo;s national research body to test it independently, and are now executing a commercial launch. This isn&rsquo;t an idea. It&rsquo;s an execution team.
     </div>
 
     <div class="body" style="margin-bottom: 20px; font-size: 13px; font-style: italic; color: var(--slate); max-width: 780px;">
@@ -1368,14 +1420,14 @@
         </div>
         <div>
             <div class="team__entity">HISAGEN Africa &mdash; Kampala, Uganda</div>
-            <div class="team__name">Daniel Pattersson</div>
-            <div class="team__role">Co-Founder / CEO Africa</div>
+            <div class="team__name">Daniel Pettersson</div>
+            <div class="team__role">Co-Founder / Director: Africa Operations</div>
             <div class="team__bio">12 years Lafarge (7 as CEO/MD across Africa) &nbsp;&bull;&nbsp; INSEAD MBA. Swedish-Nigerian. East Africa operations, regulatory.</div>
         </div>
         <div>
             <div class="team__entity">&nbsp;</div>
             <div class="team__name">Israel Tinkasimiire</div>
-            <div class="team__role">Co-Founder / COO Africa</div>
+            <div class="team__role">Co-Founder / Director: Africa Operations</div>
             <div class="team__bio">17 years Lafarge/Holcim &nbsp;&bull;&nbsp; Makerere University. Ugandan executive. Commercial strategy, local partnerships.</div>
         </div>
     </div>
@@ -1383,7 +1435,7 @@
     <div class="footnote" style="font-style: italic;">In memory of Cedric &mdash; founding visionary who brought this team together (1970&ndash;2025)</div>
 
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">12 / 18</div>
+    <div class="slide__number">13 / 20</div>
 </div>
 
 <!-- ============================================
@@ -1391,8 +1443,8 @@
      ============================================ -->
 <div class="slide slide--light slide--content">
     <div class="label">The Ask</div>
-    <div class="headline">Raising <span class="gold">$[AMOUNT]</span> Seed Round</div>
-    <div class="subheadline">SAFE note &nbsp;&bull;&nbsp; $[X]M valuation cap &nbsp;&bull;&nbsp; 18-month runway to revenue</div>
+    <div class="headline">Raising <span class="gold">$2M</span> Seed Round</div>
+    <div class="subheadline">SAFE note &nbsp;&bull;&nbsp; 18-month runway to revenue</div>
 
     <div style="display: flex; gap: 48px; max-width: 880px; margin: 28px 0;">
 
@@ -1482,7 +1534,7 @@
             <div style="padding: 20px; border-radius: 10px; background: var(--white); border: 2px solid var(--deep-green); box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
                 <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px; color: var(--deep-green); margin-bottom: 10px;">Why Now</div>
                 <div style="font-size: 13px; color: var(--black-cotton); line-height: 1.6;">
-                    The science is validated. The team is assembled. Exclusive rights are secured. Regulatory approval is in progress.<br><br>
+                    The science is validated. The team is assembled. Production and distribution rights are secured. Regulatory approval is in progress.<br><br>
                     <strong>The expensive, risky work is done.</strong> This capital buys the commercial launch &mdash; not the research.
                 </div>
             </div>
@@ -1490,11 +1542,11 @@
     </div>
 
     <div class="footnote">
-        Instrument: SAFE (Simple Agreement for Future Equity) with $[X]M valuation cap. Pro-rata rights for this round. Terms sheet available on request.
+        Instrument: SAFE (Simple Agreement for Future Equity). Pro-rata rights for this round. Terms sheet available on request.
     </div>
 
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">13 / 18</div>
+    <div class="slide__number">14 / 20</div>
 </div>
 
 <!-- ============================================
@@ -1508,7 +1560,7 @@
         <div class="headline">The Science Is Validated.<br><span class="gold">This Capital Enables the Launch.</span></div>
 
         <div class="body" style="margin-bottom: 28px; max-width: 660px; font-size: 15px;">
-            Discovery, validation and team assembly are <strong>complete.</strong> Exclusive rights secured. Founding team in place. Regulatory approval in progress. <strong>We&rsquo;re ready to launch.</strong>
+            Discovery, validation and team assembly are <strong>complete.</strong> Production and distribution rights secured. Founding team in place. Regulatory approval in progress. <strong>We&rsquo;re ready to launch.</strong>
         </div>
 
         <div class="contact">
@@ -1534,7 +1586,7 @@
         </div>
     </div>
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">14 / 18</div>
+    <div class="slide__number">15 / 20</div>
 </div>
 
 <!-- ============================================
@@ -1582,7 +1634,7 @@
     </div>
 
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">15 / 18</div>
+    <div class="slide__number">16 / 20</div>
 </div>
 
 <!-- ============================================
@@ -1633,8 +1685,16 @@
         </div>
     </div>
 
+    <div style="margin-top: 16px; padding: 14px 18px; border-radius: 8px; background: var(--white); border: 1px solid rgba(31,77,58,0.12); max-width: 780px;">
+        <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--deep-green); margin-bottom: 6px;">Units Convention</div>
+        <div style="font-size: 12px; color: var(--charcoal); line-height: 1.6;">
+            This deck uses <strong>acres</strong> as the primary land unit on commercial and financial slides &mdash; the working unit in Ugandan agriculture and for our US technology partner. <strong>Hectares</strong> are used on science and impact slides, consistent with international climate, MRV, and NGO standards. Fertiliser reference statistics (e.g. kg/ha) are kept in their original published form.
+            <span style="display: block; margin-top: 6px; color: #666;">See <strong>Appendix E</strong> for full unit conversion reference.</span>
+        </div>
+    </div>
+
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">16 / 18</div>
+    <div class="slide__number">17 / 20</div>
 </div>
 
 <!-- ============================================
@@ -1682,7 +1742,7 @@
     </div>
 
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">17 / 18</div>
+    <div class="slide__number">18 / 20</div>
 </div>
 
 <!-- ============================================
@@ -1734,7 +1794,84 @@
     </div>
 
     <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
-    <div class="slide__number">18 / 18</div>
+    <div class="slide__number">19 / 20</div>
+</div>
+
+<!-- ============================================
+     APPENDIX E: UNIT CONVERSION REFERENCE
+     Acres/hectares, kg/lbs, liquid measures
+     ============================================ -->
+<div class="slide slide--dark slide--content">
+    <div class="label">Appendix E &mdash; Unit Conversion Reference</div>
+    <div class="headline">Working Units &amp; <span class="gold">Conversion Guide.</span></div>
+
+    <div class="subheadline" style="max-width: 780px;">
+        HISAGEN operates across US (technology partner), East Africa (market), and international (science &amp; climate) contexts. This reference covers the unit conventions used in this deck and across the project.
+    </div>
+
+    <div style="display: flex; gap: 24px; max-width: 880px; margin: 24px 0;">
+        <!-- LAND AREA -->
+        <div style="flex: 1; padding: 22px; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);">
+            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--harvest-gold); margin-bottom: 12px;">Land Area</div>
+            <div style="font-size: 13px; color: var(--parchment); line-height: 1.8;">
+                <strong style="color: var(--white);">1 acre</strong> = 0.405 hectares<br>
+                <strong style="color: var(--white);">1 hectare</strong> = 2.47 acres<br>
+            </div>
+            <div style="margin-top: 12px; padding: 10px 14px; border-radius: 6px; background: rgba(198,160,74,0.1); border: 1px solid rgba(198,160,74,0.25);">
+                <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--harvest-gold); margin-bottom: 4px;">Convention</div>
+                <div style="font-size: 12px; color: var(--clay); line-height: 1.5;">
+                    <strong>Acres</strong> &mdash; commercial, financial, and farmer-facing slides (Ugandan agriculture, US partner, investor pitch)<br>
+                    <strong>Hectares</strong> &mdash; science, MRV, carbon, and NGO/climate slides (international standard)
+                </div>
+            </div>
+            <div style="margin-top: 10px; font-size: 11px; color: var(--slate); line-height: 1.5;">
+                <strong>Quick reference:</strong> Typical Ugandan smallholder plot = 1&ndash;2 acres. A &ldquo;5,000 hectare&rdquo; programme = ~12,350 acres.
+            </div>
+        </div>
+
+        <!-- WEIGHT -->
+        <div style="flex: 1; padding: 22px; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);">
+            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--harvest-gold); margin-bottom: 12px;">Weight</div>
+            <div style="font-size: 13px; color: var(--parchment); line-height: 1.8;">
+                <strong style="color: var(--white);">1 kg</strong> = 2.205 lbs<br>
+                <strong style="color: var(--white);">1 lb</strong> = 0.454 kg<br>
+                <strong style="color: var(--white);">1 oz</strong> = 28.35 g<br>
+            </div>
+            <div style="margin-top: 12px; padding: 10px 14px; border-radius: 6px; background: rgba(198,160,74,0.1); border: 1px solid rgba(198,160,74,0.25);">
+                <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--harvest-gold); margin-bottom: 4px;">Context</div>
+                <div style="font-size: 12px; color: var(--clay); line-height: 1.5;">
+                    NARO trial yields reported in <strong>kg</strong>. Locus AG US trials in <strong>lbs/acre</strong>. FAO fertiliser stats in <strong>kg/ha</strong> (published reference &mdash; kept as-is in deck).
+                </div>
+            </div>
+        </div>
+
+        <!-- LIQUID VOLUME -->
+        <div style="flex: 1; padding: 22px; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);">
+            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--harvest-gold); margin-bottom: 12px;">Liquid Volume</div>
+            <div style="font-size: 13px; color: var(--parchment); line-height: 1.8;">
+                <strong style="color: var(--white);">1 fl oz</strong> = 29.57 mL<br>
+                <strong style="color: var(--white);">1 US gallon</strong> = 3.785 litres<br>
+                <strong style="color: var(--white);">4 fl oz</strong> = ~118 mL<br>
+            </div>
+            <div style="margin-top: 12px; padding: 10px 14px; border-radius: 6px; background: rgba(198,160,74,0.1); border: 1px solid rgba(198,160,74,0.25);">
+                <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--harvest-gold); margin-bottom: 4px;">Product Rates</div>
+                <div style="font-size: 12px; color: var(--clay); line-height: 1.5;">
+                    <strong>Unpac:</strong> 4 fl oz (~118 mL) per acre<br>
+                    <strong>Rhizolizer Duo IF:</strong> 1 fl oz (~30 mL) per acre<br>
+                    All application rates from Locus AG in US fl oz.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="padding: 16px 20px; border-radius: 8px; background: rgba(31,77,58,0.25); border: 1px solid rgba(31,77,58,0.5); max-width: 880px;">
+        <div class="body" style="font-size: 13px; line-height: 1.6; color: var(--parchment);">
+            <strong style="color: var(--harvest-gold);">Why this matters:</strong> As HISAGEN scales across East Africa and engages with international funders, carbon registries, and NGO partners, data will arrive in different unit systems. This reference ensures consistency in reporting and prevents conversion errors across commercial, scientific, and impact contexts.
+        </div>
+    </div>
+
+    <div class="slide__brand">HISAGEN &nbsp;&bull;&nbsp; <span style="font-weight: 400; letter-spacing: 2px;">DRAFT &mdash; CONFIDENTIAL</span></div>
+    <div class="slide__number">20 / 20</div>
 </div>
 
 </body>

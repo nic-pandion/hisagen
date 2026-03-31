@@ -24,7 +24,9 @@ export default function LogoPage() {
             <span className="text-white/40">&rarr;</span>
             <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Phase 5: Production</span>
             <span className="text-white/40">&rarr;</span>
-            <span className="px-3 py-1 bg-amber-400/40 border border-amber-400 rounded-full text-sm font-medium">Phase 6: Client Review</span>
+            <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Phase 6: Client Review</span>
+            <span className="text-white/40">&rarr;</span>
+            <span className="px-3 py-1 bg-amber-400/40 border border-amber-400 rounded-full text-sm font-medium">Phase 7: V5 Production</span>
           </div>
         </div>
       </div>
@@ -1194,10 +1196,10 @@ export default function LogoPage() {
         {/* ============================================ */}
         {/* PHASE 6: CLIENT REVIEW & NEW DIRECTION       */}
         {/* ============================================ */}
-        <details className="group" open>
+        <details className="group">
           <summary className="cursor-pointer list-none">
-            <div className="flex items-center gap-4 bg-white border-2 border-amber-300 rounded-lg p-5 hover:border-amber-400 transition-colors">
-              <div className="w-10 h-10 rounded-full bg-amber-400 text-white flex items-center justify-center font-bold text-sm shrink-0">6</div>
+            <div className="flex items-center gap-4 bg-white border border-mist rounded-lg p-5 hover:border-primary/30 transition-colors">
+              <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold text-sm shrink-0">6</div>
               <div className="flex-1">
                 <h2 className="text-xl font-serif font-semibold text-ink">Client Review &amp; New Direction</h2>
                 <p className="text-sm text-slate">March 2026 &mdash; Team feedback on delivered pack, Keir shares reworked design</p>
@@ -1373,22 +1375,23 @@ export default function LogoPage() {
 
             {/* Current Status */}
             <section>
-              <h3 className="text-lg font-serif font-semibold text-ink mb-4">Current Status</h3>
-              <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-6 space-y-4">
+              <h3 className="text-lg font-serif font-semibold text-ink mb-4">Outcome</h3>
+              <div className="bg-primary/5 border-2 border-primary/30 rounded-lg p-6 space-y-4">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-amber-400 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">i</div>
+                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">&check;</div>
                   <div>
-                    <p className="text-sm font-semibold text-ink mb-2">Awaiting Team Direction</p>
+                    <p className="text-sm font-semibold text-ink mb-2">V5 Direction Confirmed</p>
                     <p className="text-sm text-slate">
-                      Keir&apos;s V5 design and SOIL/SEED question are with the wider team for review. The next step depends
-                      on the team&apos;s feedback and Keir&apos;s decision on direction.
+                      Keir confirmed V5 Variant B (teardrop with seedling and roots) as the direction. The Phase 5 Roots Circle
+                      pack remains available as an alternative, but the team preference is clear: V5&apos;s literal, nature-based
+                      imagery better represents HISAGEN&apos;s identity. Production work began immediately &mdash; see Phase 7.
                     </p>
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className="bg-white rounded-lg p-4 border border-amber-200">
-                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">Delivered (Phase 5)</p>
+                  <div className="bg-white rounded-lg p-4 border border-mist">
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">Phase 5 (Archived)</p>
                     <ul className="text-xs text-slate space-y-1">
                       <li>&bull; Roots Circle logo pack &mdash; 3 colour variants</li>
                       <li>&bull; 3 SVG vector files</li>
@@ -1396,23 +1399,327 @@ export default function LogoPage() {
                       <li>&bull; Favicon (ICO + PNG + Apple Touch Icon)</li>
                       <li>&bull; Context testing, design rationale documented</li>
                     </ul>
-                    <p className="text-[10px] text-primary mt-2 font-medium">Complete &mdash; production-ready</p>
+                    <p className="text-[10px] text-slate mt-2 font-medium">Complete &mdash; available if needed</p>
                   </div>
-                  <div className="bg-white rounded-lg p-4 border border-amber-200">
-                    <p className="text-xs font-bold uppercase tracking-widest text-amber-600 mb-2">If V5 Direction Confirmed</p>
+                  <div className="bg-white rounded-lg p-4 border border-primary/30">
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">V5 Production (Phase 7)</p>
                     <ul className="text-xs text-slate space-y-1">
-                      <li>&bull; Flatten gradients to solid colours</li>
-                      <li>&bull; Simplify detail for small-size legibility</li>
-                      <li>&bull; Vector trace from raster source</li>
-                      <li>&bull; Produce 3 colour variants (full, light, dark)</li>
+                      <li>&bull; Flatten AI gradients to brand colours</li>
+                      <li>&bull; Separate into independent layers</li>
+                      <li>&bull; Vector trace from cleaned raster</li>
+                      <li>&bull; Produce logomark (icon) + lockup (icon + text)</li>
+                      <li>&bull; Colour variants (full, light, dark)</li>
                       <li>&bull; Full export pipeline (SVG + PNG + favicon)</li>
-                      <li>&bull; Resolve SOIL vs SEED in tagline</li>
                     </ul>
-                    <p className="text-[10px] text-amber-600 mt-2 font-medium">New production cycle required</p>
+                    <p className="text-[10px] text-primary mt-2 font-medium">In progress &mdash; see Phase 7</p>
                   </div>
                 </div>
               </div>
             </section>
+          </div>
+        </details>
+
+        {/* ============================================ */}
+        {/* PHASE 7: V5 PRODUCTION                      */}
+        {/* ============================================ */}
+        <details className="group" open>
+          <summary className="cursor-pointer list-none">
+            <div className="flex items-center gap-4 bg-white border-2 border-amber-300 rounded-lg p-5 hover:border-amber-400 transition-colors">
+              <div className="w-10 h-10 rounded-full bg-amber-400 text-white flex items-center justify-center font-bold text-sm shrink-0">7</div>
+              <div className="flex-1">
+                <h2 className="text-xl font-serif font-semibold text-ink">V5 Production</h2>
+                <p className="text-sm text-slate">March 2026 &mdash; Converting AI-generated raster to production-ready assets</p>
+              </div>
+              <div className="text-slate ml-4 shrink-0 transition-transform group-open:rotate-180">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </div>
+            </div>
+          </summary>
+
+          <div className="mt-4 space-y-8 pl-5 border-l-2 border-amber-300/40 ml-10">
+
+            {/* Status */}
+            <section>
+              <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-6">
+                <p className="text-xs font-bold uppercase tracking-widest text-amber-700 mb-3">Current Status</p>
+                <h3 className="text-lg font-semibold text-ink mb-3">Full-Colour Lockup Complete &mdash; Variants &amp; Vector Next</h3>
+                <p className="text-sm text-slate">
+                  The V5 stacked lockup is complete: icon with &ldquo;HISAGEN&rdquo; in DM Serif Display and tagline in Inter,
+                  matching the website typography. Exported as PNG (702&times;867). Next: colour variants (light/dark),
+                  logomark-only export, vector conversion via vtracer, and sized PNG pipeline.
+                </p>
+              </div>
+            </section>
+
+            {/* Logo Preview */}
+            <section>
+              <h3 className="text-lg font-serif font-semibold text-ink mb-4">Current Lockup &mdash; Gold Kernel</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-white border border-mist rounded-lg p-8 flex items-center justify-center">
+                  <img src="/logos/hisagen-v5-lockup-full-colour.png" alt="HISAGEN V5 Lockup — light background" className="max-h-72 object-contain" />
+                </div>
+                <div className="bg-[#0F172A] border border-mist rounded-lg p-8 flex items-center justify-center">
+                  <img src="/logos/hisagen-v5-lockup-dark-bg.png" alt="HISAGEN V5 Lockup — dark background variant" className="max-h-72 object-contain" />
+                </div>
+              </div>
+              <p className="text-xs text-slate mt-3">Left: on white. Right: on dark (simulating deck cover). The dark green text and soil tones are lost on dark backgrounds &mdash; a light variant is needed for the pitch deck cover.</p>
+            </section>
+
+            {/* The Challenge */}
+            <section>
+              <h3 className="text-lg font-serif font-semibold text-ink mb-4">The Challenge: AI Raster to Production Vector</h3>
+              <p className="text-sm text-slate mb-4">
+                Keir&apos;s V5 design was generated using AI image tools. While the concept is strong, AI-generated images
+                present specific production challenges that must be resolved before the logo can be used professionally.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="bg-white border border-mist rounded-lg p-4">
+                  <p className="text-xs font-bold uppercase tracking-widest text-slate mb-2">AI Output Issues</p>
+                  <ul className="text-xs text-slate space-y-1.5">
+                    <li>&bull; <strong className="text-ink">Gradients everywhere</strong> &mdash; gold border has 3D lighting, soil has texture gradients, leaves have colour variation</li>
+                    <li>&bull; <strong className="text-ink">Drop shadow</strong> &mdash; soft dark ellipse beneath the seed shape</li>
+                    <li>&bull; <strong className="text-ink">Raster-only</strong> &mdash; no vector source, cannot scale cleanly</li>
+                    <li>&bull; <strong className="text-ink">Baked-in text</strong> &mdash; text is part of the image pixels, not editable</li>
+                    <li>&bull; <strong className="text-ink">Mixed colours</strong> &mdash; dozens of intermediate tones instead of defined brand palette</li>
+                  </ul>
+                </div>
+                <div className="bg-white border border-mist rounded-lg p-4">
+                  <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">Production Requirements</p>
+                  <ul className="text-xs text-slate space-y-1.5">
+                    <li>&bull; <strong className="text-ink">Flat brand colours</strong> &mdash; each element in a defined palette colour</li>
+                    <li>&bull; <strong className="text-ink">No shadows</strong> &mdash; clean edges for any background</li>
+                    <li>&bull; <strong className="text-ink">Vector format</strong> &mdash; SVG that scales from favicon to billboard</li>
+                    <li>&bull; <strong className="text-ink">Editable text</strong> &mdash; proper font, adjustable independently</li>
+                    <li>&bull; <strong className="text-ink">Separated layers</strong> &mdash; each element independently addressable for colour variants</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            {/* Process Timeline */}
+            <section>
+              <h3 className="text-lg font-serif font-semibold text-ink mb-4">Production Process</h3>
+              <div className="space-y-3">
+                <div className="bg-white border border-mist rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <span className="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded shrink-0 mt-0.5">Done</span>
+                    <div>
+                      <p className="text-sm text-ink font-medium">Gradient flattening</p>
+                      <p className="text-xs text-slate mt-1">
+                        Python/PIL script classified every pixel by HSV values and spatial position, mapping dozens of
+                        intermediate AI-generated tones to 5 defined brand colours. The script uses zone-based logic
+                        (upper = leaves, mid = soil line, lower = soil body) combined with colour analysis.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white border border-mist rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <span className="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded shrink-0 mt-0.5">Done</span>
+                    <div>
+                      <p className="text-sm text-ink font-medium">Shadow &amp; text removal</p>
+                      <p className="text-xs text-slate mt-1">
+                        Dark elliptical drop shadow beneath the seed kernel eliminated. Baked-in &ldquo;HISAGEN&rdquo; text
+                        removed &mdash; will be recreated as a proper text layer with a chosen brand font.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white border border-mist rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <span className="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded shrink-0 mt-0.5">Done</span>
+                    <div>
+                      <p className="text-sm text-ink font-medium">Layer separation</p>
+                      <p className="text-xs text-slate mt-1">
+                        Manually separated in GIMP into four independent layers using eraser work. Automated
+                        select-by-colour + grow approaches bled across element boundaries, so manual separation
+                        proved more reliable for the complex organic shapes.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white border border-mist rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <span className="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded shrink-0 mt-0.5">Done</span>
+                    <div>
+                      <p className="text-sm text-ink font-medium">Colour cleanup &amp; brand palette</p>
+                      <p className="text-xs text-slate mt-1">
+                        Stray pixels cleaned from each layer (gold specks in soil, brown in grass, etc.). All four layers
+                        now render in their correct brand colours. A 14-colour HISAGEN brand palette was created in GIMP
+                        matching the portal /brand page definitions.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white border border-amber-300 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <span className="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded shrink-0 mt-0.5">Done</span>
+                    <div>
+                      <p className="text-sm text-ink font-medium">Text layer &amp; lockup</p>
+                      <p className="text-xs text-slate mt-1">
+                        &ldquo;HISAGEN&rdquo; set in DM Serif Display, tagline in Inter &mdash; matching the website typography.
+                        Stacked lockup produced: icon + text, centred, with consistent padding. Exported as PNG (702&times;867).
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white border border-amber-300 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <span className="px-2 py-0.5 bg-amber-100 text-amber-700 text-[10px] font-bold rounded shrink-0 mt-0.5">Next</span>
+                    <div>
+                      <p className="text-sm text-ink font-medium">Colour variants &amp; vector conversion</p>
+                      <p className="text-xs text-slate mt-1">
+                        Starting with the primary full-colour version. Once approved: light variant (for dark backgrounds),
+                        dark variant (monochrome), then flatten visible layers and vector trace via vtracer for SVG output.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white border border-amber-300 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <span className="px-2 py-0.5 bg-amber-100 text-amber-700 text-[10px] font-bold rounded shrink-0 mt-0.5">Next</span>
+                    <div>
+                      <p className="text-sm text-ink font-medium">Export pipeline</p>
+                      <p className="text-xs text-slate mt-1">
+                        Sized PNG exports (512px, 256px, 128px) for each variant and format. SVG vector files. Favicon
+                        generation. Same pipeline as Phase 5 but for the V5 design.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Four Layers */}
+            <section>
+              <h3 className="text-lg font-serif font-semibold text-ink mb-4">The Four Layers</h3>
+              <p className="text-sm text-slate mb-4">
+                Each layer is now independent and filled with its defined brand colour. This separation enables
+                colour variants &mdash; changing the kernel border from Black Cotton Soil to Harvest Gold, for example,
+                is a single layer recolour rather than a full redesign.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="bg-white border border-mist rounded-lg p-4">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-6 h-6 rounded-full border border-mist shrink-0" style={{ backgroundColor: '#2D2A26' }}></div>
+                    <div>
+                      <p className="text-sm font-semibold text-ink">Kernel Border</p>
+                      <p className="text-[10px] text-slate">#2D2A26 &mdash; Black Cotton Soil</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate">The teardrop outline that frames the entire design. Currently in the darkest brand tone. May try Harvest Gold (#C6A04A) as an alternative.</p>
+                </div>
+                <div className="bg-white border border-mist rounded-lg p-4">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-6 h-6 rounded-full border border-mist shrink-0" style={{ backgroundColor: '#1F4D3A' }}></div>
+                    <div>
+                      <p className="text-sm font-semibold text-ink">Plant</p>
+                      <p className="text-[10px] text-slate">#1F4D3A &mdash; Deep Regenerative Green + #C6A04A gold tinge</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate">The seedling and leaves. Primarily in Deep Regenerative Green with a subtle gold leaf accent that connects to the Harvest Gold brand colour.</p>
+                </div>
+                <div className="bg-white border border-mist rounded-lg p-4">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-6 h-6 rounded-full border border-mist shrink-0" style={{ backgroundColor: '#1F4D3A' }}></div>
+                    <div>
+                      <p className="text-sm font-semibold text-ink">Grass Line</p>
+                      <p className="text-[10px] text-slate">#1F4D3A &mdash; Deep Regenerative Green</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate">The soil horizon line that divides above from below. The visual border between the growth story and the underground science.</p>
+                </div>
+                <div className="bg-white border border-mist rounded-lg p-4">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-6 h-6 rounded-full border border-mist shrink-0" style={{ backgroundColor: '#6B4A2B' }}></div>
+                    <div>
+                      <p className="text-sm font-semibold text-ink">Soil &amp; Roots</p>
+                      <p className="text-[10px] text-slate">#6B4A2B &mdash; Soil Carbon Brown + #FFFFFF white roots</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate">The soil body in Soil Carbon Brown with white root structures. The &ldquo;what&apos;s underground&rdquo; half of the narrative &mdash; science, depth, hidden value.</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Planned Deliverables */}
+            <section>
+              <h3 className="text-lg font-serif font-semibold text-ink mb-4">Planned Deliverables</h3>
+              <p className="text-sm text-slate mb-4">
+                Starting with the primary full-colour version in two formats, then expanding to colour variants.
+                The same logomark vs lockup pattern from Phase 5 applies here.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 mb-4">
+                <div className="bg-white border border-mist rounded-lg p-4">
+                  <div className="bg-parchment rounded-lg p-6 flex items-center justify-center h-28 mb-3">
+                    <div className="flex flex-col items-center gap-1">
+                      <div className="w-16 h-16 rounded-full border-2 border-dashed border-slate/30 flex items-center justify-center">
+                        <span className="text-[10px] text-slate/50">icon</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-primary mb-1">Logomark (Icon Only)</p>
+                  <p className="text-xs text-slate">The teardrop seed graphic on its own. For favicons, app icons, social avatars, watermarks, and any context where space is tight.</p>
+                  <p className="text-[10px] text-amber-600 mt-2 font-medium">In progress</p>
+                </div>
+                <div className="bg-white border border-primary/30 rounded-lg p-4">
+                  <div className="bg-parchment rounded-lg p-6 flex items-center justify-center h-28 mb-3">
+                    <img src="/logos/hisagen-v5-lockup-full-colour.png" alt="HISAGEN V5 Stacked Lockup" className="h-full object-contain" />
+                  </div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-primary mb-1">Stacked Lockup (Icon + Text)</p>
+                  <p className="text-xs text-slate">Icon above, &ldquo;HISAGEN&rdquo; in DM Serif Display, tagline in Inter &mdash; matching the website typography. For pitch decks, letterheads, website headers, and presentation contexts.</p>
+                  <p className="text-[10px] text-primary mt-2 font-medium">Complete &mdash; full colour</p>
+                </div>
+              </div>
+
+              <div className="bg-white border border-mist rounded-lg overflow-hidden">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-parchment border-b border-mist">
+                      <th className="text-left p-3 text-xs font-bold uppercase tracking-widest text-slate">Deliverable</th>
+                      <th className="text-left p-3 text-xs font-bold uppercase tracking-widest text-slate">Format</th>
+                      <th className="text-left p-3 text-xs font-bold uppercase tracking-widest text-slate">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-mist">
+                    {[
+                      { step: 'Logomark &mdash; full colour', output: 'SVG + PNG (512/256/128)', status: 'In progress', color: 'bg-amber-100 text-amber-700' },
+                      { step: 'Stacked lockup &mdash; full colour', output: 'SVG + PNG (512/256/128)', status: 'PNG done', color: 'bg-primary/10 text-primary' },
+                      { step: 'Logomark &mdash; light variant', output: 'SVG + PNG (512/256/128)', status: 'Planned', color: 'bg-slate/10 text-slate' },
+                      { step: 'Stacked lockup &mdash; light variant', output: 'SVG + PNG (512/256/128)', status: 'Planned', color: 'bg-slate/10 text-slate' },
+                      { step: 'Logomark &mdash; dark variant', output: 'SVG + PNG (512/256/128)', status: 'Planned', color: 'bg-slate/10 text-slate' },
+                      { step: 'Stacked lockup &mdash; dark variant', output: 'SVG + PNG (512/256/128)', status: 'Planned', color: 'bg-slate/10 text-slate' },
+                      { step: 'Favicon set', output: 'ICO + PNG + Apple Touch Icon', status: 'Planned', color: 'bg-slate/10 text-slate' },
+                    ].map((row) => (
+                      <tr key={row.step}>
+                        <td className="p-3 text-ink" dangerouslySetInnerHTML={{ __html: row.step }}></td>
+                        <td className="p-3 text-slate font-mono text-xs">{row.output}</td>
+                        <td className="p-3"><span className={`px-2 py-0.5 rounded text-[10px] font-bold ${row.color}`}>{row.status}</span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            {/* Technical Note */}
+            <section>
+              <h3 className="text-lg font-serif font-semibold text-ink mb-4">Technical Note: GIMP MCP Workflow</h3>
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-5">
+                <p className="text-sm text-slate mb-3">
+                  This production work uses <strong className="text-ink">GIMP 3.2.2 with MCP (Model Context Protocol)</strong>,
+                  allowing Claude Code to control GIMP directly &mdash; selecting colours, filling layers, running cleanup
+                  operations, and exporting files. Manual eraser work was done by the designer in GIMP directly where
+                  automated approaches (select-by-colour + grow) bled across element boundaries.
+                </p>
+                <p className="text-xs text-slate">
+                  <strong className="text-ink">Colour space note:</strong> GIMP&apos;s internal colour engine (GEGL) uses linear light.
+                  Setting sRGB brand colours directly produces unexpectedly light results. All brand colours are converted
+                  from sRGB to linear light before application to ensure on-screen accuracy.
+                </p>
+              </div>
+            </section>
+
           </div>
         </details>
 
@@ -1431,7 +1738,7 @@ export default function LogoPage() {
         {/* Footer */}
         <section className="text-center pt-8 border-t border-mist">
           <p className="text-slate text-sm">HISAGEN Logo Design Journey &bull; Internal Working Document</p>
-          <p className="text-xs text-mist mt-2">Last updated: March 23, 2026 &bull; Status: Phase 5 delivered &mdash; Phase 6 client review in progress</p>
+          <p className="text-xs text-mist mt-2">Last updated: March 31, 2026 &bull; Status: Phase 7 &mdash; V5 production in progress</p>
         </section>
       </div>
     </main>
